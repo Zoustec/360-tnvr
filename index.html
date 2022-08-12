@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control" />
+    <meta content="no-cache" http-equiv="Pragma" />
+    <meta content="0" http-equiv="Expires" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+
+    <link rel="stylesheet" href="static/css/zui.min.css">
+    <link rel="stylesheet" href="static/css/zui-theme.css">
+    <link rel="stylesheet" href="static/css/redefine.css">
+    <link rel="stylesheet" href="static/css/response.css">
+    <link rel="stylesheet" href="static/css/alivideo.css">
+    <link rel="stylesheet" href="static/css/landing_page.css?v=20220708001">
+    <link rel="stylesheet" href="static/css/main_page.css?v=20220708001">
+    <script language="JavaScript" type="text/javascript" src="static/js/data.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/jquery-1.9.1.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/zui.js"></script>
+    <script language="JavaScript" type="text/javascript" src="tour.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/vrshow.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/alivideo.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/object.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/video_patch.js?v=20220615001"></script>
+
+    <script src="wave.js"></script>
+
+
+    <link href="htts://vjs.zencdn.net/5.19/video-js.min.css" rel="stylesheet">
+    <script src="htts://vjs.zencdn.net/5.19/video.min.js"></script>
+<!-- <script async src="https://platform-api.sharethis.com/js/sharethis.js#property=5d27f28e35a1b20012696b81&product=inline-share-buttons" sticky-share-buttons></script> -->
+
+
+
+
+
+    <style>
+        @-ms-viewport { width:device-width; }
+        @media only screen and (min-device-width:800px) { html { overflow:hidden; } }
+        html { height:100%; }
+        body { height:100%; overflow:hidden; margin:0; padding:0; font-family:microsoft yahei, Helvetica, sans-serif;  background-color:#000000; }
+    </style>
+</head>
+<body>
+
+    <div id="fullscreenid" style="position:relative;width:100%; height:100%;">
+        <div id="panoBtns" style="display:none">
+            <div class="vrshow_container_logo">
+                <img id="logoImg" src="resource/images/custom_logo.png" style="display: none;" >
+
+                <div class="vrshow_logo_title" id="user_name_wrap"  >
+                    <div id="authorDiv" style="display: none;">作者：<span id="user_nickName">Aiyane</span></div>
+                    <div style="clear:both;"></div>
+
+                </div>
+                <div class="vrshow_logo_title">
+                  <div id="viewnumDiv">人氣：<span id="user_viewNum">0</span></div>
+                  <div style="clear:both;"></div>
+                </div>
+            </div>
+
+            <div class="vrshow_container_1_min">
+                <div class="btn_fullscreen" onClick="fullscreen(this)" title="" style="display:none"></div><div class="btn_vrmode" onClick="showWebVR()" style="display:none"></div><div class="btn_gyro btn_snapshot"  onClick="sceneSnapshot();" style="background-image:url('/static/images/skin1/snapshot.png');display:none;"></div><!--<div class="btn_reward"  onClick="showRwardModal();" style="display:none"></div> --> <div class="btn_gyro"  onClick="toggleGyro(this)" style="display:none;"></div><!-- <style>
+.btn_bgmusic {
+    background: url("/plugin/bgmusic/images/bgmusic-open.png") no-repeat;
+}
+
+.btn_bgmusic_off {
+    background: url("/plugin/bgmusic/images/bgmusic-close.png") no-repeat;
+}
+</style>
+ --><div class="btn_bgmusic" onClick="pause_bgMusic(this)" style="display:none"></div>
+
+
+ <audio src="" autoplay loop id="audiojs"></audio>
+ <iframe src="skin/250-milliseconds-of-silence.mp3" allow="autoplay" id="audio" hidden ></iframe>
+
+
+ <script>
+
+	$(function(){
+		plugins_init_function.push(bgmusic_init);
+	})
+
+	var whole = 1;
+
+	function bgmusic_init(data,settings){
+		 //背景音乐
+        var musicObj = data.bg_music;
+        if (musicObj.isWhole=='1') {
+
+            if (musicObj.useMusic=='1') {
+			document.getElementById("audiojs").src= musicObj.mediaUrl;
+
+//                settings["onstart"] += "playsound(bgmusic, '" + musicObj.mediaUrl + "', 0);";
+            }
+        } else {
+
+		    whole = 0;
+            $(musicObj.sceneSettings).each(function (idx) {
+                if (this.useMusic=='1') {
+                    settings['scene[scene_' + this.imgUuid + '].bgmusic'] = this.mediaUrl;
+                }
+            });
+        }
+       settings["events[skin_events].onloadcomplete"]+="js(toggleMusicBtn(get(xml.scene)));";
+	}
+	function toggleMusicBtn(sceneName) {
+	    var musicObj = $("body").data("panoData").bg_music;
+	    if (musicObj.isWhole=='1') {
+	        if (musicObj.useMusic=='1') {
+	            $('.btn_bgmusic,.btn_bgmusic_off').show();
+	        } else {
+	            $('.btn_bgmusic,.btn_bgmusic_off').hide();
+	        }
+	    } else {
+	        var imgUuid = sceneName.substring(sceneName.indexOf("_") + 1, sceneName.length).toLowerCase();
+	        $(musicObj.sceneSettings).each(function (idx) {
+	            if (imgUuid == this.imgUuid) {
+	                if (this.useMusic=='1') {
+	                    $('.btn_bgmusic,.btn_bgmusic_off').show();
+	                } else {
+	                    $('.btn_bgmusic,.btn_bgmusic_off').hide();
+	                }
+	            }
+	        });
+	    }
+	}
+
+
+		function bf(){
+	var audio = document.getElementById('audiojs');
+	if(audio!==null){
+
+	if(audio.paused)                     {
+      audio.play();
+	}else{
+	audio.pause();
+	}
+	}
+	}
+
+
+	function pause_bgMusic(el) {
+	    var krpano = document.getElementById('krpanoSWFObject');
+	    // krpano.call("pausesoundtoggle(bgmusic);pausesoundtoggle(bgm);");
+	    krpano.call("pausesoundtoggle(bgmusic);pausesoundtoggle(bgm);");
+
+        if (whole=='1') {
+		bf();
+		}
+	    toggleMusic(el);
+	}
+	function toggleMusic(el) {
+	    if ($(el).hasClass("btn_bgmusic")) {
+	        $(el).removeClass("btn_bgmusic");
+	        $(el).addClass("btn_bgmusic_off");
+	    } else {
+	        $(el).removeClass("btn_bgmusic_off");
+	        $(el).addClass("btn_bgmusic");
+	    }
+	}
+</script>
+
+ <script type="text/javascript">
+          document.addEventListener('DOMContentLoaded', function() {
+             function audioAutoPlay() {
+               var audio = document.getElementById('audiojs');
+               audio.play();
+               document.removeEventListener('click', audioAutoPlay);
+             }
+             document.addEventListener('click', audioAutoPlay);
+           });
+
+    if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
+      $(document).one('touchstart',
+        function(e) {
+            $('#audiojs').get(0).touchstart = true;
+            $('#audiojs').get(0).play();
+            return false;
+        });
+    }
+
+</script><!-- <style>
+	.btn_music {
+	    background: url("/plugin/bgvoice/images/music-open.png") no-repeat;
+	}
+	.btn_music_off {
+	    background: url("/plugin/bgvoice/images/music-close.png") no-repeat;
+	}
+</style> -->
+
+
+ <audio src="" autoplay  id="audiojs2"></audio>
+
+<div class="btn_music" style="display:none" onClick="pauseSpeech(this)"></div>
+<script>
+	$(function(){
+		plugins_init_function.push(bgvoice_init);
+	})
+
+	var wholev = 1;
+
+	function bgvoice_init(data,settings){
+		var speechObj = data.speech_explain;
+		if(speechObj.isWhole=='1'){
+		    if(speechObj.useSpeech=='1'){
+
+			document.getElementById("audiojs2").src= speechObj.mediaUrl;
+
+//		        settings["onstart"] += "playsound(bgspeech, '"+speechObj.mediaUrl+"', 0);";
+		    }
+		}else{
+		    $(speechObj.sceneSettings).each(function(idx){
+		        if(this.useSpeech=='1'){
+		            settings['scene[scene_'+this.imgUuid+'].bgspeech'] = this.mediaUrl;
+		        }
+		    });
+		}
+		settings["events[skin_events].onloadcomplete"]+="js(toggleSpeechBtn(get(xml.scene)));";
+	}
+	function toggleSpeechBtn(sceneName){
+	    var speechObj = $("body").data("panoData").speech_explain;
+	    if(speechObj.isWhole=='1'){
+	        if(speechObj.useSpeech=='1'){
+	            $('.btn_music').show();
+	        }else{
+	            $('.btn_music').hide();
+	        }
+	    }else{
+	        var imgUuid = sceneName.substring(sceneName.indexOf("_")+1,sceneName.length).toLowerCase();
+	        $(speechObj.sceneSettings).each(function(idx){
+	            if(imgUuid == this.imgUuid){
+	                if(this.useSpeech=='1'){
+	                    $('.btn_music').show();
+	                }else{
+	                    $('.btn_music').hide();
+	                }
+	            }
+	        });
+	    }
+	}
+
+
+		function bf2(){
+	var audio = document.getElementById('audiojs2');
+	if(audio!==null){
+
+	if(audio.paused)                     {
+      audio.play();
+	}else{
+
+	audio.pause();
+
+	}
+
+	}
+	}
+
+
+
+	function pauseSpeech(el){
+	    var krpano = document.getElementById('krpanoSWFObject');
+	    krpano.call("pausesoundtoggle(bgspeech);pausesoundtoggle(bgs);");
+
+		if (wholev=='1') {
+		bf2();
+		}
+
+
+	    toggleSpeech(el);
+	}
+	function toggleSpeech(el) {
+	    if ($(el).hasClass("btn_music")) {
+	        $(el).removeClass("btn_music");
+	        $(el).addClass("btn_music_off");
+	    } else {
+	        $(el).removeClass("btn_music_off");
+	        $(el).addClass("btn_music");
+			var audio = document.getElementById('audiojs2');
+			if(audio.paused)                     {
+      audio.play();
+	}
+	    }
+	}
+</script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+      function audioAutoPlay2() {
+          var audio = document.getElementById('audiojs2');
+              audio.play();
+          document.addEventListener("WeixinJSBridgeReady", function () {
+              audio.play();
+          }, false);
+      }
+      audioAutoPlay2();
+  });
+
+    if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
+      $(document).one('touchstart',
+        function(e) {
+            $('#audiojs2').get(0).touchstart = true;
+            $('#audiojs2').get(0).play();
+            return false;
+        });
+    }
+
+var stopv ="0";
+
+var audio=document.getElementById('audiojs2');
+if(audio){
+audio.addEventListener('ended', function () {
+
+
+
+ $('.btn_music').addClass("btn_music_off");
+
+ $('.btn_music').removeClass("btn_music");
+
+ stopv = "1";
+audio.play();
+audio.pause();
+
+
+}, false);
+}
+
+
+</script>
+            </div>
+            <div class="vrshow_radar_btn" onClick="toggleKrpSandTable()">
+                <!-- <span class="btn_sand_table_text">沙盘</span> -->
+            </div>
+            <div class="vrshow_tour_btn" onClick="startTourGuide()">
+                <span class="btn_tour_text">一鍵導賞</span>
+            </div>
+            <div class="vrshow_container_2_min">
+
+                                                                                                                                                                                                                                                                                                                      <div class="img_desc_container_min" id="share2Div">
+  <img src="/static/images/skin1/vr-btn-share2.png" onclick="showShareUrl()">
+  <div class="img_desc_min">分享網址</div>
+</div>
+<div class="img_desc_container_min" id="profileDiv">
+    <img src="/static/images/skin1/vr-btn-desc.png" onClick="showProfile()">
+    <div class="img_desc_min">簡介</div>
+</div>
+
+            </div>
+            <div class="vrshow_container_3_min">
+                <div class="img_desc_container_min scene-choose-width" style="display:none">
+                                       <!-- <a class="slide-menux" href="javascript:void(0);" style="color:#fff;text-decoration:none;"></a> -->
+						<a id="cjing" class="slide-menu" href="javascript:void(0);" style="background-color:rgba(220,38,38,0);">
+						<img src="static/images/skin1/vr-btn-scene.png">
+						<div class="img_desc_min">場景</div>
+						</a>
+                                    </div>
+            </div>
+        </div>
+
+        <div id="pano" style="width:100%; height:100%;">
+        </div>
+
+		<div class="modal" id="pictextModal" data-backdrop="static" data-keyboard="false" style="z-index:2002">
+            <div class="modal-dialog">
+                <div class="modal-header text-center" >
+                    <button type="button" class="close" onClick="hidePictext()"><span>&times;</span></button>
+                    <span style="color: #353535;font-weight:700" id="pictextWorkName"></span>
+                </div>
+                <div class="modal-body" style="height:400px;overflow-y:scroll ">
+                    <div class="row">
+                        <div class="col-sm-offset-1 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" id="pictextContent">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="logreg">
+        </div><script>
+$(function(){
+	plugins_init_function.push(showvrglass_init);
+})
+function showvrglass_init(data,settings){
+	settings['skin_settings.webvr'] = data.hidevrglasses_flag==1 ? false : true;
+}
+function showWebvrBtn(){
+    $('.btn_vrmode').show();
+}
+</script>
+<script>
+$(function(){
+    $("#logoImg").show();
+	plugins_init_function.push(custom_logo_init);
+})
+function custom_logo_init(data){
+	var logoObj = data.custom_logo;
+	if(logoObj){
+		if(logoObj.useCustomLogo=='1')
+        	$('.vrshow_container_logo img').attr('src',logoObj.logoImgPath);
+        if(logoObj.logoLink)
+            $('.vrshow_container_logo img').attr('onclick','javascript:window.open("'+logoObj.logoLink+'")');
+
+    }
+}
+</script>
+
+
+<script>
+$(function(){
+	plugins_init_function.push(showlogo_init);
+})
+function showlogo_init(data){
+	if(data.hidelogo_flag=='1'){
+        $("#logoImg").hide();
+    }else{
+    	$("#logoImg").show();
+    }
+}
+</script>
+<script type="text/javascript" src="/static/js/html2canvas.js"></script>
+<script>
+$(function(){
+	plugins_init_function.push(snapshot_init);
+})
+function snapshot_init(data){
+	if (data.snapshot!="0" && !VisitPC()) {
+        $(".btn_snapshot").show();
+    }
+}
+/**********************  snapshot start ***********************/
+function sceneSnapshot(){
+	$("#panoBtns").hide();
+	$("#snapshot_modal").modal("show");
+	var canvas = document.querySelector('canvas');
+	var imgUri = canvas.toDataURL("image/png");
+	$("#imgcanvas").attr("src",imgUri);
+
+}
+
+function createScreenshot(){
+	$(".btn-snap-submit").attr("disabled",true).removeClass("btn-primary").addClass("btn-default");
+	$("#snapshot_txt").html($("#snapshot_txt input").val());
+	html2canvas(document.querySelector("#snapshot_main"),{ useCORS:true }).then(function(canvas){
+		var imgUri = canvas.toDataURL();
+		$("#snapshot_main_res").html('<a href="'+imgUri+'" download="下載的圖片"><img src="'+imgUri+'" width="100%" height="100%"/></a>');
+		$("#snapshot_main").hide();
+		$("#snapshot_main_res").show();
+		new $.zui.Messager('請長按圖片保存或分享', {
+			icon: 'check-circle',
+			type: 'danger',
+			close: false,
+			placement: 'center',
+		}).show();
+	});
+}
+
+function cancelScreenshot(){
+	$("#panoBtns").show();
+	$(".btn-snap-submit").attr("disabled",false).removeClass("btn-default").addClass("btn-primary");
+	$("#snapshot_main_res").hide();
+	$("#snapshot_txt").html('<input type="text" class="form-control" placeholder="請輸入想說的話" style="width:100%;margin-top:14px;border-radius:10px"/>');
+	$("#snapshot_main").show();
+}
+
+$(function(){
+	$(".btn-snap-cancel").click(function(){
+		$("#snapshot_modal").modal("hide");
+		cancelScreenshot();
+	});
+	$('#snapshot_modal').on('hide.zui.modal', function() {
+		 cancelScreenshot();
+	});
+});
+
+function VisitPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone","SymbianOS", "Windows Phone","iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
+}
+
+</script>
+
+<script type="text/javascript">
+$(function(){
+	plugins_init_function.push(reward_init);
+})
+function reward_init(data){
+	 if (data.reward=="1") {
+            $(".btn_reward").show();
+     }
+}
+</script>
+<script>
+$(function(){
+	plugins_init_function.push(gyro_init);
+})
+function gyro_init(data,settings){
+	 if (data.gyro!="0") {
+            $(".btn_gyro").show;
+     }
+     settings['skin_settings.gyro'] = data.gyro=="1" ? true : false;
+}
+function showGyroBtn() {
+    var gyro = $("body").data("panoData").gyro;
+    if (gyro) {
+        var krpano = document.getElementById('krpanoSWFObject');
+        krpano.set("plugin[skin_gyro].enabled",true);
+        $(".btn_gyro").show();
+    }
+}
+
+function toggleGyro(el) {
+    var krpano = document.getElementById('krpanoSWFObject');
+    if ($(el).hasClass("btn_gyro")) {
+        krpano.set("plugin[skin_gyro].enabled",false);
+        $(el).removeClass("btn_gyro");
+        $(el).addClass("btn_gyro_off");
+    } else {
+        krpano.set("plugin[skin_gyro].enabled",true);
+        $(el).removeClass("btn_gyro_off");
+        $(el).addClass("btn_gyro");
+    }
+}
+function openGyro(){
+    var krpano = document.getElementById('krpanoSWFObject');
+    alert(krpano.get("plugin[skin_gyro].isavailable"));
+}
+</script>
+<script>
+	$(function(){
+		plugins_init_function.push(link_init);
+	   $('#mapMarkModal').on('hide.zui.modal', function (e) {
+	        toggleBtns(true);
+	    });
+	})
+	function link_init(data){
+		$(".vrshow_container_3_min .img_desc_container_min:first").nextAll().remove();
+		if (data.url_phone_nvg.linkSettings && data.url_phone_nvg.linkSettings.length > 0) {
+		console.log(data.pk_user_main);
+
+		    $(data.url_phone_nvg.linkSettings).each(function(idx){
+		        var imgSrc = this.imgPath;
+		        var title = this.title;
+		        var htmlStr = '';
+
+		        if(this.type == 0){
+		            var locationData = this.content;
+		            htmlStr += '<div class="img_desc_container_min img_add" >'+
+		                '<img src="'+imgSrc+'" onclick="openMapModal(this,true)">'+
+		                '<div class="img_desc_min">'+title+'</div>'+
+		                '</div>';
+		            $(".vrshow_container_3_min").append(htmlStr);
+		            $(".vrshow_container_3_min > div:last img").data("locationData",locationData);
+		        }else{
+		            var url = this.content;
+		            if(!isNaN(url)){
+		                url = "tel://" + url;
+		            }else{
+		                if(url.indexOf('http://') != 0&&url.indexOf('https://') != 0){
+		                    url = 'http://' + url;
+		                }
+		            }
+					if (data.pk_user_main == 16){
+		            console.log('kkk');
+
+							            htmlStr += '<div class="img_desc_container_min img_add" >'+
+		                '<img src="'+imgSrc+'" onclick="lookLinkUrl(\''+url+'\')" >'+
+		                '<div class="img_desc_min">'+title+'</div>'+
+		                '</div>';
+
+
+		            }else{
+
+												            htmlStr += '<div class="img_desc_container_min img_add" >'+
+		                '<img src="'+imgSrc+'" onclick="lookLinkUrl(\''+url+'\')" >'+
+		                '<div class="img_desc_min">'+title+'</div>'+
+		                '</div>';
+
+
+//							            htmlStr += '<div class="img_desc_container_min img_add" >'+
+//		                '<img src="'+imgSrc+'" onclick="lookLinkUrl(\''+url+'\')" '+(isIos()?'':'data-toggle="tooltip"')+' title="'+title+'">'+
+//		                '<div class="img_desc_min">'+title+'</div>'+
+//		                '</div>';
+
+//		            htmlStr += '<div class="img_desc_container_min img_add" >'+
+//		                '<img src="'+imgSrc+'" onclick="lookLinkUrl(\''+url+'\')" '+(isIos()?'':'data-toggle="tooltip"')+' title="'+(url.length > 20 ? url.substring(0,20)+'...' : url)+'">'+
+//		                '<div class="img_desc_min">'+title+'</div>'+
+//		                '</div>';
+					}
+
+		            $(".vrshow_container_3_min").append(htmlStr);
+		        }
+		    });
+		    $('.vrshow_container_3_min [data-toggle=tooltip]').tooltip({});
+		}
+	}
+	function isIos(){
+		var ua = navigator.userAgent.toLowerCase();
+		if (/iphone|ipad|ipod/.test(ua)) {
+				return true;
+		}
+		return false;
+	}
+	function lookLinkUrl(url){
+
+    	window.open(url);
+	}
+	function openMapModal(el,readonly){
+		// toggleBtns();
+	    mapModalEl = el;
+	    //_U.mapMarkModal().openModal($(mapModalEl).data("locationData"),readonly);
+	    //console.log(mapModalEl.lng);
+	    //console.log(mapModalEl.lat);
+	   // console.log($(mapModalEl).data("locationData").lng);
+	    lng=$(mapModalEl).data("locationData").lng;
+	   // console.log($(mapModalEl).data("locationData").lat);
+	    lat=$(mapModalEl).data("locationData").lat;
+	    model='<div id="qq-map-container">'+
+	'<div style="position:absolute;left:0;top:0;height:50px;line-height:50px;padding-left:10px;">地圖導航</div>'+
+	'<iframe src="https://uri.amap.com/marker?position='+lng+','+lat+'&src=mypage&coordinate=gaode&callnative=0"'+
+		'frameborder="0" width="100%" height="88%" style="position:absolute;left:0;top:50px;">'+
+		'</iframe>'+
+		'<div class="s_close btn btn-primary" style="position: absolute;right:20px;top:10px;text-align: center;">'+
+		'<a href="javascript:;" style="text-decoration:none;color:#fff">關閉</a>'+
+		'</div>'+
+	'</div>';
+		$("#fullscreenid").append(model);
+		if($(window).width()>640){
+			$("#qq-map-container").css({
+				"position":"absolute",
+				"left":"15%",
+				"top":"10%",
+				"width":"70%",
+				"height":"80%",
+				"border":"1px solid #ccc",
+				"background":"#fff",
+				"z-index":9999
+			});
+		}
+		else{
+			$("#qq-map-container").css({
+				"position":"absolute",
+				"left":0,
+				"top":0,
+				"width":"100%",
+				"height":"100%",
+				"border":"1px solid #ccc",
+				"background":"#fff",
+				"z-index":9999
+			});
+		}
+
+
+	    $(".s_close").click(function(){
+			$("#qq-map-container").remove();
+		});
+	}
+</script>
+<script>
+$(function(){
+	$("#authorDiv").show();
+	plugins_init_function.push(custom_user_init);
+})
+function custom_user_init(data){
+	var logoObj = data.custom_logo;
+	if(logoObj && logoObj.user){
+        $("#user_nickName").text(logoObj.user);
+    }
+}
+</script>
+
+
+<script>
+$(function(){
+	$("#authorDiv").show();
+	plugins_init_function.push(custom_user_init);
+})
+function custom_user_init(data){
+	var logoObj = data.custom_logo;
+	if(logoObj && logoObj.user){
+        $("#user_nickName").text(logoObj.user);
+    }
+}
+</script>
+
+
+<script>
+$(function(){
+	$("#authorDiv").show();
+	plugins_init_function.push(custom_user_init);
+})
+function custom_user_init(data){
+	var logoObj = data.custom_logo;
+	if(logoObj && logoObj.user){
+        $("#user_nickName").text(logoObj.user);
+    }
+}
+</script>
+
+
+
+<script>
+	$(function(){
+		plugins_init_function.push(shade_sky_floor_init);
+	})
+	function shade_sky_floor_init(data,settings){
+		if (data.sky_land_shade.isWhole=='1') {//全局遮罩
+		    var useShade = data.sky_land_shade.useShade;
+		    if (useShade=='1') {
+		        var imgPath = data.sky_land_shade.shadeSetting.imgPath;
+		        var location = data.sky_land_shade.shadeSetting.location;
+		        if (location == 0) {
+		            location = -90;
+		        } else {
+		            location = 90;
+		        }
+		        settings["events[skin_events].onloadcomplete"] += "show_shade('" + imgPath + "'," + location + ",true);";
+		    }
+		} else {//单场景遮罩
+		    settings["events[skin_events].onloadcomplete"]+="js(getShade(get(xml.scene)));";
+		}
+	}
+	function getShade(sceneName) {
+	    var imgUuid = sceneName.substring(sceneName.indexOf('_') + 1).toLowerCase();
+	    var panoData = $("body").data("panoData");
+	    var shadeSetting = panoData.sky_land_shade.shadeSetting;
+	    if (shadeSetting) {
+	        for(var i = 0;i < shadeSetting.length ; i++){
+	            var obj = shadeSetting[i];
+	           if(imgUuid == obj.imgUuid){
+	               var useShade = obj.useShade;
+	               if (useShade=='1') {
+	                   var imgPath = obj.imgPath;
+	                   var location = obj.location;
+	                   if (location == 0) {
+	                       location = -90;
+	                   } else {
+	                       location = 90;
+	                   }
+	                   var krpano = document.getElementById('krpanoSWFObject');
+	                   krpano.call("addShade('" + imgUuid + "','" + imgPath + "'," + location + ");");
+	               }
+	           }
+	        }
+	    }
+	}
+</script>
+
+<script>
+	$(function(){
+		plugins_init_function.push(custom_right_init);
+	})
+	function custom_right_init(data){
+		// $(".vrshow_container_3_min .img_desc_container_min:first").nextAll().remove();
+		// if (data.url_phone_nvg.linkSettings && data.url_phone_nvg.linkSettings.length > 0) {
+		//     $(data.custom_right_button.linkSettings).each(function(idx){
+		//         var title = this.title;
+		//         var htmlStr = '';
+		//         var url = this.content;
+	 //            if(!isNaN(url)){
+	 //                url = "tel://" + url;
+	 //            }else{
+	 //                if(!(url.indexOf('http://') == 0)){
+	 //                    url = 'http://' + url;
+	 //                }
+	 //            }
+
+		//     });
+		// }
+
+	}
+	function lookLinkUrl(url){
+    	window.open(url);
+	}
+
+</script>
+<script>
+	$(function(){
+		plugins_init_function.push(open_alert_init);
+	})
+	function open_alert_init(data,settings){
+		if (data.open_alert.useAlert=='1') {
+            settings["events[skin_events].onloadcomplete"] += "show_open_alert('" + data.open_alert.imgPath + "');";
+        }
+	}
+</script>
+<style>
+/*	#topAdcontent{
+		background: rgba(204, 204, 204, 0.5);
+		height: 20px
+		 line-height: 20px;
+	    color: #353535;
+	    font-size: 16px;
+	}*/
+</style>
+
+<script>
+var ad_sys_default = "測試";
+$(function(){
+	plugins_init_function.push(top_ad_init);
+})
+function top_ad_init(data,settings){
+	var data = data.top_ad;
+	if(data&&data.adcontent!=undefined&&data!=null&&data!='null'&&data.show!="0"){
+		$(".vrshow_container_logo").css('top','45px');
+		$(".vrshow_container_1_min").css('top','45px');
+		if (data.adcontent&&data.adcontent.length>0) {
+			$("#top_ad").show();
+			$("#top_ad span").text(data.adcontent);
+		}else if(ad_sys_default.length>0){
+			$("#top_ad").show();
+			$("#top_ad span").text(ad_sys_default);
+		}
+		marquee();
+    }
+}
+function marquee() {
+	var scrollWidth = $(window).width();//$('#top_ad').width();
+	//console.log(scrollWidth );
+	var i = scrollWidth;
+	setInterval(function() {
+		i--;
+		var textWidth = $('#top_ad span').width();
+		if(i < -textWidth ) {
+			i = scrollWidth;
+		}
+		$('#top_ad span').animate({
+		'left': i+'px'
+		}, 10);
+	}, 20);
+}
+</script>
+<script>
+$(function(){
+	plugins_init_function.push(showuser_init);
+})
+function showuser_init(data){
+	if(data.hideuser_flag=='1'){
+        $("#authorDiv").hide();
+    }else{
+    	$("#authorDiv").show();
+    }
+}
+</script>
+<script>
+$(function(){
+	plugins_init_function.push(showviewnum_init);
+})
+function showviewnum_init(data){
+	if(data.hideviewnum_flag=='1'){
+        $("#viewnumDiv").hide();
+    }
+
+
+}
+</script>
+<div class="modal" id="infomationModal" data-backdrop="static" data-keyboard="false" style="z-index:2002">
+    <div class="modal-dialog">
+        <div class="modal-header text-center" >
+            <button type="button" class="close" onClick="hideProfile()"><span>&times;</span></button>
+            <span style="color: #353535;font-weight:700" id="profileWorkName"></span>
+        </div>
+        <div class="modal-body" style="height:250px;overflow-y:scroll ">
+            <div class="row">
+                <div class="col-sm-offset-1 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+                    <span id="profileProfile"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+         plugins_init_function.push(profile_init);
+    })
+    function profile_init(data){
+       if(data.hideprofile_flag == '1'){
+            $("#profileDiv").hide();
+        }
+    }
+    function hideProfile() {
+        $('#infomationModal').modal('hide');
+        toggleBtns(true);
+    }
+    function showProfile() {
+        toggleBtns(false);
+        var data = $("body").data("panoData");
+        $('#profileWorkName').text('');
+        $('#profileProfile').text('');
+        $('#profileWorkName').text(data.name);
+        $('#profileProfile').text(data.profile==null?"":data.profile);
+        $('#infomationModal').modal("show");
+    }
+    function showShareUrl() {
+        toggleBtns(false);
+        var link = getlink();
+        var data = $("body").data("panoData");
+        $('#profileWorkName').text('');
+        $('#profileProfile').text('');
+        $('#profileWorkName').text('分享網址');
+        $('#profileProfile').html('<input value="'+link+'" readonly style="width:80%;"><button onclick="copyToClipBoard()">複製</button>');
+
+        $('#infomationModal').modal("show");
+    }
+    function copyToClipBoard() {
+      var copyText = $('#profileProfile').find('input');
+      copyText.select();
+      document.execCommand("Copy");
+      alert("複製成功");
+    }
+
+    function getlink() {
+        var krpano = document.getElementById("krpanoSWFObject");
+    		var scene = krpano.get("xml.scene");
+    		var ath = krpano.get("view.hlookat").toFixed(2);
+    		var atv = krpano.get("view.vlookat").toFixed(2);
+    		var fov = krpano.get("view.fov").toFixed(2);
+    		var link = "?scene=" + scene + "&?ath=" + ath + "&?atv=" + atv + "&?fov=" + fov;
+    		link = window.location.origin + window.location.pathname  + link;
+        return link;
+    		// alert(link);
+    }
+</script>
+
+
+    </div>
+    <div class="modal" id="video_player_modal" data-backdrop="static" data-keyboard="false" style="z-index:2002">
+        <div class="modal-dialog">
+            <div class="modal-body" style="padding: 0">
+                <a href="javascript:;" onClick="close_video_player()" style="position:absolute;color:white;z-index:99999;right:5px;top: 3px;background-color: black;">關閉</a>
+                <div class="prism-player" id="J_prismPlayer" ></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" style="z-index:100001;">
+      <img src="skin/記憶之脈.png" class="logo" alt="">
+
+
+      <div id="overlay_conversation_area" class="overlay_conversation_area">
+      </div>
+      <button type="button" class="btn btn-cus2 overlay_btn">開始體驗</button>
+
+      <div class="overlay_entry_1_img overlay_entries"></div>
+      <button type="button" class="btn btn-cus2 overlay_entry_1_btn overlay_entries">六十之詩</button>
+
+      <div class="overlay_entry_2_img overlay_entries"></div>
+      <button type="button" class="btn btn-cus2 overlay_entry_2_btn overlay_entries">冒險之森</button>
+
+      <div class="overlay_entry_3_img overlay_entries"></div>
+      <button type="button" class="btn btn-cus2 overlay_entry_3_btn overlay_entries">亮點之星</button>
+    </div>
+
+    <div class="right_menu">
+      <div class="right_menu_item right_menu_item_1">
+        <div class="right_menu_item_text"></div>
+        <div class="right_menu_item_box"></div>
+        <div class="right_menu_item_checked"></div>
+      </div>
+      <div class="right_menu_item right_menu_item_2">
+        <div class="right_menu_item_text"></div>
+        <div class="right_menu_item_box"></div>
+        <div class="right_menu_item_checked"></div>
+      </div>
+      <div class="right_menu_item right_menu_item_3">
+        <div class="right_menu_item_text"></div>
+        <div class="right_menu_item_box"></div>
+        <div class="right_menu_item_checked"></div>
+      </div>
+      <div class="right_menu_item right_menu_item_4">
+        <div class="right_menu_item_text"></div>
+        <div class="right_menu_item_box"></div>
+        <div class="right_menu_item_checked"></div>
+      </div>
+    </div>
+</body>
+<!-- <script language="JavaScript" type="text/javascript" src="static/js/kr/object.js"></script> -->
+<script>
+
+    $(document).ready(function() {
+      var hide_menu_timeout = null;
+      $('.vrshow_container_logo').hide()
+      $('.vrshow_container_1_min').hide()
+      $('.vrshow_container_2_min').hide()
+      $('.vrshow_container_3_min').hide()
+
+
+
+      localStorage.setItem('current_scene', '');
+      localStorage.setItem('current_schp', '');
+
+      localStorage.setItem('overlay_step', 0);
+      localStorage.setItem('overlay_entry_1_step', 0);
+      localStorage.setItem('overlay_entry_2_step', 0);
+      localStorage.setItem('overlay_entry_3_step', 0);
+
+
+      clue_reset();
+
+
+
+      $('.right_menu').click(function() {
+        if($(this).css('right') == '-240px') {
+          $(this).animate({'right': '0px'});
+        } else {
+          $(this).animate({'right': '-240px'});
+          clearTimeout(hide_menu_timeout);
+        }
+      });
+
+      $('.overlay .overlay_btn').click(function() {
+        if (localStorage.getItem('overlay_step') == 0) {
+          $('.overlay .logo').hide()
+          $('.overlay .overlay_conversation_area').show()
+          $('.overlay .overlay_btn').text('選擇體驗遊程')
+          $('.overlay .overlay_btn').css('font-size', '32px')
+
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation">';
+          html += '大家好！我是水保局的吉祥物小涵，歡迎來到水保局打造的3D虛擬實境數位展館「記憶之脈」！';
+          html += '   在這裡可以透過環景網頁的方式，觀看本來需要戴VR頭盔的虛擬展館喔！';
+          html += '   記憶之脈中有三條體驗遊程可以選擇，分別是承載水保局過去歷史的「六十之詩」、';
+          html += '有豐富互動教材的「冒險之森」和以RPG遊戲的方式展示業務亮點成果的「亮點之星」，';
+          html += '選擇一條你想先體驗的遊程吧！   完成一條遊程後填寫問卷，前100位可以獲得Hagan Dazs冰品券，'
+          html += '101-500位填寫者可以獲得超商購物金。快開始你的記憶之脈旅程吧！</div>';
+
+          $('.overlay .overlay_conversation_area').html(html)
+          localStorage.setItem('overlay_step', 1);
+        } else if (localStorage.getItem('overlay_step') == 1) {
+          $('.overlay .overlay_btn').hide()
+          $('.overlay .overlay_conversation_area').hide()
+
+          $('.overlay .overlay_entries').show()
+          localStorage.setItem('overlay_step', 2);
+        } else if (localStorage.getItem('overlay_step') == 11) {
+          window.open('https://forms.gle/aFdj1Jepc8JHS3KK6')
+          $('.overlay .overlay_btn').hide()
+          $('.overlay .overlay_conversation_area').hide()
+
+          $('.overlay .overlay_entries').show()
+          localStorage.setItem('overlay_step', 2);
+          clue_reset();
+        } else if (localStorage.getItem('overlay_step') == 12) {
+          window.open('https://forms.gle/5LsfzYDrLosEL8Jc9')
+          $('.overlay .overlay_btn').hide()
+          $('.overlay .overlay_conversation_area').hide()
+
+          $('.overlay .overlay_entries').show()
+          localStorage.setItem('overlay_step', 2);
+          clue_reset();
+        } else if (localStorage.getItem('overlay_step') == 13) {
+          window.open('https://forms.gle/8nHJhemvEkSVbniLA')
+          $('.overlay .overlay_btn').hide()
+          $('.overlay .overlay_conversation_area').hide()
+
+          $('.overlay .overlay_entries').show()
+          localStorage.setItem('overlay_step', 2);
+          clue_reset();
+        }
+
+        // entry_1
+        if (localStorage.getItem('overlay_entry_1_step') == 1) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '滿牆珍藏的水保歷史文物、大事記照片與歷史魔法書，而且我們還將實體展場搬進環景中，走進發著紅光的門，就能看見「淼垚众-水土保持局60週年特展」！';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_1_step', 2);
+        } else if (localStorage.getItem('overlay_entry_1_step') == 2) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '在這裡只要完成右方欄位的任務，就能填寫最終問卷得到獎品囉！快來挑戰吧！';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_1_step', 3);
+        } else if (localStorage.getItem('overlay_entry_1_step') == 3) {
+          $('.overlay').hide()
+          // $('.vrshow_container_logo').show()
+          // $('.vrshow_container_1_min').show()
+          $('.vrshow_container_1_min').show()
+          $('.vrshow_container_2_min').show()
+
+          $('.btn_fullscreen').hide()
+          $('.btn_snapshot').hide()
+          $('.btn_vrmode').hide()
+          $('#profileDiv').hide()
+
+          $('.right_menu').show()
+          if($(window).width() <= 768) {
+            hide_menu_timeout = setTimeout(function() {
+              $('.right_menu').animate({'right': '-240px'}, 500);
+            }, 2000);
+          }
+          $('.right_menu_item_1').show()
+          $('.right_menu_item_2').show()
+          $('.right_menu_item_3').show()
+          $('.right_menu_item_4').show()
+          $('.right_menu_item_1 .right_menu_item_text').text('參觀巡迴展')
+          $('.right_menu_item_2 .right_menu_item_text').text('看看魔法書寫了什麼')
+          $('.right_menu_item_3 .right_menu_item_text').text('看三樣水保文物介紹')
+          $('.right_menu_item_4 .right_menu_item_text').text('到照片牆看看大事記載')
+
+          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '30px')
+          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '20px')
+          $('.right_menu_item_3 .right_menu_item_text').css('font-size', '20px')
+          $('.right_menu_item_4 .right_menu_item_text').css('font-size', '18px')
+
+          localStorage.setItem('overlay_entry_1_step', 4);
+        }
+
+        // entry_2
+        if (localStorage.getItem('overlay_entry_2_step') == 1) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '一走進冒險之森,體內的探險因子是不是都被激起來了呢？';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_2_step', 2);
+        } else if (localStorage.getItem('overlay_entry_2_step') == 2) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '冒險之森裡有三個遊戲影片，分別是將對水保有益的植物種進土壤中的「植樹高手」。';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_2_step', 3);
+        } else if (localStorage.getItem('overlay_entry_2_step') == 3) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '中間螢幕是化身巨人在土石流災害時疏散居民的「土石流守護戰記」。';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_2_step', 4);
+        } else if (localStorage.getItem('overlay_entry_2_step') == 4) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '右邊是防災專員祝平安在任務出動前，以接接樂的方式準備好裝備！';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_2_step', 5);
+        } else if (localStorage.getItem('overlay_entry_2_step') == 5) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '只要看過三個遊戲的任務，就能填寫最終問卷得到獎品囉！快來挑戰吧！';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_2_step', 6);
+        } else if (localStorage.getItem('overlay_entry_2_step') == 6) {
+          $('.overlay').hide()
+          // $('.vrshow_container_logo').show()
+          // $('.vrshow_container_1_min').show()
+          $('.vrshow_container_1_min').show()
+          $('.vrshow_container_2_min').show()
+
+          $('.btn_fullscreen').hide()
+          $('.btn_snapshot').hide()
+          $('.btn_vrmode').hide()
+          $('#profileDiv').hide()
+
+          $('.right_menu').show()
+          if($(window).width() <= 768) {
+            hide_menu_timeout = setTimeout(function() {
+              $('.right_menu').animate({'right': '-240px'}, 500);
+            }, 2000);
+          }
+          $('.right_menu_item_1').show()
+          $('.right_menu_item_2').show()
+          $('.right_menu_item_3').show()
+          $('.right_menu_item_1 .right_menu_item_text').text('植樹高手')
+          $('.right_menu_item_2 .right_menu_item_text').text('土石流守護戰記')
+          $('.right_menu_item_3 .right_menu_item_text').text('土石流防災專員裝備競賽')
+
+          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '30px')
+          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '26px')
+          $('.right_menu_item_3 .right_menu_item_text').css('font-size', '16px')
+
+
+          localStorage.setItem('overlay_entry_2_step', 8);
+        }
+
+
+        // entry_3
+        if (localStorage.getItem('overlay_entry_3_step') == 1) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '從左到右的傳送門分別是農村自己人、科技防災人、坡地保育人和國土守護人。';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_3_step', 2);
+        } else if (localStorage.getItem('overlay_entry_3_step') == 2) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '農村自己人將會到新竹的南埔村,跟著阿和與阿順伯的腳步,來探尋百年水車的故事';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_3_step', 3);
+        } else if (localStorage.getItem('overlay_entry_3_step') == 3) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '科技防災人則是透過觀測土石流潛勢溪流的三項儀器，通報水保局，守護家園';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_3_step', 4);
+        } else if (localStorage.getItem('overlay_entry_3_step') == 4) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '在坡地保育人會遇到受困的石虎和溪魚,需要完成建造砌石的任務打造野溪工程。';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_3_step', 5);
+        } else if (localStorage.getItem('overlay_entry_3_step') == 5) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '最後則是國土守護人,飛往宇宙找尋衛星,取得衛星變異點的照片，找出濫墾證據守護坡地。';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_3_step', 6);
+        } else if (localStorage.getItem('overlay_entry_3_step') == 6) {
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '只要從傳送門進去過四個關卡，就能填寫最終問卷得到獎品囉！快來挑戰吧！';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          localStorage.setItem('overlay_entry_3_step', 7);
+        } else if (localStorage.getItem('overlay_entry_3_step') == 7) {
+          $('.overlay').hide()
+          // $('.vrshow_container_logo').show()
+          // $('.vrshow_container_1_min').show()
+          $('.vrshow_container_1_min').show()
+          $('.vrshow_container_2_min').show()
+
+          $('.btn_fullscreen').hide()
+          $('.btn_snapshot').hide()
+          $('.btn_vrmode').hide()
+          $('#profileDiv').hide()
+
+          $('.right_menu').show()
+          if($(window).width() <= 768) {
+            hide_menu_timeout = setTimeout(function() {
+              $('.right_menu').animate({'right': '-240px'}, 500);
+            }, 2000);
+          }
+          $('.right_menu_item_1').show()
+          $('.right_menu_item_2').show()
+          $('.right_menu_item_3').show()
+          $('.right_menu_item_4').show()
+          $('.right_menu_item_1 .right_menu_item_text').text('農村自己人')
+          $('.right_menu_item_2 .right_menu_item_text').text('科技防災人')
+          $('.right_menu_item_3 .right_menu_item_text').text('坡地保育人')
+          $('.right_menu_item_4 .right_menu_item_text').text('國土守護人')
+
+          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '30px')
+          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '30px')
+          $('.right_menu_item_3 .right_menu_item_text').css('font-size', '30px')
+          $('.right_menu_item_4 .right_menu_item_text').css('font-size', '30px')
+
+          localStorage.setItem('overlay_entry_3_step', 8);
+        }
+      });
+
+      $('.overlay .overlay_entry_1_btn').click(function() {
+          localStorage.setItem('current_scene', 'scene_a2bc1edfe53702a9');
+
+          var krpano = document.getElementById('krpanoSWFObject');
+          krpano.call('loadscene("scene_a2bc1edfe53702a9", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+
+          $('.overlay .overlay_entries').hide()
+          $('.overlay .overlay_conversation_area').show()
+
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '歡迎來到承載水保歷史的六十之詩！';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          $('.overlay .overlay_btn').show()
+          $('.overlay .overlay_btn').text('下一步')
+          $('.overlay .overlay_btn').css('font-size', '50px')
+          $('.overlay .overlay_btn').css('letter-spacing', '10px')
+          localStorage.setItem('overlay_entry_1_step', 1);
+      });
+
+      $('.overlay .overlay_entry_2_btn').click(function() {
+          localStorage.setItem('current_scene', 'scene_bd6ca129f85fe168');
+          var krpano = document.getElementById('krpanoSWFObject');
+          krpano.call('loadscene("scene_bd6ca129f85fe168", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+
+          $('.overlay .overlay_entries').hide()
+          $('.overlay .overlay_conversation_area').show()
+
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '歡迎來到有著豐富遊戲的冒險之森！';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          $('.overlay .overlay_btn').show()
+          $('.overlay .overlay_btn').text('下一步')
+          $('.overlay .overlay_btn').css('font-size', '50px')
+          $('.overlay .overlay_btn').css('letter-spacing', '10px')
+          localStorage.setItem('overlay_entry_2_step', 1);
+      });
+
+      $('.overlay .overlay_entry_3_btn').click(function() {
+          localStorage.setItem('current_scene', 'scene_86cd2c276838888d');
+          var krpano = document.getElementById('krpanoSWFObject');
+          krpano.call('loadscene("scene_86cd2c276838888d", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+
+          $('.overlay .overlay_entries').hide()
+          $('.overlay .overlay_conversation_area').show()
+
+          var html = '<div class="overlay_conversation_area_avatar"></div>';
+          html += '<div class="overlay_conversation_2">';
+          html += '歡迎來到代表水保局四大業務的亮點之星！';
+          html += '</div>';
+          $('.overlay .overlay_conversation_area').html(html)
+
+          $('.overlay .overlay_btn').show()
+          $('.overlay .overlay_btn').text('下一步')
+          $('.overlay .overlay_btn').css('font-size', '50px')
+          $('.overlay .overlay_btn').css('letter-spacing', '10px')
+          localStorage.setItem('overlay_entry_3_step', 1);
+      });
+
+
+
+
+
+    })
+
+    function clue_reset(){
+      localStorage.setItem('event1_clue1', 'false');
+      localStorage.setItem('event1_clue2', 'false');
+      localStorage.setItem('event1_clue3', 'false');
+      localStorage.setItem('event1_clue4', 'false');
+
+
+      localStorage.setItem('event1_clue3_1_1', 'false');
+      localStorage.setItem('event1_clue3_1_2', 'false');
+      localStorage.setItem('event1_clue3_1_3', 'false');
+      localStorage.setItem('event1_clue3_1_4', 'false');
+      localStorage.setItem('event1_clue3_1_5', 'false');
+      localStorage.setItem('event1_clue3_1_6', 'false');
+      localStorage.setItem('event1_clue3_1_7', 'false');
+
+      localStorage.setItem('event1_clue3_2_1', 'false');
+      localStorage.setItem('event1_clue3_2_2', 'false');
+      localStorage.setItem('event1_clue3_2_3', 'false');
+      localStorage.setItem('event1_clue3_2_4', 'false');
+      localStorage.setItem('event1_clue3_2_5', 'false');
+      localStorage.setItem('event1_clue3_2_6', 'false');
+      localStorage.setItem('event1_clue3_2_7', 'false');
+
+      localStorage.setItem('event1_clue3_3_1', 'false');
+      localStorage.setItem('event1_clue3_3_2', 'false');
+      localStorage.setItem('event1_clue3_3_3', 'false');
+      localStorage.setItem('event1_clue3_3_4', 'false');
+      localStorage.setItem('event1_clue3_3_5', 'false');
+      localStorage.setItem('event1_clue3_3_6', 'false');
+      localStorage.setItem('event1_clue3_3_7', 'false');
+      localStorage.setItem('event1_clue3_3_8', 'false');
+      localStorage.setItem('event1_clue3_3_9', 'false');
+      localStorage.setItem('event1_clue3_3_10', 'false');
+      localStorage.setItem('event1_clue3_3_11', 'false');
+      localStorage.setItem('event1_clue3_3_12', 'false');
+
+      localStorage.setItem('event1_clue3_4_1', 'false');
+      localStorage.setItem('event1_clue3_4_2', 'false');
+      localStorage.setItem('event1_clue3_4_3', 'false');
+      localStorage.setItem('event1_clue3_4_4', 'false');
+      localStorage.setItem('event1_clue3_4_5', 'false');
+      localStorage.setItem('event1_clue3_4_6', 'false');
+      localStorage.setItem('event1_clue3_4_7', 'false');
+      localStorage.setItem('event1_clue3_4_8', 'false');
+      localStorage.setItem('event1_clue3_4_9', 'false');
+
+
+      localStorage.setItem('event2_clue1', 'false');
+      localStorage.setItem('event2_clue2', 'false');
+      localStorage.setItem('event2_clue3', 'false');
+
+      localStorage.setItem('event3_clue1', 'false');
+      localStorage.setItem('event3_clue2', 'false');
+      localStorage.setItem('event3_clue3', 'false');
+      localStorage.setItem('event3_clue4', 'false');
+      $('.right_menu_item_checked').hide()
+    }
+
+    $(function(){
+
+        initPano();
+        $("#shareDiv img").attr('src','static/images/skin1/vr-btn-share.png');
+        $("#profileDiv img").attr('src','static/images/skin1/vr-btn-desc.png');
+
+    })
+    function custom_logo_init(data){
+        var logoObj = data.custom_logo;
+        if(logoObj){
+            if(logoObj.useCustomLogo=='1')
+                $('.vrshow_container_logo img').attr('src',logoObj.logoImgPath);
+            else
+                $('.vrshow_container_logo img').attr('src','resource/images/custom_logo.png');
+            if(logoObj.logoLink)
+                $('.vrshow_container_logo img').attr('onclick','javascript:window.open("'+logoObj.logoLink+'")');
+
+        }
+    }
+
+</script>
+
+<link rel="stylesheet" href="static/css/slide-in-out.css?v=061701">
+<!-- 侧边导航 -->
+<!-- <div class="slide-mask"></div> -->
+<aside class="slide-wrapper parentlistbox">
+    <div>
+        <div class="listbox-title">
+            <strong>環景列表</strong>
+            <a href="javascript:void(0);" onClick="javascript:close_listbox();" class="listbox-close">×</a>
+        </div>
+        <ul id="listbox-ul" class="listbox-container"></ul>
+    </div>
+</aside>
+
+<aside class="slide-wrapper sublistbox">
+    <div>
+        <div>
+            <strong id="sublist_title"></strong>
+            <a href="javascript:void(0);" onClick="javascript:close_subdiv();" class="listbox-close">×</a>
+        </div>
+        <ul id="sublist-ul" class="listbox-container"></ul>
+    </div>
+</aside>
+
+<script type="text/javascript">
+var scene_groups = $.parseJSON('[{"iconType":"system","imgPath":"resource\/images\/1563708906848bgx.png","groupName":"\u8a18\u61b6\u4e4b\u8108\u5927\u5ef3","scenes":[{"sceneName":"scene_1697e0e33408b9b9","viewuuid":"1697e0e33408b9b9","imgPath":"resource\/pano\/1697e0e33408b9b9\/thumb.jpg","sceneTitle":"\u8a18\u61b6\u4e4b\u8108","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638863404000nq2.jpg"},{"sceneName":"scene_629f4307c0821e3e","viewuuid":"629f4307c0821e3e","imgPath":"resource\/pano\/629f4307c0821e3e\/thumb.jpg","sceneTitle":"\u8a18\u61b6\u4e4b\u8108\u4e8c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16388635005158op.jpg"},{"sceneName":"scene_324e5336e907acd9","viewuuid":"324e5336e907acd9","imgPath":"resource\/pano\/324e5336e907acd9\/thumb.jpg","sceneTitle":"\u8a18\u61b6\u4e4b\u8108\u4e09","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638863553726kw4.jpg"},{"sceneName":"scene_2cd324a473d7d0d4","viewuuid":"2cd324a473d7d0d4","imgPath":"resource\/pano\/2cd324a473d7d0d4\/thumb.jpg","sceneTitle":"\u516d\u5341\u4e4b\u8a69\u5165\u53e3","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638864239474aq8.jpg"},{"sceneName":"scene_132d56caadba9d87","viewuuid":"132d56caadba9d87","imgPath":"resource\/pano\/132d56caadba9d87\/thumb.jpg","sceneTitle":"\u8a18\u61b6\u4e4b\u8108\u56db","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638863683321ycq.jpg"},{"sceneName":"scene_517d7f393240de77","viewuuid":"517d7f393240de77","imgPath":"resource\/pano\/517d7f393240de77\/thumb.jpg","sceneTitle":"\u5192\u96aa\u4e4b\u68ee\u5165\u53e3\u8655","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638863363718s3z.jpg"},{"sceneName":"scene_8f031241fabb3879","viewuuid":"8f031241fabb3879","imgPath":"resource\/pano\/8f031241fabb3879\/thumb.jpg","sceneTitle":"\u8a18\u61b6\u4e4b\u8108\u4e94","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638864431395j30.jpg"},{"sceneName":"scene_74554e23eb33d7c6","viewuuid":"74554e23eb33d7c6","imgPath":"resource\/pano\/74554e23eb33d7c6\/thumb.jpg","sceneTitle":"\u4eae\u9ede\u4e4b\u661f\u5165\u53e3","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16388633180490kf.jpg"},{"sceneName":"scene_8ef3e8beaa03985c","viewuuid":"8ef3e8beaa03985c","imgPath":"resource\/pano\/8ef3e8beaa03985c\/thumb.jpg","sceneTitle":"\u8a18\u61b6\u4e4b\u8108\u516d","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16388636370833ws.jpg"}]},{"iconType":"system","imgPath":"https:\/\/360.zoustec.com\/panos\/def_material\/1563708906848bgx.png","groupName":"\u516d\u5341\u4e4b\u8a69","scenes":[{"sceneName":"scene_a2bc1edfe53702a9","viewuuid":"a2bc1edfe53702a9","imgPath":"resource\/pano\/a2bc1edfe53702a9\/thumb.jpg","sceneTitle":"\u516d\u5341\u4e4b\u8a69","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367276d6n.jpg"},{"sceneName":"scene_01396e1af068c1e2","viewuuid":"01396e1af068c1e2","imgPath":"resource\/pano\/01396e1af068c1e2\/thumb.jpg","sceneTitle":"\u5ea6\u91cf\u8861\u5100\u5668\u5340\u57df","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367277wsw.jpg"},{"sceneName":"scene_ff590b9f789185a2","viewuuid":"ff590b9f789185a2","imgPath":"resource\/pano\/ff590b9f789185a2\/thumb.jpg","sceneTitle":"\u6c34\u4fdd\u77e5\u8b58\u627e\u5c0f\u6db5","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367282953.jpg"},{"sceneName":"scene_740177daf5c4c61d","viewuuid":"740177daf5c4c61d","imgPath":"resource\/pano\/740177daf5c4c61d\/thumb.jpg","sceneTitle":"\u6c34\u4fdd\u884c\u653f\u6587\u7269\u5340\u57df","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367278r7j.jpg"},{"sceneName":"scene_1af65dc810d9bf27","viewuuid":"1af65dc810d9bf27","imgPath":"resource\/pano\/1af65dc810d9bf27\/thumb.jpg","sceneTitle":"\u6dfc\u579a\u4f17\u5de1\u8ff4\u5c55\u5165\u53e3","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367278lab.jpg"},{"sceneName":"scene_bfa70a75ac560375","viewuuid":"bfa70a75ac560375","imgPath":"resource\/pano\/bfa70a75ac560375\/thumb.jpg","sceneTitle":"\u9b54\u6cd5\u66f8\u5340\u57df","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367282d58.jpg"},{"sceneName":"scene_30ae1fcbbaae5e5f","viewuuid":"30ae1fcbbaae5e5f","imgPath":"resource\/pano\/30ae1fcbbaae5e5f\/thumb.jpg","sceneTitle":"\u7167\u7247\u58bb\u5340\u57df\u4e00","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637923571434yz5.jpg"},{"sceneName":"scene_8036ecb5482d1e96","viewuuid":"8036ecb5482d1e96","imgPath":"resource\/pano\/8036ecb5482d1e96\/thumb.jpg","sceneTitle":"\u7167\u7247\u58bb\u5340\u57df\u4e8c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367280zjy.jpg"},{"sceneName":"scene_eb3fc21370fdb5b7","viewuuid":"eb3fc21370fdb5b7","imgPath":"resource\/pano\/eb3fc21370fdb5b7\/thumb.jpg","sceneTitle":"\u571f\u77f3\u6d41\u76e3\u6e2c\u5340\u57df","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367280z0p.jpg"},{"sceneName":"scene_bbcf956c95fe0a05","viewuuid":"bbcf956c95fe0a05","imgPath":"resource\/pano\/bbcf956c95fe0a05\/thumb.jpg","sceneTitle":"\u6c34\u4fdd\u5c40\u638c\u7406\u696d\u52d9","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637921367281ibi.jpg"}]},{"iconType":"system","imgPath":"https:\/\/360.zoustec.com\/panos\/def_material\/1563708906848bgx.png","groupName":"\u516d\u5341\u4e4b\u8a69\u6dfc\u579a\u4f17\u5de1\u8ff4\u5c55","scenes":[{"sceneName":"scene_f9e4735bf06cfd30","viewuuid":"f9e4735bf06cfd30","imgPath":"resource\/pano\/f9e4735bf06cfd30\/thumb.jpg","sceneTitle":"\u6dfc\u579a\u4f17\u5de1\u8ff4\u5c55","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637911098354ld0.jpg"},{"sceneName":"scene_b2f96c91429ffa43","viewuuid":"b2f96c91429ffa43","imgPath":"resource\/pano\/b2f96c91429ffa43\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u4e00","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637911098349g6n.jpg"},{"sceneName":"scene_3510604cdf5cdfee","viewuuid":"3510604cdf5cdfee","imgPath":"resource\/pano\/3510604cdf5cdfee\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u4e8c","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637911098353342.jpg"},{"sceneName":"scene_041d551ed6ba8e7c","viewuuid":"041d551ed6ba8e7c","imgPath":"resource\/pano\/041d551ed6ba8e7c\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u4e09","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16379110983507zp.jpg"},{"sceneName":"scene_9a58bd1b4f804667","viewuuid":"9a58bd1b4f804667","imgPath":"resource\/pano\/9a58bd1b4f804667\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u56db","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552342z6f.jpg"},{"sceneName":"scene_38ea7b413c689ea3","viewuuid":"38ea7b413c689ea3","imgPath":"resource\/pano\/38ea7b413c689ea3\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u4e94","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/163791109834794b.jpg"},{"sceneName":"scene_e038d539add665d2","viewuuid":"e038d539add665d2","imgPath":"resource\/pano\/e038d539add665d2\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u4e94-1","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/163791055234791w.jpg"},{"sceneName":"scene_ff90ae46a8b4c77d","viewuuid":"ff90ae46a8b4c77d","imgPath":"resource\/pano\/ff90ae46a8b4c77d\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u516d","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552346gb4.jpg"},{"sceneName":"scene_7a5fd9b5c98d46d6","viewuuid":"7a5fd9b5c98d46d6","imgPath":"resource\/pano\/7a5fd9b5c98d46d6\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u4e03","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552348thx.jpg"},{"sceneName":"scene_32d438eea65e472f","viewuuid":"32d438eea65e472f","imgPath":"resource\/pano\/32d438eea65e472f\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u516b","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552353msr.jpg"},{"sceneName":"scene_1da19fcd306457f3","viewuuid":"1da19fcd306457f3","imgPath":"resource\/pano\/1da19fcd306457f3\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u56db-2","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16379105523436zx.jpg"},{"sceneName":"scene_1d922115db86ab80","viewuuid":"1d922115db86ab80","imgPath":"resource\/pano\/1d922115db86ab80\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u4e94-2","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552344fi6.jpg"},{"sceneName":"scene_52bb7c8003f84d7a","viewuuid":"52bb7c8003f84d7a","imgPath":"resource\/pano\/52bb7c8003f84d7a\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u516d-2","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552349g8j.jpg"},{"sceneName":"scene_f0d4b572ba4d2160","viewuuid":"f0d4b572ba4d2160","imgPath":"resource\/pano\/f0d4b572ba4d2160\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u4e03-2","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552350l86.jpg"},{"sceneName":"scene_8c963ee955cad9de","viewuuid":"8c963ee955cad9de","imgPath":"resource\/pano\/8c963ee955cad9de\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u516b-2","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552351pa9.jpg"},{"sceneName":"scene_c4ef554ce06425c6","viewuuid":"c4ef554ce06425c6","imgPath":"resource\/pano\/c4ef554ce06425c6\/thumb.jpg","sceneTitle":"\u4f11\u606f\u5340","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552353jfa.jpg"},{"sceneName":"scene_3cfeb508f680c977","viewuuid":"3cfeb508f680c977","imgPath":"resource\/pano\/3cfeb508f680c977\/thumb.jpg","sceneTitle":"\u4f11\u606f\u5340\u4e8c","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1637910552340fhw.jpg"},{"sceneName":"scene_5f3933cfcba02897","viewuuid":"5f3933cfcba02897","imgPath":"resource\/pano\/5f3933cfcba02897\/thumb.jpg","sceneTitle":"\u7559\u8a00\u5340","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16379110983556ti.jpg"},{"sceneName":"scene_15003728f2ee0568","viewuuid":"15003728f2ee0568","imgPath":"resource\/pano\/15003728f2ee0568\/thumb.jpg","sceneTitle":"\u5de1\u8ff4\u5c55\u51fa\u53e3","levels":"3328,1664,768","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16379110983567y5.jpg"}]},{"iconType":"system","imgPath":"https:\/\/360.zoustec.com\/panos\/def_material\/1563708906848bgx.png","groupName":"\u5192\u96aa\u4e4b\u68ee","scenes":[{"sceneName":"scene_bd6ca129f85fe168","viewuuid":"bd6ca129f85fe168","imgPath":"resource\/pano\/bd6ca129f85fe168\/thumb.jpg","sceneTitle":"\u5192\u96aa\u4e4b\u68ee","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1639965361658oer.jpg"}]},{"iconType":"system","imgPath":"https:\/\/360.zoustec.com\/panos\/def_material\/1563708906848bgx.png","groupName":"\u4eae\u9ede\u4e4b\u661f","scenes":[{"sceneName":"scene_86cd2c276838888d","viewuuid":"86cd2c276838888d","imgPath":"resource\/pano\/86cd2c276838888d\/thumb.jpg","sceneTitle":"\u4eae\u9ede\u4e4b\u661f","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16388647315514ix.jpg"}]},{"iconType":"system","imgPath":"https:\/\/360.zoustec.com\/panos\/def_material\/1563708906848bgx.png","groupName":"\u8fb2\u6751\u81ea\u5df1\u4eba","scenes":[{"sceneName":"scene_ede93bca08bdaa3f","viewuuid":"ede93bca08bdaa3f","imgPath":"resource\/pano\/ede93bca08bdaa3f\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u81ea\u5df1\u4eba","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16384165304559ff.jpg"},{"sceneName":"scene_8ced2374862c8d5d","viewuuid":"8ced2374862c8d5d","imgPath":"resource\/pano\/8ced2374862c8d5d\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u4e00","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638424948368zwx.jpg"},{"sceneName":"scene_5aa90fe365422b33","viewuuid":"5aa90fe365422b33","imgPath":"resource\/pano\/5aa90fe365422b33\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5341\u5b57\u8def\u53e3","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530454i62.jpg"},{"sceneName":"scene_44a21c52b94d3ea5","viewuuid":"44a21c52b94d3ea5","imgPath":"resource\/pano\/44a21c52b94d3ea5\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5f80\u6c34\u8eca","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530453joe.jpg"},{"sceneName":"scene_fcf01f9dbd84613d","viewuuid":"fcf01f9dbd84613d","imgPath":"resource\/pano\/fcf01f9dbd84613d\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5f80\u6c34\u8eca\u4e00","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530453h31.jpg"},{"sceneName":"scene_6732e42530440e8a","viewuuid":"6732e42530440e8a","imgPath":"resource\/pano\/6732e42530440e8a\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5f80\u6c34\u8eca\u4e8c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530452jow.jpg"},{"sceneName":"scene_79722252901eccd5","viewuuid":"79722252901eccd5","imgPath":"resource\/pano\/79722252901eccd5\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5341\u5b57\u8def\u53e3\u4e8c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530451cj3.jpg"},{"sceneName":"scene_7bf68fea748ee392","viewuuid":"7bf68fea748ee392","imgPath":"resource\/pano\/7bf68fea748ee392\/thumb.jpg","sceneTitle":"\u767e\u5e74\u6c34\u8eca","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530451c8c.jpg"},{"sceneName":"scene_522731b30a4f555b","viewuuid":"522731b30a4f555b","imgPath":"resource\/pano\/522731b30a4f555b\/thumb.jpg","sceneTitle":"\u6c34\u8eca\u5f80\u77f3\u723a\u516c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530450xr7.jpg"},{"sceneName":"scene_d502e7bef3832ef9","viewuuid":"d502e7bef3832ef9","imgPath":"resource\/pano\/d502e7bef3832ef9\/thumb.jpg","sceneTitle":"\u6c34\u8eca\u5f80\u77f3\u723a\u516c\u4e00","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530450sw6.jpg"},{"sceneName":"scene_cb325b4a83b0f069","viewuuid":"cb325b4a83b0f069","imgPath":"resource\/pano\/cb325b4a83b0f069\/thumb.jpg","sceneTitle":"\u77f3\u723a\u516c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530449xcz.jpg"},{"sceneName":"scene_bd481e87862c66c6","viewuuid":"bd481e87862c66c6","imgPath":"resource\/pano\/bd481e87862c66c6\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5f80\u77f3\u723a\u516c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530446oh1.jpg"},{"sceneName":"scene_21aa1572a2ff5d25","viewuuid":"21aa1572a2ff5d25","imgPath":"resource\/pano\/21aa1572a2ff5d25\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5f80\u77f3\u723a\u516c\u4e8c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16384165304470wr.jpg"},{"sceneName":"scene_5b0ca1f87f8f89e1","viewuuid":"5b0ca1f87f8f89e1","imgPath":"resource\/pano\/5b0ca1f87f8f89e1\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5f80\u77f3\u723a\u516c\u4e09","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530448416.jpg"},{"sceneName":"scene_5a761802b343a54a","viewuuid":"5a761802b343a54a","imgPath":"resource\/pano\/5a761802b343a54a\/thumb.jpg","sceneTitle":"\u8fb2\u6751\u5f80\u77f3\u723a\u516c\u56db","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638416530449x0q.jpg"}]},{"iconType":"system","imgPath":"https:\/\/360.zoustec.com\/panos\/def_material\/1563708906848bgx.png","groupName":"\u79d1\u6280\u9632\u707d\u4eba","scenes":[{"sceneName":"scene_5bd7d1f3f5146d82","viewuuid":"5bd7d1f3f5146d82","imgPath":"resource\/pano\/5bd7d1f3f5146d82\/thumb.jpg","sceneTitle":"\u79d1\u6280\u9632\u707d\u4eba","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16385215050820c5.jpg"},{"sceneName":"scene_bd013d43216e9dd8","viewuuid":"bd013d43216e9dd8","imgPath":"resource\/pano\/bd013d43216e9dd8\/thumb.jpg","sceneTitle":"\u79d1\u6280\u9632\u707d\u4eba\u4e8c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638521505082o75.jpg"},{"sceneName":"scene_021291a77c0e060e","viewuuid":"021291a77c0e060e","imgPath":"resource\/pano\/021291a77c0e060e\/thumb.jpg","sceneTitle":"\u79d1\u6280\u9632\u707d\u4eba\u4e09","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/163852150508058k.jpg"},{"sceneName":"scene_691d9b426ad95885","viewuuid":"691d9b426ad95885","imgPath":"resource\/pano\/691d9b426ad95885\/thumb.jpg","sceneTitle":"\u79d1\u6280\u9632\u707d\u4eba\u56db","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638521505081ej7.jpg"}]},{"iconType":"system","imgPath":"https:\/\/360.zoustec.com\/panos\/def_material\/1563708906848bgx.png","groupName":"\u5761\u5730\u4fdd\u80b2\u4eba","scenes":[{"sceneName":"scene_9bd1d9e892de4613","viewuuid":"9bd1d9e892de4613","imgPath":"resource\/pano\/9bd1d9e892de4613\/thumb.jpg","sceneTitle":"\u5761\u5730\u4fdd\u80b2\u4eba","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16387579146246ge.jpg"},{"sceneName":"scene_86e0ff8c37a2fb02","viewuuid":"86e0ff8c37a2fb02","imgPath":"resource\/pano\/86e0ff8c37a2fb02\/thumb.jpg","sceneTitle":"\u5761\u5730\u4fdd\u80b2\u4eba\u4e8c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638757914622oxw.jpg"},{"sceneName":"scene_ba07c676ef881709","viewuuid":"ba07c676ef881709","imgPath":"resource\/pano\/ba07c676ef881709\/thumb.jpg","sceneTitle":"\u5761\u5730\u4fdd\u80b2\u4eba\u4e09","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638757914623o40.jpg"},{"sceneName":"scene_dba48bcc418700a9","viewuuid":"dba48bcc418700a9","imgPath":"resource\/pano\/dba48bcc418700a9\/thumb.jpg","sceneTitle":"\u5761\u5730\u4fdd\u80b2\u4eba\u56db","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638757914623c5y.jpg"}]},{"iconType":"system","imgPath":"https:\/\/360.zoustec.com\/panos\/def_material\/1563708906848bgx.png","groupName":"\u570b\u571f\u5b88\u8b77\u4eba","scenes":[{"sceneName":"scene_4f2458d5503863ac","viewuuid":"4f2458d5503863ac","imgPath":"resource\/pano\/4f2458d5503863ac\/thumb.jpg","sceneTitle":"\u570b\u571f\u5b88\u8b77\u4eba","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/16385273324031h4.jpg"},{"sceneName":"scene_cc2f6394199653e6","viewuuid":"cc2f6394199653e6","imgPath":"resource\/pano\/cc2f6394199653e6\/thumb.jpg","sceneTitle":"\u570b\u571f\u5b88\u8b77\u4eba\u4e8c","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638527332402had.jpg"},{"sceneName":"scene_97e748bed68aef2d","viewuuid":"97e748bed68aef2d","imgPath":"resource\/pano\/97e748bed68aef2d\/thumb.jpg","sceneTitle":"\u570b\u571f\u5b88\u8b77\u4eba\u4e09","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/163852733240145o.jpg"},{"sceneName":"scene_67543dc90e0f5d77","viewuuid":"67543dc90e0f5d77","imgPath":"resource\/pano\/67543dc90e0f5d77\/thumb.jpg","sceneTitle":"\u570b\u571f\u5b88\u8b77\u4eba\u56db","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/247\/sourceimg\/1638527332400ncq.jpg"}]}]');
+$(function(){
+	//生成初始分组数据
+	if(scene_groups.length>1){
+		var html_groups = '';
+		for(var i=0; i<scene_groups.length;i++){
+			html_groups += '<li class="scene_group_li" id="scene_group_'+i+'">'+
+							'<a href="javascript:void(0);" onClick="javascript:show_subdiv('+i+');">'+
+								'<img src="'+scene_groups[i]['scenes'][0].imgPath+'"/> '+
+								'<span>'+scene_groups[i]['groupName']+'</span>'+
+							'</a>'+
+						  '</li>';
+		}
+		$("#listbox-ul").html(html_groups);
+
+
+			$('a.slide-menu').on('click', function(e){
+		show_listbox();
+	});
+
+
+	}
+else{
+		var scenes = scene_groups[0]['scenes'];
+		var html_groups = '';
+
+
+		for(var i=0; i<scenes.length;i++){
+			html_groups += '<li id="'+scenes[i].sceneName+'">'+
+							'<a href="javascript:void(0);" onClick="javascript:goto_scene(\'scene_'+scenes[i].viewuuid+'\');">'+
+								'<img src="'+scenes[i].imgPath+'"/> '+
+								'<span>'+scenes[i].sceneTitle+'</span>'+
+							'</a>'+
+						  '</li>';
+
+
+		}
+
+		$("#listbox-ul").html(html_groups);
+
+	    $("#"+scenes[0].sceneName).addClass("active");
+
+			$('a.slide-menu').on('click', function(e){
+		show_listbox2();
+	});
+
+	}
+
+	$('aside.slide-wrapper').on('touchstart', 'li', function(e){
+		$(this).addClass('current').siblings('li').removeClass('current');
+	});
+
+		$('aside.slide-wrapper').on('click', 'li', function(e){
+		$(this).siblings('li').removeClass('active');
+		$(this).addClass('current').siblings('li').removeClass('current');
+	});
+
+
+
+	$('div.slide-mask').on('click', function(){
+		close_listbox();
+	});
+  var krpano = document.getElementById("krpanoSWFObject");
+    // var scenes = scene_groups[0]['scenes'];
+    var ath = "10"; var atv = "10"; var fov = "100";
+    var vars = window.location.search.split("&");
+  	for(j = 0; j < vars.length; j++){
+  		if (vars[j].search("scene=") > 0) { scene = vars[j].replace("?scene=",""); }
+  		if (vars[j].search("ath=") > 0) { ath = vars[j].replace("?ath=","") }
+  		if (vars[j].search("atv=") > 0) { atv = vars[j].replace("?atv=",""); }
+  		if (vars[j].search("fov=") > 0) { fov = vars[j].replace("?fov=",""); }
+    }
+    krpano.call('loadscene('+scene+', null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+    krpano.call("lookto(" + ath + "," + atv + "," + fov + ")");
+});
+
+
+
+function remove_active(){
+
+	var krpano = document.getElementById('krpanoSWFObject');
+	var sceneName = krpano.get("xml.scene");
+	$("#"+sceneName).removeClass("active");
+     $("#"+sceneName).removeClass("current");
+
+}
+
+function add_active(){
+
+	var krpano = document.getElementById('krpanoSWFObject');
+	var sceneName = krpano.get("xml.scene");
+	$("#"+sceneName).addClass("active");
+show_subdiv_hide();
+
+}
+
+function show_listbox2(){
+	var wh = $('div.wrapper').height();
+	$('div.slide-mask').css('height', wh).show();
+	$('aside.parentlistbox').css('height', wh).addClass('moved');
+	$(".listbox-container").css({ height: ($(document).height()-$(".listbox-title").height()) });
+	$('#cjing').css('display', 'none');
+	$('.img_add').css('display', 'none');
+
+
+//$('aside.slide-wrapper').siblings('li').removeClass('active');
+
+
+
+	var krpano = document.getElementById('krpanoSWFObject');
+	var sceneName = krpano.get("xml.scene");
+	$("#"+sceneName).addClass("active");
+
+	console.log("abc2");
+
+//	var wh = $('div.wrapper').height();
+//	$('aside.sublistbox').css('height', wh).addClass('moved');
+
+//	show_subdiv();
+}
+
+
+function show_subdiv_hide(index){
+	var krpano = document.getElementById('krpanoSWFObject');
+
+	if(index==undefined){
+		var index = krpano.get("view.album_index");
+//		alert(index);
+
+	}
+	$("#scene_group_"+index).addClass('current').siblings('li').removeClass('current');
+
+	var scenes = scene_groups[index]['scenes'];
+	$(".scene_group_li").removeClass("active");
+	$("#scene_group_"+index).addClass("active");
+	$("#sublist_title").text(scene_groups[index].groupName);
+
+	var html_groups = '';
+
+	for(var i=0; i<scenes.length;i++){
+		html_groups += '<li id="'+scenes[i].sceneName+'">'+
+						'<a href="javascript:void(0);" onClick="javascript:goto_scene(\''+scenes[i].sceneName+'\');">'+
+							'<img src="'+scenes[i].imgPath+'"/> '+
+							'<span>'+scenes[i].sceneTitle+'</span>'+
+						'</a>'+
+					  '</li>';
+	}
+	$("#sublist-ul").html(html_groups);
+
+	var sceneName = krpano.get("xml.scene");
+	$("#"+sceneName).addClass("active");
+
+}
+
+
+
+
+
+
+function show_listbox(){
+	var wh = $('div.wrapper').height();
+	$('div.slide-mask').css('height', wh).show();
+	$('aside.parentlistbox').css('height', wh).addClass('moved');
+	$(".listbox-container").css({ height: ($(document).height()-$(".listbox-title").height()) });
+	$('#cjing').css('display', 'none');
+	$('.img_add').css('display', 'none');show_subdiv_hide();
+//	show_subdiv();
+}
+function goto_scene(scene_name){
+  console.log('###')
+	var krpano = document.getElementById('krpanoSWFObject');
+  var blend_type = 'NOBLEND';
+
+  krpano.call('loadscene('+scene_name+', null, MERGE, '+blend_type+');');
+
+  <!-- krpano.call('loadscene('+scene_name+', null, MERGE, ZOOMBLEND(0.5, 3.0, easeinquart));'); -->
+}
+function show_subdiv(index){
+	var krpano = document.getElementById('krpanoSWFObject');
+
+	if(index==undefined){
+		var index = krpano.get("view.album_index");
+//		alert(index);
+
+	}
+	$("#scene_group_"+index).addClass('current').siblings('li').removeClass('current');
+
+	var scenes = scene_groups[index]['scenes'];
+	$(".scene_group_li").removeClass("active");
+	$("#scene_group_"+index).addClass("active");
+	$("#sublist_title").text(scene_groups[index].groupName);
+
+	var html_groups = '';
+
+	for(var i=0; i<scenes.length;i++){
+		html_groups += '<li id="'+scenes[i].sceneName+'">'+
+						'<a href="javascript:void(0);" onClick="javascript:goto_scene(\''+scenes[i].sceneName+'\');">'+
+							'<img src="'+scenes[i].imgPath+'"/> '+
+							'<span>'+scenes[i].sceneTitle+'</span>'+
+						'</a>'+
+					  '</li>';
+	}
+	$("#sublist-ul").html(html_groups);
+
+	var sceneName = krpano.get("xml.scene");
+	$("#"+sceneName).addClass("active");
+
+	var wh = $('div.wrapper').height();
+	$('aside.sublistbox').css('height', wh).addClass('moved');
+
+
+}
+function close_subdiv(){
+	$('aside.sublistbox').removeClass('moved');
+}
+function close_listbox(){
+	$('div.slide-mask').hide();
+	$('aside.parentlistbox').removeClass('moved');
+	$('aside.sublistbox').removeClass('moved');
+    $('#cjing').css('display', 'block');
+	$('.img_add').css('display', 'inline-block');
+}
+</script>
+
+</html>

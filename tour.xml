@@ -1,0 +1,973 @@
+<krpano version="1.19" title="茁思環景大師" debugmode="false">
+ 
+<include url="%SWFPATH%/skin/vtourskin.xml" />
+<include url="%SWFPATH%/autorotate.xml" />
+
+<include url="%SWFPATH%/skin/visited_spots.xml" />
+<include url="%SWFPATH%/object.xml" />
+
+<events name="bgstart" keep="true" onpreviewcomplete="js(hidebg())" onclick="closeshare();"/>	
+
+<action name="showshare">
+
+tween(layer[share].x,-20);
+
+set(events[bgstart].onclick,closeshare());
+
+</action>
+
+<action name="closeshare">
+
+tween(layer[share].x,-80);
+
+set(events[bgstart].onclick,showshare());
+
+
+</action>
+
+
+
+<contextmenu fullscreen="false" versioninfo="false">
+        <item name="logo" caption="茁思環景大師" separator="true" onclick="openurl('https://360.zoustec.com/')" devices="flash|webgl"/>
+        
+</contextmenu>
+<events name="musicevents"
+    onnewpano="indexoftxt(result, get(scene[get(xml.scene)].bgmusic),sound); if(result GE 0,tween(sound[bgsnd].volume, 0.5)); set(music_bgmusic,get(scene[get(xml.scene)].bgmusic)); if(music_bgmusic,js(openMusicVoiceBtn());playsound(bgm,get(scene[get(xml.scene)].bgmusic),1,tween(sound[bgsnd].volume, 1)););"
+    keep="true"/>
+ <layer name="open_alert" url="" keep="true" align="center" edge="center" x="0" y="0"  maxwidth="800" maxheight="1000"  maxwidth.mobile="500" maxheight.mobile="800" 
+           enabled="false" visible="false"/>
+<action name="show_open_alert">set(layer[open_alert].url,%1); set(layer[open_alert].visible,true); delayedcall(5,
+    tween(layer[open_alert].alpha,0,1));
+</action>
+	 <hotspot name="shadelogo" url="" ath="0" atv="90" distorted="true" scale="1.0" rotate="0.0" rotatewithview="true" enabled="false"
+         visible="false" keep="true" onloaded="set(hotspot[shadelogo].rotate,get(view.hlookat));"/>
+<events name="shadelogorotation" keep="true"
+        onviewchange="if(hotspot[shadelogo].rotatewithview, set(hotspot[shadelogo].rotate,get(view.hlookat)) );"/>
+<action name="show_shade">
+    set(hotspot[shadelogo].url,%1);
+    set(hotspot[shadelogo].atv,%2);
+    set(hotspot[shadelogo].visible,true);
+    set(hotspot[shadelogo].depth,2000);
+</action>
+<action name="addShade">
+    txtadd(shade_name, 'shade_',%1); 
+    addhotspot(get(shade_name));
+    set(hotspot[get(shade_name)].url,%2); 
+    <!-- set(hotspot[get(shade_name)].ath,0);  -->
+    set(hotspot[get(shade_name)].atv,%3);
+    set(hotspot[get(shade_name)].distorted,true); 
+    set(hotspot[get(shade_name)].scale,"1.0");
+    set(hotspot[get(shade_name)].rotate,"0.0");
+     set(hotspot[get(shade_name)].rotatewithview,"true");
+    set(hotspot[get(shade_name)].visible,"true"); 
+    set(hotspot[get(shade_name)].keep,"false");
+    set(hotspot[get(shade_name)].onloaded,"set(hotspot[get(shade_name)].rotate,get(view.hlookat));");
+</action>  
+ <action name="startup" autorun="onstart">
+ 	copy(startscene,scene[0].name); 
+    if(device.fullscreensupport == true,js(showFullscreenBtn()););
+    if(device.mobile OR device.tablet,js(hideShareAndFootmarkBtn()););
+    loadscene(get(startscene), null, MERGE);
+    if(startactions !== null, startactions()); if(autorotate.enabled,bombtimer(0));   
+ </action>
+	   	 <scene name="scene_1697e0e33408b9b9" title="記憶之脈" album="記憶之脈大廳"   onstart="activatespot(90)" thumburl="resource/pano/1697e0e33408b9b9/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/1697e0e33408b9b9/preview.jpg" />
+		<image>
+			<cube url="resource/pano/1697e0e33408b9b9/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/1697e0e33408b9b9/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_629f4307c0821e3e" title="記憶之脈二"    onstart="activatespot(90)" thumburl="resource/pano/629f4307c0821e3e/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/629f4307c0821e3e/preview.jpg" />
+		<image>
+			<cube url="resource/pano/629f4307c0821e3e/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/629f4307c0821e3e/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_324e5336e907acd9" title="記憶之脈三"    onstart="activatespot(90)" thumburl="resource/pano/324e5336e907acd9/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/324e5336e907acd9/preview.jpg" />
+		<image>
+			<cube url="resource/pano/324e5336e907acd9/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/324e5336e907acd9/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_2cd324a473d7d0d4" title="六十之詩入口"    onstart="activatespot(90)" thumburl="resource/pano/2cd324a473d7d0d4/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/2cd324a473d7d0d4/preview.jpg" />
+		<image>
+			<cube url="resource/pano/2cd324a473d7d0d4/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/2cd324a473d7d0d4/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_132d56caadba9d87" title="記憶之脈四"    onstart="activatespot(90)" thumburl="resource/pano/132d56caadba9d87/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/132d56caadba9d87/preview.jpg" />
+		<image>
+			<cube url="resource/pano/132d56caadba9d87/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/132d56caadba9d87/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_517d7f393240de77" title="冒險之森入口處"    onstart="activatespot(90)" thumburl="resource/pano/517d7f393240de77/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/517d7f393240de77/preview.jpg" />
+		<image>
+			<cube url="resource/pano/517d7f393240de77/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/517d7f393240de77/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_8f031241fabb3879" title="記憶之脈五"    onstart="activatespot(90)" thumburl="resource/pano/8f031241fabb3879/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/8f031241fabb3879/preview.jpg" />
+		<image>
+			<cube url="resource/pano/8f031241fabb3879/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/8f031241fabb3879/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_74554e23eb33d7c6" title="亮點之星入口"    onstart="activatespot(90)" thumburl="resource/pano/74554e23eb33d7c6/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/74554e23eb33d7c6/preview.jpg" />
+		<image>
+			<cube url="resource/pano/74554e23eb33d7c6/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/74554e23eb33d7c6/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_8ef3e8beaa03985c" title="記憶之脈六"    onstart="activatespot(90)" thumburl="resource/pano/8ef3e8beaa03985c/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="0" limitview="lookat"/>
+		<preview url="resource/pano/8ef3e8beaa03985c/preview.jpg" />
+		<image>
+			<cube url="resource/pano/8ef3e8beaa03985c/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/8ef3e8beaa03985c/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_a2bc1edfe53702a9" title="六十之詩" album="六十之詩"   onstart="activatespot(90)" thumburl="resource/pano/a2bc1edfe53702a9/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/a2bc1edfe53702a9/preview.jpg" />
+		<image>
+			<cube url="resource/pano/a2bc1edfe53702a9/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/a2bc1edfe53702a9/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_01396e1af068c1e2" title="度量衡儀器區域"    onstart="activatespot(90)" thumburl="resource/pano/01396e1af068c1e2/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/01396e1af068c1e2/preview.jpg" />
+		<image>
+			<cube url="resource/pano/01396e1af068c1e2/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/01396e1af068c1e2/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_ff590b9f789185a2" title="水保知識找小涵"    onstart="activatespot(90)" thumburl="resource/pano/ff590b9f789185a2/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/ff590b9f789185a2/preview.jpg" />
+		<image>
+			<cube url="resource/pano/ff590b9f789185a2/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/ff590b9f789185a2/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_740177daf5c4c61d" title="水保行政文物區域"    onstart="activatespot(90)" thumburl="resource/pano/740177daf5c4c61d/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/740177daf5c4c61d/preview.jpg" />
+		<image>
+			<cube url="resource/pano/740177daf5c4c61d/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/740177daf5c4c61d/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_1af65dc810d9bf27" title="淼垚众巡迴展入口"    onstart="activatespot(90)" thumburl="resource/pano/1af65dc810d9bf27/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/1af65dc810d9bf27/preview.jpg" />
+		<image>
+			<cube url="resource/pano/1af65dc810d9bf27/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/1af65dc810d9bf27/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_bfa70a75ac560375" title="魔法書區域"    onstart="activatespot(90)" thumburl="resource/pano/bfa70a75ac560375/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/bfa70a75ac560375/preview.jpg" />
+		<image>
+			<cube url="resource/pano/bfa70a75ac560375/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/bfa70a75ac560375/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_30ae1fcbbaae5e5f" title="照片墻區域一"    onstart="activatespot(90)" thumburl="resource/pano/30ae1fcbbaae5e5f/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/30ae1fcbbaae5e5f/preview.jpg" />
+		<image>
+			<cube url="resource/pano/30ae1fcbbaae5e5f/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/30ae1fcbbaae5e5f/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_8036ecb5482d1e96" title="照片墻區域二"    onstart="activatespot(90)" thumburl="resource/pano/8036ecb5482d1e96/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/8036ecb5482d1e96/preview.jpg" />
+		<image>
+			<cube url="resource/pano/8036ecb5482d1e96/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/8036ecb5482d1e96/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_eb3fc21370fdb5b7" title="土石流監測區域"    onstart="activatespot(90)" thumburl="resource/pano/eb3fc21370fdb5b7/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/eb3fc21370fdb5b7/preview.jpg" />
+		<image>
+			<cube url="resource/pano/eb3fc21370fdb5b7/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/eb3fc21370fdb5b7/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_bbcf956c95fe0a05" title="水保局掌理業務"    onstart="activatespot(90)" thumburl="resource/pano/bbcf956c95fe0a05/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="1" limitview="lookat"/>
+		<preview url="resource/pano/bbcf956c95fe0a05/preview.jpg" />
+		<image>
+			<cube url="resource/pano/bbcf956c95fe0a05/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/bbcf956c95fe0a05/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_f9e4735bf06cfd30" title="淼垚众巡迴展" album="六十之詩淼垚众巡迴展"   onstart="activatespot(90)" thumburl="resource/pano/f9e4735bf06cfd30/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/f9e4735bf06cfd30/preview.jpg" />
+		<image>
+			<cube url="resource/pano/f9e4735bf06cfd30/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/f9e4735bf06cfd30/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_b2f96c91429ffa43" title="巡迴展一"    onstart="activatespot(90)" thumburl="resource/pano/b2f96c91429ffa43/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/b2f96c91429ffa43/preview.jpg" />
+		<image>
+			<cube url="resource/pano/b2f96c91429ffa43/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/b2f96c91429ffa43/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_3510604cdf5cdfee" title="巡迴展二"    onstart="activatespot(90)" thumburl="resource/pano/3510604cdf5cdfee/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/3510604cdf5cdfee/preview.jpg" />
+		<image>
+			<cube url="resource/pano/3510604cdf5cdfee/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/3510604cdf5cdfee/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_041d551ed6ba8e7c" title="巡迴展三"    onstart="activatespot(90)" thumburl="resource/pano/041d551ed6ba8e7c/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/041d551ed6ba8e7c/preview.jpg" />
+		<image>
+			<cube url="resource/pano/041d551ed6ba8e7c/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/041d551ed6ba8e7c/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_9a58bd1b4f804667" title="巡迴展四"    onstart="activatespot(90)" thumburl="resource/pano/9a58bd1b4f804667/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/9a58bd1b4f804667/preview.jpg" />
+		<image>
+			<cube url="resource/pano/9a58bd1b4f804667/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/9a58bd1b4f804667/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_38ea7b413c689ea3" title="巡迴展五"    onstart="activatespot(90)" thumburl="resource/pano/38ea7b413c689ea3/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/38ea7b413c689ea3/preview.jpg" />
+		<image>
+			<cube url="resource/pano/38ea7b413c689ea3/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/38ea7b413c689ea3/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_e038d539add665d2" title="巡迴展五-1"    onstart="activatespot(90)" thumburl="resource/pano/e038d539add665d2/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/e038d539add665d2/preview.jpg" />
+		<image>
+			<cube url="resource/pano/e038d539add665d2/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/e038d539add665d2/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_ff90ae46a8b4c77d" title="巡迴展六"    onstart="activatespot(90)" thumburl="resource/pano/ff90ae46a8b4c77d/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/ff90ae46a8b4c77d/preview.jpg" />
+		<image>
+			<cube url="resource/pano/ff90ae46a8b4c77d/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/ff90ae46a8b4c77d/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_7a5fd9b5c98d46d6" title="巡迴展七"    onstart="activatespot(90)" thumburl="resource/pano/7a5fd9b5c98d46d6/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/7a5fd9b5c98d46d6/preview.jpg" />
+		<image>
+			<cube url="resource/pano/7a5fd9b5c98d46d6/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/7a5fd9b5c98d46d6/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_32d438eea65e472f" title="巡迴展八"    onstart="activatespot(90)" thumburl="resource/pano/32d438eea65e472f/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/32d438eea65e472f/preview.jpg" />
+		<image>
+			<cube url="resource/pano/32d438eea65e472f/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/32d438eea65e472f/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_1da19fcd306457f3" title="巡迴展四-2"    onstart="activatespot(90)" thumburl="resource/pano/1da19fcd306457f3/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/1da19fcd306457f3/preview.jpg" />
+		<image>
+			<cube url="resource/pano/1da19fcd306457f3/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/1da19fcd306457f3/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_1d922115db86ab80" title="巡迴展五-2"    onstart="activatespot(90)" thumburl="resource/pano/1d922115db86ab80/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/1d922115db86ab80/preview.jpg" />
+		<image>
+			<cube url="resource/pano/1d922115db86ab80/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/1d922115db86ab80/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_52bb7c8003f84d7a" title="巡迴展六-2"    onstart="activatespot(90)" thumburl="resource/pano/52bb7c8003f84d7a/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/52bb7c8003f84d7a/preview.jpg" />
+		<image>
+			<cube url="resource/pano/52bb7c8003f84d7a/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/52bb7c8003f84d7a/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_f0d4b572ba4d2160" title="巡迴展七-2"    onstart="activatespot(90)" thumburl="resource/pano/f0d4b572ba4d2160/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/f0d4b572ba4d2160/preview.jpg" />
+		<image>
+			<cube url="resource/pano/f0d4b572ba4d2160/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/f0d4b572ba4d2160/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_8c963ee955cad9de" title="巡迴展八-2"    onstart="activatespot(90)" thumburl="resource/pano/8c963ee955cad9de/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/8c963ee955cad9de/preview.jpg" />
+		<image>
+			<cube url="resource/pano/8c963ee955cad9de/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/8c963ee955cad9de/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_c4ef554ce06425c6" title="休息區"    onstart="activatespot(90)" thumburl="resource/pano/c4ef554ce06425c6/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/c4ef554ce06425c6/preview.jpg" />
+		<image>
+			<cube url="resource/pano/c4ef554ce06425c6/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/c4ef554ce06425c6/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_3cfeb508f680c977" title="休息區二"    onstart="activatespot(90)" thumburl="resource/pano/3cfeb508f680c977/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/3cfeb508f680c977/preview.jpg" />
+		<image>
+			<cube url="resource/pano/3cfeb508f680c977/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/3cfeb508f680c977/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_5f3933cfcba02897" title="留言區"    onstart="activatespot(90)" thumburl="resource/pano/5f3933cfcba02897/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/5f3933cfcba02897/preview.jpg" />
+		<image>
+			<cube url="resource/pano/5f3933cfcba02897/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/5f3933cfcba02897/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_15003728f2ee0568" title="巡迴展出口"    onstart="activatespot(90)" thumburl="resource/pano/15003728f2ee0568/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="2" limitview="lookat"/>
+		<preview url="resource/pano/15003728f2ee0568/preview.jpg" />
+		<image>
+			<cube url="resource/pano/15003728f2ee0568/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/15003728f2ee0568/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_bd6ca129f85fe168" title="冒險之森" album="冒險之森"   onstart="activatespot(90)" thumburl="resource/pano/bd6ca129f85fe168/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="3" limitview="lookat"/>
+		<preview url="resource/pano/bd6ca129f85fe168/preview.jpg" />
+		<image>
+			<cube url="resource/pano/bd6ca129f85fe168/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/bd6ca129f85fe168/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_86cd2c276838888d" title="亮點之星" album="亮點之星"   onstart="activatespot(90)" thumburl="resource/pano/86cd2c276838888d/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="4" limitview="lookat"/>
+		<preview url="resource/pano/86cd2c276838888d/preview.jpg" />
+		<image>
+			<cube url="resource/pano/86cd2c276838888d/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/86cd2c276838888d/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_ede93bca08bdaa3f" title="農村自己人" album="農村自己人"   onstart="activatespot(90)" thumburl="resource/pano/ede93bca08bdaa3f/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/ede93bca08bdaa3f/preview.jpg" />
+		<image>
+			<cube url="resource/pano/ede93bca08bdaa3f/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/ede93bca08bdaa3f/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_8ced2374862c8d5d" title="農村一"    onstart="activatespot(90)" thumburl="resource/pano/8ced2374862c8d5d/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/8ced2374862c8d5d/preview.jpg" />
+		<image>
+			<cube url="resource/pano/8ced2374862c8d5d/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/8ced2374862c8d5d/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_5aa90fe365422b33" title="農村十字路口"    onstart="activatespot(90)" thumburl="resource/pano/5aa90fe365422b33/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/5aa90fe365422b33/preview.jpg" />
+		<image>
+			<cube url="resource/pano/5aa90fe365422b33/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/5aa90fe365422b33/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_44a21c52b94d3ea5" title="農村往水車"    onstart="activatespot(90)" thumburl="resource/pano/44a21c52b94d3ea5/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/44a21c52b94d3ea5/preview.jpg" />
+		<image>
+			<cube url="resource/pano/44a21c52b94d3ea5/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/44a21c52b94d3ea5/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_fcf01f9dbd84613d" title="農村往水車一"    onstart="activatespot(90)" thumburl="resource/pano/fcf01f9dbd84613d/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/fcf01f9dbd84613d/preview.jpg" />
+		<image>
+			<cube url="resource/pano/fcf01f9dbd84613d/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/fcf01f9dbd84613d/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_6732e42530440e8a" title="農村往水車二"    onstart="activatespot(90)" thumburl="resource/pano/6732e42530440e8a/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/6732e42530440e8a/preview.jpg" />
+		<image>
+			<cube url="resource/pano/6732e42530440e8a/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/6732e42530440e8a/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_79722252901eccd5" title="農村十字路口二"    onstart="activatespot(90)" thumburl="resource/pano/79722252901eccd5/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/79722252901eccd5/preview.jpg" />
+		<image>
+			<cube url="resource/pano/79722252901eccd5/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/79722252901eccd5/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_7bf68fea748ee392" title="百年水車"    onstart="activatespot(90)" thumburl="resource/pano/7bf68fea748ee392/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/7bf68fea748ee392/preview.jpg" />
+		<image>
+			<cube url="resource/pano/7bf68fea748ee392/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/7bf68fea748ee392/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_522731b30a4f555b" title="水車往石爺公"    onstart="activatespot(90)" thumburl="resource/pano/522731b30a4f555b/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/522731b30a4f555b/preview.jpg" />
+		<image>
+			<cube url="resource/pano/522731b30a4f555b/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/522731b30a4f555b/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_d502e7bef3832ef9" title="水車往石爺公一"    onstart="activatespot(90)" thumburl="resource/pano/d502e7bef3832ef9/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/d502e7bef3832ef9/preview.jpg" />
+		<image>
+			<cube url="resource/pano/d502e7bef3832ef9/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/d502e7bef3832ef9/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_cb325b4a83b0f069" title="石爺公"    onstart="activatespot(90)" thumburl="resource/pano/cb325b4a83b0f069/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/cb325b4a83b0f069/preview.jpg" />
+		<image>
+			<cube url="resource/pano/cb325b4a83b0f069/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/cb325b4a83b0f069/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_bd481e87862c66c6" title="農村往石爺公"    onstart="activatespot(90)" thumburl="resource/pano/bd481e87862c66c6/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/bd481e87862c66c6/preview.jpg" />
+		<image>
+			<cube url="resource/pano/bd481e87862c66c6/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/bd481e87862c66c6/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_21aa1572a2ff5d25" title="農村往石爺公二"    onstart="activatespot(90)" thumburl="resource/pano/21aa1572a2ff5d25/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/21aa1572a2ff5d25/preview.jpg" />
+		<image>
+			<cube url="resource/pano/21aa1572a2ff5d25/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/21aa1572a2ff5d25/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_5b0ca1f87f8f89e1" title="農村往石爺公三"    onstart="activatespot(90)" thumburl="resource/pano/5b0ca1f87f8f89e1/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/5b0ca1f87f8f89e1/preview.jpg" />
+		<image>
+			<cube url="resource/pano/5b0ca1f87f8f89e1/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/5b0ca1f87f8f89e1/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_5a761802b343a54a" title="農村往石爺公四"    onstart="activatespot(90)" thumburl="resource/pano/5a761802b343a54a/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="5" limitview="lookat"/>
+		<preview url="resource/pano/5a761802b343a54a/preview.jpg" />
+		<image>
+			<cube url="resource/pano/5a761802b343a54a/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/5a761802b343a54a/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_5bd7d1f3f5146d82" title="科技防災人" album="科技防災人"   onstart="activatespot(90)" thumburl="resource/pano/5bd7d1f3f5146d82/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="6" limitview="lookat"/>
+		<preview url="resource/pano/5bd7d1f3f5146d82/preview.jpg" />
+		<image>
+			<cube url="resource/pano/5bd7d1f3f5146d82/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/5bd7d1f3f5146d82/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_bd013d43216e9dd8" title="科技防災人二"    onstart="activatespot(90)" thumburl="resource/pano/bd013d43216e9dd8/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="6" limitview="lookat"/>
+		<preview url="resource/pano/bd013d43216e9dd8/preview.jpg" />
+		<image>
+			<cube url="resource/pano/bd013d43216e9dd8/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/bd013d43216e9dd8/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_021291a77c0e060e" title="科技防災人三"    onstart="activatespot(90)" thumburl="resource/pano/021291a77c0e060e/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="6" limitview="lookat"/>
+		<preview url="resource/pano/021291a77c0e060e/preview.jpg" />
+		<image>
+			<cube url="resource/pano/021291a77c0e060e/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/021291a77c0e060e/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_691d9b426ad95885" title="科技防災人四"    onstart="activatespot(90)" thumburl="resource/pano/691d9b426ad95885/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="6" limitview="lookat"/>
+		<preview url="resource/pano/691d9b426ad95885/preview.jpg" />
+		<image>
+			<cube url="resource/pano/691d9b426ad95885/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/691d9b426ad95885/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_9bd1d9e892de4613" title="坡地保育人" album="坡地保育人"   onstart="activatespot(90)" thumburl="resource/pano/9bd1d9e892de4613/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="7" limitview="lookat"/>
+		<preview url="resource/pano/9bd1d9e892de4613/preview.jpg" />
+		<image>
+			<cube url="resource/pano/9bd1d9e892de4613/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/9bd1d9e892de4613/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_86e0ff8c37a2fb02" title="坡地保育人二"    onstart="activatespot(90)" thumburl="resource/pano/86e0ff8c37a2fb02/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="7" limitview="lookat"/>
+		<preview url="resource/pano/86e0ff8c37a2fb02/preview.jpg" />
+		<image>
+			<cube url="resource/pano/86e0ff8c37a2fb02/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/86e0ff8c37a2fb02/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_ba07c676ef881709" title="坡地保育人三"    onstart="activatespot(90)" thumburl="resource/pano/ba07c676ef881709/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="7" limitview="lookat"/>
+		<preview url="resource/pano/ba07c676ef881709/preview.jpg" />
+		<image>
+			<cube url="resource/pano/ba07c676ef881709/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/ba07c676ef881709/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_dba48bcc418700a9" title="坡地保育人四"    onstart="activatespot(90)" thumburl="resource/pano/dba48bcc418700a9/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="7" limitview="lookat"/>
+		<preview url="resource/pano/dba48bcc418700a9/preview.jpg" />
+		<image>
+			<cube url="resource/pano/dba48bcc418700a9/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/dba48bcc418700a9/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_4f2458d5503863ac" title="國土守護人" album="國土守護人"   onstart="activatespot(90)" thumburl="resource/pano/4f2458d5503863ac/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="8" limitview="lookat"/>
+		<preview url="resource/pano/4f2458d5503863ac/preview.jpg" />
+		<image>
+			<cube url="resource/pano/4f2458d5503863ac/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/4f2458d5503863ac/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_cc2f6394199653e6" title="國土守護人二"    onstart="activatespot(90)" thumburl="resource/pano/cc2f6394199653e6/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="8" limitview="lookat"/>
+		<preview url="resource/pano/cc2f6394199653e6/preview.jpg" />
+		<image>
+			<cube url="resource/pano/cc2f6394199653e6/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/cc2f6394199653e6/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_97e748bed68aef2d" title="國土守護人三"    onstart="activatespot(90)" thumburl="resource/pano/97e748bed68aef2d/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="8" limitview="lookat"/>
+		<preview url="resource/pano/97e748bed68aef2d/preview.jpg" />
+		<image>
+			<cube url="resource/pano/97e748bed68aef2d/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/97e748bed68aef2d/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_67543dc90e0f5d77" title="國土守護人四"    onstart="activatespot(90)" thumburl="resource/pano/67543dc90e0f5d77/thumb.jpg?1660121040" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="8" limitview="lookat"/>
+		<preview url="resource/pano/67543dc90e0f5d77/preview.jpg" />
+		<image>
+			<cube url="resource/pano/67543dc90e0f5d77/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/67543dc90e0f5d77/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	
+
+		 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	
+
+	<action name="skin_showthumbs">
+		if(%1 == null || %1 == true,
+			js(show_listbox()),
+			js(close_listbox())
+		);		
+	</action>
+	<action name="update_active_thumb">
+
+	</action>
+
+
+	 <layer name="share" type="container" visible="true" align="right" x="-80" y="40" keep="true" width="80" height="300" devices="mobile">
+ 
+ 
+ <layer name="s1" url="face.png" x="0" y="0" align="top" alpha="0.8" ondown="set(x,-10);set(zorder,99);set(scale,1.5);set(alpha,1)" onup="set(x,0);set(zorder,0);set(scale,1);set(alpha,0.8);js(goshare1());"></layer>
+ <layer name="s2" url="twitter.png" x="0" y="50" align="top" alpha="0.8" ondown="set(x,-10);set(zorder,99);set(scale,1.5);set(alpha,1)" onup="set(x,0);set(zorder,0);set(scale,1);set(alpha,0.8);js(goshare2());"></layer>
+ <layer name="s3" url="message.png" x="0" y="100" align="top" alpha="0.8" ondown="set(x,-10);set(zorder,99);set(scale,1.5);set(alpha,1)" onup="set(x,0);set(zorder,0);set(scale,1);set(alpha,0.8);js(goshare3());"></layer>
+ <layer name="s4" url="line.png" x="0" y="150" align="top" alpha="0.8" ondown="set(x,-10);set(zorder,99);set(scale,1.5);set(alpha,1)" onup="set(x,0);set(zorder,0);set(scale,1);set(alpha,0.8);js(goshare4());"></layer>
+ 
+ 
+ 
+ 
+ 
+ </layer>
+
+</krpano>

@@ -1,0 +1,403 @@
+@font-face {
+    font-family: 'W5';
+    src: url('../../skin/W5.OTF') format('truetype');
+    font-weight: normal;
+}
+
+body{
+  font-family: 'W5';
+}
+
+/* .modal-dialog{
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  background-image: url("../../skin/VR360_UI-40.png");
+  background-repeat: no-repeat;
+  background-size: 600px 200px;
+  width: 600px;
+  height: 200px;
+}
+.modal-body {
+  width: 600px;
+  height: 130px;
+  z-index: 99;
+}
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: none;
+    margin: 0px 10px;
+    z-index: 100;
+    position: relative;
+} */
+
+/* #pictextAvatar {
+    width: 170px;
+    position: absolute;
+    right: 420px;
+    bottom: 2px;
+}
+#pictextContent {
+    font-size: 20px;
+    color: white;
+    width: calc(100% - 195px);
+    padding: 0;
+    margin-top: 20px;
+    margin-left: 175px;
+} */
+.btn-next {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+  margin-top: -15px;
+  background-color: inherit;
+  border: none;
+  background-image: url("../../skin/下一頁.png");
+  background-size: 50px 50px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.btn-previous {
+  width: 50px;
+  height: 50px;
+  margin-top: -15px;
+  background-color: inherit;
+  border: none;
+  background-image: url("../../skin/上一頁.png");
+  background-size: 50px 50px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.btn-wand {
+  width: 50px;
+  height: 50px;
+  margin-top: -15px;
+  background-color: inherit;
+  border: none;
+  background-image: url("../../skin/VR360_UI-32-45.png");
+  background-size: 50px 50px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.btn-cus1 {
+  font-family: 'W5';
+  width: 200px;
+  height: 50px;
+  margin-top: -15px;
+  background-color: inherit;
+  border: none;
+  background-image: url("../../skin/按鈕1_長版.png");
+  background-size: 200px 50px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  text-shadow: 0 0 black;
+  letter-spacing: 1px;
+}
+.btn-cus2 {
+  font-family: 'W5';
+  width: 100px;
+  height: 50px;
+  margin-top: -15px;
+  background-color: inherit;
+  border: none;
+  background-image: url("../../skin/button.png");
+  background-size: 100px 50px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  text-shadow: 0 0 black;
+  letter-spacing: 1px;
+}
+.btn-cus3 {
+  font-family: 'W5';
+  width: 100px;
+  height: 50px;
+  margin-top: -15px;
+  background-color: inherit;
+  border: none;
+  background-image: url("../../skin/按鈕3.png");
+  background-size: 100px 50px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  text-shadow: 0 0 black;
+  letter-spacing: 1px;
+}
+.btn-cus4 {
+  font-family: 'W5';
+  width: 100px;
+  height: 50px;
+  margin-top: -15px;
+  background-color: inherit;
+  border: none;
+  background-image: url("../../skin/按鈕4.png");
+  background-size: 100px 50px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  text-shadow: 0 0 black;
+  letter-spacing: 1px;
+}
+
+.btn-next:hover {
+  background-color: inherit;
+  border: none;
+}
+.btn-previous:hover {
+  background-color: inherit;
+  border: none;
+}
+.btn-wand:hover {
+  background-color: inherit;
+  border: none;
+}
+.btn-cus1:hover {
+  background-color: inherit;
+  border: none;
+  color: white;
+}
+.btn-cus2:hover {
+  background-color: inherit;
+  border: none;
+  color: none;
+  box-shadow: none;
+  outline: none;
+}
+.btn-cus2:active {
+  background-color: inherit;
+  border: none;
+  color: none;
+  box-shadow: none;
+  outline: none;
+}
+.btn-cus2:focus {
+  background-color: inherit;
+  border: none;
+  color: none;
+  box-shadow: none;
+  outline: none;
+}
+.btn-cus3:hover {
+  background-color: inherit;
+  border: none;
+  color: white;
+}
+.btn-cus4:hover {
+  background-color: inherit;
+  border: none;
+  color: white;
+}
+.modal-dialog {
+  margin: 0 auto !important;
+  margin-top: 159px !important;
+}
+
+.right_menu {
+  display: none;
+  width: 300px;
+  /* height: 150px; */
+  background-color: white;
+  right: 0;
+  position: absolute;
+  margin-top: -350px;
+  background: none;
+}
+
+.right_menu_item {
+  display: none;
+  width: 300px;
+  height: 50px;
+  width: auto;
+  background-image: url("../../skin/打勾選單框.png");
+  background-size: 300px 50px;
+}
+
+.right_menu_item .right_menu_item_text {
+  font-family: 'W5';
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  font-size: 30px;
+  margin-left: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.right_menu_item .right_menu_item_box {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  margin-top: 10px;
+  margin-left: 260px;
+  background-image: url("../../skin/打勾框.png");
+}
+.right_menu_item .right_menu_item_checked {
+  display:none;
+  position: absolute;
+  width: 30px;
+  height: 50px;
+  margin-top: 10px;
+  background-size: 30px 30px;
+  margin-left: 260px;
+  background-image: url("../../skin/打勾.png");
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 650px) {
+
+}
+
+@media (max-width: 550px) {
+
+}
+
+@media (max-width: 450px) {
+  .right_menu {
+    margin-top: -300px;
+  }
+  .right_menu_item .right_menu_item_text {
+    margin-left: 60px;
+  }
+  .right_menu_item .right_menu_item_box {
+    margin-left: 20px;
+  }
+  .right_menu_item .right_menu_item_checked {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+
+}
+
+/* @media (max-width: 600px) {
+  .modal-dialog {
+		background-size: 550px 183px !important;
+		width: 550px !important;
+		height: 183px !important;
+	}
+  .modal-body{
+    width: 550px !important;
+		height: 118px !important;
+  }
+  #pictextContent {
+    width: 325px !important;
+    margin-top: 5px !important;
+    margin-left: 180px !important;
+  }
+  #pictextAvatar {
+    width: 155px !important;
+    right: 380px !important;
+    bottom: 0px !important;
+  }
+  .btn {
+    zoom: 0.9 !important;
+  }
+}
+@media (max-width: 550px) {
+  .modal-dialog {
+		background-size: 500px 166px !important;
+		width: 500px !important;
+		height: 166px !important;
+	}
+  .modal-body{
+    width: 500px !important;
+		height: 100px !important;
+  }
+  #pictextContent {
+    font-size: 16px !important;
+    width: 320px !important;
+    margin-top: 5px !important;
+    margin-left: 155px !important;
+  }
+  #pictextAvatar {
+    width: 140px !important;
+    right: 340px !important;
+    bottom: 5px !important;
+  }
+  #button-area {
+    margin-top: 15px !important;
+  }
+  .btn {
+    zoom: 0.7 !important;
+  }
+}
+@media (max-width: 500px) {
+  .modal-dialog {
+		background-size: 450px 150px !important;
+		width: 450px !important;
+		height: 150px !important;
+	}
+  .modal-body{
+    width: 450px !important;
+		height: 80px !important;
+  }
+  #pictextContent {
+    font-size: 14px !important;
+    width: 275px !important;
+    margin-top: 5px !important;
+    margin-left: 155px !important;
+  }
+  #pictextAvatar {
+    width: 140px !important;
+    right: 300px !important;
+  }
+}
+@media (max-width: 450px) {
+  .modal-dialog {
+		background-size: 400px 133px !important;
+		width: 400px !important;
+		height: 133px !important;
+	}
+  .modal-body{
+    width: 400px !important;
+		height: 65px !important;
+  }
+  #pictextContent {
+    font-size: 14px !important;
+    width: 210px !important;
+    margin-top: 5px !important;
+    margin-left: 160px !important;
+  }
+  #pictextAvatar {
+    width: 115px !important;
+    right: 260px !important;
+  }
+  #button-area {
+    margin-top: 20px !important;
+  }
+  .btn {
+    zoom: 0.6 !important;
+  }
+}
+@media (max-width: 400px) {
+  .modal-dialog {
+		background-size: 350px 116px !important;
+		width: 350px !important;
+		height: 116px !important;
+	}
+  .modal-body{
+    width: 350px !important;
+		height: 50px !important;
+  }
+  #pictextContent {
+    font-size: 10px !important;
+    width: 210px !important;
+    margin-top: 5px !important;
+    margin-left: 115px !important;
+  }
+  #pictextAvatar {
+    width: 100px !important;
+    right: 240px !important;
+  }
+  #button-area {
+    margin-top: 20px !important;
+  }
+  .btn {
+    zoom: 0.6 !important;
+  }
+} */

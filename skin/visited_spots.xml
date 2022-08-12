@@ -1,0 +1,63 @@
+<krpano version="1.19" >
+
+	<!-- Settings for hotspot check --> 
+	
+	<visited_spots_check_settings
+		
+		style_to_check="skin_hotspotstyle"
+		what_to_do="set(crop, 128|0|128|112);"
+		
+		visited_thumbs_icon="%SWFPATH%/skin/gou.png"
+		visited_thumbs_icon_align="righttop"
+		visited_thumbs_icon_x="5"
+		visited_thumbs_icon_y="5"
+		visited_thumbs_icon_scale="1"
+	
+	/>
+
+	<!-- Event to check spots onnewpano -->
+	
+	<events name="visited_spots_check_event" keep="true" onnewpano="check_visited_spots();check_visited_thumbs();" />
+	
+	<!-- Action for checking spots via array -->
+	
+	<action name="check_visited_spots" >
+		for(set(i,0), i LT hotspot.count, inc(i),
+			if(hotspot[get(i)].style == calc(visited_spots_check_settings.style_to_check),
+				txtadd(hotspot[get(i)].onclick, 
+					if(hotspot[get(name)].wasreset != true, 
+						txtadd(info_to_add, get(name),'|');txtadd(scene[get(xml.scene)].visited_spots, get(info_to_add));
+					);
+				);
+			);
+		);
+		
+		
+		if(scene[get(xml.scene)].visited_spots, 
+			txtsplit(scene[get(xml.scene)].visited_spots, '|', visited_spots_arr);
+			for(set(i,0), i LT visited_spots_arr.count, inc(i),
+				if(hotspot[get(visited_spots_arr[get(i)].value)], 
+					set(hotspot[get(visited_spots_arr[get(i)].value)].wasreset, true);
+					callwith(hotspot[get(visited_spots_arr[get(i)].value)], calc(visited_spots_check_settings.what_to_do));
+				);
+		    );
+		);
+	</action>
+	
+	<action name="check_visited_thumbs" >
+		if(scene[get(xml.scene)].visited != true,
+			set(scene[get(xml.scene)].visited, true);
+			txtadd(visited_mark_name, 'visited_mark_', get(scene[get(xml.scene)].index));
+			addlayer(get(visited_mark_name));
+			copy(layer[get(visited_mark_name)].url, visited_spots_check_settings.visited_thumbs_icon);
+			copy(layer[get(visited_mark_name)].align, visited_spots_check_settings.visited_thumbs_icon_align);
+			copy(layer[get(visited_mark_name)].x, visited_spots_check_settings.visited_thumbs_icon_x);
+			copy(layer[get(visited_mark_name)].y, visited_spots_check_settings.visited_thumbs_icon_y);
+			copy(layer[get(visited_mark_name)].scale, visited_spots_check_settings.visited_thumbs_icon_scale);
+			txtadd(layer[get(visited_mark_name)].parent, 'thumb_', get(scene[get(xml.scene)].index));
+			set(layer[get(visited_mark_name)].enabled, false);
+			set(layer[get(visited_mark_name)].keep, true);
+		);
+	</action>
+
+</krpano>

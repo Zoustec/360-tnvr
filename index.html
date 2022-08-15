@@ -1040,16 +1040,16 @@ function showviewnum_init(data){
           localStorage.setItem('overlay_conversation_step', 2);
         } else if (localStorage.getItem('overlay_conversation_step') == 2) {
           console.log('in3')
-          var html = ' 有豐富互動教材的「冒險之森」和以RPG遊戲的方式展示業務亮點成果的「亮點之星」，';
+          var html = ' 有豐富互動教材的「冒險之森」<br>和以RPG遊戲的方式展示業務亮點成果的「亮點之星」，';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_conversation_step', 3);
         } else if (localStorage.getItem('overlay_conversation_step') == 3) {
-          var html = '選擇一條你想先體驗的遊程吧！   完成一條遊程後填寫問卷，前100位可以獲得Hagan Dazs冰品券，';
+          var html = '選擇一條你想先體驗的遊程吧！<br>完成一條遊程後填寫問卷，<br>前100位可以獲得Hagan Dazs冰品券，';
           console.log('in4')
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_conversation_step', 4);
         } else if (localStorage.getItem('overlay_conversation_step') == 4) {
-          var html = '101-500位填寫者可以獲得超商購物金。快開始你的記憶之脈旅程吧！';
+          var html = '101-500位填寫者可以獲得超商購物金。<br>快開始你的記憶之脈旅程吧！';
           console.log('in5')
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_conversation_step', 5);
@@ -1069,10 +1069,11 @@ function showviewnum_init(data){
         if (localStorage.getItem('overlay_entry_1_step') == 1) {
           clue_reset();
           var html = '滿牆珍藏的水保歷史文物、大事記照片與歷史魔法書，而且我們還將實體展場搬進環景中，走進發著紅光的門，就能看見「淼垚众-水土保持局60週年特展」！';
+          $('.overlay_conversation_text').css('margin-top','0')
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_1_step', 2);
         } else if (localStorage.getItem('overlay_entry_1_step') == 2) {
-          var html = '在這裡只要完成右方欄位的任務，就能填寫最終問卷得到獎品囉！快來挑戰吧！-水土保持局60週年特展」！';
+          var html = '在這裡只要完成右方欄位的任務，就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！-水土保持局60週年特展」！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_1_step', 3);
         } else if (localStorage.getItem('overlay_entry_1_step') == 3) {
@@ -1113,7 +1114,7 @@ function showviewnum_init(data){
         // entry_2
         if (localStorage.getItem('overlay_entry_2_step') == 1) {
           clue_reset();
-          var html = '體內的探險因子是不是都被激起來了呢？-水土保持局60週年特展」！';
+          var html = '體內的探險因子是不是都被激起來了呢？<br>-水土保持局60週年特展」！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 2);
         } else if (localStorage.getItem('overlay_entry_2_step') == 2) {
@@ -1121,7 +1122,7 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 3);
         } else if (localStorage.getItem('overlay_entry_2_step') == 3) {
-          var html = '中間螢幕是化身巨人在土石流災害時疏散居民的「土石流守護戰記」。';
+          var html = '中間螢幕是化身巨人在土石流災害時疏散居民的<br>「土石流守護戰記」。';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 4);
         } else if (localStorage.getItem('overlay_entry_2_step') == 4) {
@@ -1129,7 +1130,7 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 5);
         } else if (localStorage.getItem('overlay_entry_2_step') == 5) {
-          var html = '只要看過三個遊戲的任務，就能填寫最終問卷得到獎品囉！快來挑戰吧！';
+          var html = '只要看過三個遊戲的任務，就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 6);
         } else if (localStorage.getItem('overlay_entry_2_step') == 6) {
@@ -1185,7 +1186,7 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_3_step', 5);
         } else if (localStorage.getItem('overlay_entry_3_step') == 5) {
-          var html = '最後則是國土守護人,飛往宇宙找尋衛星,取得衛星變異點的照片，找出濫墾證據守護坡地。';
+          var html = '最後則是國土守護人,飛往宇宙找尋衛星,取得衛星變異點的照片，<br>找出濫墾證據守護坡地。';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_3_step', 6);
         } else if (localStorage.getItem('overlay_entry_3_step') == 6) {
@@ -1517,7 +1518,7 @@ function showviewnum_init(data){
           // $('.overlay .overlay_btn').css('letter-spacing', '10px')
           // localStorage.setItem('overlay_entry_1_step', 1);
 
-          var html = '歡迎來到承載水保歷史的六十之詩！';
+          var html = '歡迎來到承載水保歷史的<br>六十之詩！';
           $('.overlay_conversation_text').html(html)
           $('.overlay .overlay_btn2').show();
           localStorage.setItem('overlay_entry_1_step', 1);
@@ -1543,7 +1544,7 @@ function showviewnum_init(data){
           // $('.overlay .overlay_btn').css('letter-spacing', '10px')
           // localStorage.setItem('overlay_entry_2_step', 1);
 
-          var html = '歡迎來到有著豐富遊戲的冒險之森！';
+          var html = '歡迎來到有著豐富遊戲的<br>冒險之森！';
           $('.overlay_conversation_text').html(html)
           $('.overlay .overlay_btn2').show();
           localStorage.setItem('overlay_entry_2_step', 1);
@@ -1569,7 +1570,7 @@ function showviewnum_init(data){
           // $('.overlay .overlay_btn').css('letter-spacing', '10px')
           // localStorage.setItem('overlay_entry_3_step', 1);
 
-          var html = '歡迎來到代表水保局四大業務的亮點之星！';
+          var html = '歡迎來到代表水保局四大業務的<br>亮點之星！';
           $('.overlay_conversation_text').html(html)
           $('.overlay .overlay_btn2').show();
           localStorage.setItem('overlay_entry_3_step', 1);

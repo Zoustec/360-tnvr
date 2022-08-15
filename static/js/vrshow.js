@@ -487,6 +487,11 @@ console.log(sceneName)
         case "scene_2cd324a473d7d0d4":
         case "scene_517d7f393240de77":
         case "scene_74554e23eb33d7c6":
+          // goto_scene('scene_1697e0e33408b9b9')
+          // krpano.call('loadscene('+'scene_1697e0e33408b9b9'+', null, MERGE, '+blend_type+');');
+          // initAdvancedSetting()
+
+
             $('.overlay').show()
             $('.right_menu').hide()
             $('.vrshow_container_1_min').hide()
@@ -498,8 +503,19 @@ console.log(sceneName)
             $('.overlay .overlay_entries').show()
             localStorage.setItem('overlay_step', 2);
             break;
+        case "scene_1697e0e33408b9b9":
+            if (localStorage.getItem('overlay_step') == 2) {
+                $('.overlay').show()
+                $('.right_menu').hide()
+                $('.vrshow_container_1_min').hide()
+                $('.vrshow_container_2_min').hide()
 
+                $('.overlay .overlay_btn').hide()
+                $('.overlay .overlay_conversation_area').hide()
 
+                $('.overlay .overlay_entries').show()
+            }
+            break;
 
 
         default:
@@ -510,7 +526,11 @@ console.log(sceneName)
         $.each(hotspotObj,function(key,value){
             if(key == 'scene'){
                 $(value).each(function(idx){
-                    krpano.call('addSceneChangeHotSpot("'+this.imgPath+'","'+ (this.name) +'",'+this.linkedscene+','+(this.ath)+','+(this.atv)+','+this.isDynamic+',false,true,' + blend_type + ')');
+                    if (this.linkedscene=='scene_2cd324a473d7d0d4' || this.linkedscene=='scene_517d7f393240de77' || this.linkedscene=='scene_74554e23eb33d7c6') {
+                      krpano.call('addSceneChangeHotSpot("resource/images/15645662749277sm.png","schp_4bms6p8sa6",'+'scene_1697e0e33408b9b9'+','+(this.ath)+','+(this.atv)+',"1",false,true,' + blend_type + ')');
+                    } else {
+                      krpano.call('addSceneChangeHotSpot("'+this.imgPath+'","'+ (this.name) +'",'+this.linkedscene+','+(this.ath)+','+(this.atv)+','+this.isDynamic+',false,true,' + blend_type + ')');
+                    }
                     // krpano.call('addSceneChangeHotSpot("'+this.imgPath+'","'+ (this.name) +'",'+this.linkedscene+','+(this.ath)+','+(this.atv)+','+this.isDynamic+',false,true)');
                 });
             }else if(key == 'link'){

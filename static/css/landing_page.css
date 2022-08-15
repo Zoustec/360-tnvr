@@ -489,8 +489,17 @@ body {
 		width: 500px !important;
 		background-size: 500px 300px !important;
 	}
-	.overlay_conversation_2 {
+	.overlay_conversation {
+		width: 270px !important;
 		font-size: 20px !important;
+	}
+	.overlay_conversation_2 {
+		width: 270px !important;
+		font-size: 20px !important;
+	}
+
+	.overlay .overlay_btn2 {
+		margin-left: 210px !important;
 	}
 }
 
@@ -501,6 +510,7 @@ body {
 		background-size: 400px 200px !important;
 	}
 	.overlay_conversation_2 {
+		width: 250px !important;
 		height: 175px !important;
 		margin-left: 140px !important;
 		margin-right: 20px !important;
@@ -513,9 +523,13 @@ body {
 	}
 
 	.overlay_conversation {
-		height: 175px !important;
+		width: 240px !important;
+		height: 155px !important;
     margin-left: 140px !important;
     margin-right: 20px !important;
+	}
+	.overlay .overlay_btn2 {
+		margin-left: 185px !important;
 	}
 }
 
@@ -541,10 +555,15 @@ body {
     margin-top: 38px !important;
 	}
 	.overlay_conversation {
-		height: 100px !important;
-    margin-left: 100px !important;
+		height: 85px !important;
+    margin-left: 105px !important;
     margin-right: 5px !important;
 		font-size: 16px !important;
+    margin-top: 20px !important;
+	}
+	.overlay .overlay_btn2 {
+		width: 30px !important;
+		height: 30px !important;
 	}
 }
 
@@ -571,31 +590,34 @@ body {
 		background-size: contain !important;
 	}
 	.overlay_entry_1_btn {
-		top: 23% !important;
+		top: 50% !important;
 		left: 50% !important;
 		z-index: 100 !important;
 		width: 117px !important;
 		height: 50px !important;
 		background-size: contain !important;
 		font-size: 18px !important;
+		margin-top: 0 !important;
 	}
 	.overlay_entry_2_btn {
-		top: 52% !important;
+		top: 50% !important;
 		left: 50% !important;
 		z-index: 100 !important;
 		width: 117px !important;
 		height: 50px !important;
 		background-size: contain !important;
-		font-size: 18px !important
+		font-size: 18px !important;
+		margin-top: 0 !important;
 	}
 	.overlay_entry_3_btn {
-		top: 82% !important;
+		top: 50% !important;
 		left: 50% !important;
 		z-index: 100 !important;
 		width: 117px !important;
 		height: 50px !important;
 		background-size: contain !important;
-		font-size: 18px !important
+		font-size: 18px !important;
+		margin-top: 0 !important;
 	}
 }
 
@@ -670,12 +692,15 @@ body {
 }
 
 .overlay .overlay_btn2 {
-	margin-top: 60px;
-	width: 75px;
-	height: 75px;
-	background-size: 75px 75px;
-	font-size: 24px;
+	background-color: inherit;
+  border: none;
+  background-image: url("../../skin/下一句.png");
+	width: 50px;
+	height: 50px;
+	background-size: cover;
 	z-index: 101;
+  /* float: right; */
+	margin-left: 300px;
 }
 
 .overlay .left {
@@ -714,6 +739,7 @@ body {
 	background-size: 180px 180px;
   float: left;
 	margin-top: 115px;
+  margin-left: 15px;
 }
 
 .overlay_entry_1_img {
@@ -722,7 +748,7 @@ body {
 	position: absolute;
 
 	width: 350px;
-	height: 200px;
+	height: 215px;
 	background-image: url("../../skin/六十之詩.png");
 	background-repeat: no-repeat;
 	background-size: 350px 200px;
@@ -730,6 +756,7 @@ body {
 	transform: translate(-50%, -50%);
 	left: 25%;
 	top: 25%;
+  /* margin-top: 190px; */
 }
 .overlay_entry_2_img {
 	display: none;
@@ -737,14 +764,14 @@ body {
 	position: absolute;
 
 	width: 350px;
-	height: 200px;
+	height: 215px;
 	background-image: url("../../skin/冒險之森.png");
 	background-repeat: no-repeat;
 	background-size: 350px 200px;
 
 	transform: translate(-50%, -50%);
 	left: 50%;
-	top: 70%;
+	top: 65%;
 }
 .overlay_entry_3_img {
 	display: none;
@@ -752,7 +779,7 @@ body {
 	position: absolute;
 
 	width: 350px;
-	height: 200px;
+	height: 215px;
 	background-image: url("../../skin/亮點之星.png");
 	background-repeat: no-repeat;
 	background-size: 350px 200px;
@@ -770,8 +797,9 @@ body {
 	letter-spacing: 3px;
 	position: absolute;
 	transform: translate(-50%, -50%);
-	top: 45%;
-	left: 25%;
+	/* top: 39%; */
+	left: 50%;
+  margin-top: 190px;
 }
 .overlay .overlay_entry_2_btn {
 	display: none;
@@ -782,8 +810,9 @@ body {
 	letter-spacing: 3px;
 	position: absolute;
 	transform: translate(-50%, -50%);
-	top: 55%;
+	/* top: 85%; */
 	left: 50%;
+  margin-top: 190px;
 }
 .overlay .overlay_entry_3_btn {
 	display: none;
@@ -794,24 +823,27 @@ body {
 	letter-spacing: 3px;
 	position: absolute;
 	transform: translate(-50%, -50%);
-	top: 45%;
-	left: 75%;
+	/* top: 39%; */
+	left: 50%;
+  margin-top: 190px;
 }
 
 .overlay_conversation {
-	width: auto !important;
-	height: 275px;
-	margin-left: 175px;
+	width: 370px;
+	height: 250px;
+	margin-left: 215px;
 	margin-right: 40px;
-	margin-top: 20px;
+	margin-top: 30px;
 	font-size: 20px;
 	overflow: auto;
 	font-family: 'W5';
 	color: white;
+	text-align: left;
+	padding-right: 10px;
 }
 
 .overlay_conversation_2 {
-	width: auto !important;
+	width: 370px;
   height: 275px;
   margin-left: 175px;
   margin-right: 40px;
@@ -824,6 +856,8 @@ body {
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+	padding-right: 10px;
+	flex-wrap: wrap;
 }
 
 .overlay_conversation_top_blank {

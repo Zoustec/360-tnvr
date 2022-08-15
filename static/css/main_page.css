@@ -111,19 +111,9 @@ body{
   letter-spacing: 1px;
 }
 .btn-cus3 {
-  font-family: 'W5';
-  width: 100px;
-  height: 50px;
-  margin-top: -15px;
   background-color: inherit;
   border: none;
   background-image: url("../../skin/按鈕3.png");
-  background-size: 100px 50px;
-  font-weight: bold;
-  font-size: 14px;
-  color: white;
-  text-shadow: 0 0 black;
-  letter-spacing: 1px;
 }
 .btn-cus4 {
   font-family: 'W5';
@@ -164,13 +154,16 @@ body{
   color: none;
   box-shadow: none;
   outline: none;
+  color: #2b7163;
 }
 .btn-cus2:active {
+  background-image: url(../../skin/button.png);
   background-color: inherit;
   border: none;
   color: none;
   box-shadow: none;
   outline: none;
+  color: #2b7163;
 }
 .btn-cus2:focus {
   background-color: inherit;
@@ -178,6 +171,7 @@ body{
   color: none;
   box-shadow: none;
   outline: none;
+  color: #2b7163;
 }
 .btn-cus3:hover {
   background-color: inherit;

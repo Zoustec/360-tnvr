@@ -342,11 +342,11 @@ audio.pause();
             <div class="vrshow_container_2_min">
 
                                                                                                                                                                                                                                                                                                                       <div class="img_desc_container_min" id="share2Div">
-  <img src="/static/images/skin1/vr-btn-share2.png" onclick="showShareUrl()">
+  <img src="static/images/skin1/vr-btn-share2.png" onclick="showShareUrl()">
   <div class="img_desc_min">分享網址</div>
 </div>
 <div class="img_desc_container_min" id="profileDiv">
-    <img src="/static/images/skin1/vr-btn-desc.png" onClick="showProfile()">
+    <img src="static/images/skin1/vr-btn-desc.png" onClick="showProfile()">
     <div class="img_desc_min">簡介</div>
 </div>
 
@@ -950,17 +950,25 @@ function showviewnum_init(data){
 
 
       <div id="overlay_conversation_area" class="overlay_conversation_area">
+        <div class="overlay_conversation_area_avatar"></div>
+        <div class="overlay_conversation_2">
+          <p class ="overlay_conversation_text"></p>
+          <button type="button" class="btn overlay_btn2"></button>
+        </div>
       </div>
       <button type="button" class="btn btn-cus2 overlay_btn">開始體驗</button>
 
-      <div class="overlay_entry_1_img overlay_entries"></div>
-      <button type="button" class="btn btn-cus2 overlay_entry_1_btn overlay_entries">六十之詩</button>
+      <div class="overlay_entry_1_img overlay_entries">
+        <button type="button" class="btn btn-cus2 overlay_entry_1_btn overlay_entries">六十之詩</button>
+      </div>
 
-      <div class="overlay_entry_2_img overlay_entries"></div>
-      <button type="button" class="btn btn-cus2 overlay_entry_2_btn overlay_entries">冒險之森</button>
+      <div class="overlay_entry_2_img overlay_entries">
+        <button type="button" class="btn btn-cus2 overlay_entry_2_btn overlay_entries">冒險之森</button>
+      </div>
 
-      <div class="overlay_entry_3_img overlay_entries"></div>
-      <button type="button" class="btn btn-cus2 overlay_entry_3_btn overlay_entries">亮點之星</button>
+      <div class="overlay_entry_3_img overlay_entries">
+        <button type="button" class="btn btn-cus2 overlay_entry_3_btn overlay_entries">亮點之星</button>
+      </div>
     </div>
 
     <div class="right_menu">
@@ -996,20 +1004,17 @@ function showviewnum_init(data){
       $('.vrshow_container_2_min').hide()
       $('.vrshow_container_3_min').hide()
 
-
-
       localStorage.setItem('current_scene', '');
       localStorage.setItem('current_schp', '');
 
       localStorage.setItem('overlay_step', 0);
+      localStorage.setItem('overlay_conversation_step', 0);
       localStorage.setItem('overlay_entry_1_step', 0);
       localStorage.setItem('overlay_entry_2_step', 0);
       localStorage.setItem('overlay_entry_3_step', 0);
 
 
       clue_reset();
-
-
 
       $('.right_menu').click(function() {
         if($(this).css('right') == '-240px') {
@@ -1020,6 +1025,45 @@ function showviewnum_init(data){
         }
       });
 
+      // overlay conversation
+      $('.overlay_btn2').click(function() {
+        console.log('out')
+        if (localStorage.getItem('overlay_conversation_step') == 0) {
+          console.log('in1')
+          var html = '在這裡可以透過環景網頁的方式，觀看本來需要戴VR頭盔的虛擬展館喔！';
+          $('.overlay_conversation_text').html(html)
+          localStorage.setItem('overlay_conversation_step', 1);
+        } else if (localStorage.getItem('overlay_conversation_step') == 1) {
+          console.log('in2')
+          var html = '記憶之脈中有三條體驗遊程可以選擇，分別是承載水保局過去歷史的「六十之詩」、';
+          $('.overlay_conversation_text').html(html)
+          localStorage.setItem('overlay_conversation_step', 2);
+        } else if (localStorage.getItem('overlay_conversation_step') == 2) {
+          console.log('in3')
+          html += '有豐富互動教材的「冒險之森」和以RPG遊戲的方式展示業務亮點成果的「亮點之星」，';
+          $('.overlay_conversation_text').html(html)
+          localStorage.setItem('overlay_conversation_step', 3);
+        } else if (localStorage.getItem('overlay_conversation_step') == 3) {
+          var html = '選擇一條你想先體驗的遊程吧！   完成一條遊程後填寫問卷，前100位可以獲得Hagan Dazs冰品券，';
+          console.log('in4')
+          $('.overlay_conversation_text').html(html)
+          localStorage.setItem('overlay_conversation_step', 4);
+        } else if (localStorage.getItem('overlay_conversation_step') == 4) {
+          var html = '101-500位填寫者可以獲得超商購物金。快開始你的記憶之脈旅程吧！';
+          console.log('in5')
+          $('.overlay_conversation_text').html(html)
+          localStorage.setItem('overlay_conversation_step', 5);
+        } else if (localStorage.getItem('overlay_conversation_step') == 5) {
+          var html = '<img src="skin/price_table.png" class="" alt="">';
+          console.log('in6')
+          $('.overlay_conversation_text').html(html)
+          localStorage.setItem('overlay_conversation_step', 6);
+
+          $('.overlay .overlay_btn2').hide();
+          $('.overlay .overlay_btn').show();
+        }
+      });
+
       $('.overlay .overlay_btn').click(function() {
         if (localStorage.getItem('overlay_step') == 0) {
           $('.overlay .logo').hide()
@@ -1027,18 +1071,19 @@ function showviewnum_init(data){
           $('.overlay .overlay_btn').text('選擇體驗遊程')
           $('.overlay .overlay_btn').css('font-size', '32px')
 
-          var html = '<div class="overlay_conversation_area_avatar"></div>';
-          html += '<div class="overlay_conversation">';
-          html += '大家好！我是水保局的吉祥物小涵，歡迎來到水保局打造的3D虛擬實境數位展館「記憶之脈」！';
-          html += '   在這裡可以透過環景網頁的方式，觀看本來需要戴VR頭盔的虛擬展館喔！';
-          html += '   記憶之脈中有三條體驗遊程可以選擇，分別是承載水保局過去歷史的「六十之詩」、';
-          html += '有豐富互動教材的「冒險之森」和以RPG遊戲的方式展示業務亮點成果的「亮點之星」，';
-          html += '選擇一條你想先體驗的遊程吧！   完成一條遊程後填寫問卷，前100位可以獲得Hagan Dazs冰品券，'
-          html += '101-500位填寫者可以獲得超商購物金。快開始你的記憶之脈旅程吧！</div>';
+          var html = '大家好！我是水保局的吉祥物小涵，歡迎來到水保局打造的3D虛擬實境數位展館「記憶之脈」！';
+          // html += '   在這裡可以透過環景網頁的方式，觀看本來需要戴VR頭盔的虛擬展館喔！';
+          // html += '   記憶之脈中有三條體驗遊程可以選擇，分別是承載水保局過去歷史的「六十之詩」、';
+          // html += '有豐富互動教材的「冒險之森」和以RPG遊戲的方式展示業務亮點成果的「亮點之星」，';
+          // html += '選擇一條你想先體驗的遊程吧！   完成一條遊程後填寫問卷，前100位可以獲得Hagan Dazs冰品券，'
+          // html += '101-500位填寫者可以獲得超商購物金。快開始你的記憶之脈旅程吧！</div>';
 
-          $('.overlay .overlay_conversation_area').html(html)
+          $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_step', 1);
+
+          $('.overlay .overlay_btn').hide();
         } else if (localStorage.getItem('overlay_step') == 1) {
+
           $('.overlay .overlay_btn').hide()
           $('.overlay .overlay_conversation_area').hide()
 
@@ -1069,6 +1114,8 @@ function showviewnum_init(data){
           localStorage.setItem('overlay_step', 2);
           clue_reset();
         }
+
+
 
         // entry_1
         if (localStorage.getItem('overlay_entry_1_step') == 1) {
@@ -1521,15 +1568,18 @@ else{
   var krpano = document.getElementById("krpanoSWFObject");
     // var scenes = scene_groups[0]['scenes'];
     var ath = "10"; var atv = "10"; var fov = "100";
-    var vars = window.location.search.split("&");
-  	for(j = 0; j < vars.length; j++){
-  		if (vars[j].search("scene=") > 0) { scene = vars[j].replace("?scene=",""); }
-  		if (vars[j].search("ath=") > 0) { ath = vars[j].replace("?ath=","") }
-  		if (vars[j].search("atv=") > 0) { atv = vars[j].replace("?atv=",""); }
-  		if (vars[j].search("fov=") > 0) { fov = vars[j].replace("?fov=",""); }
+    if (window.location.search != '') {
+
+      var vars = window.location.search.split("&");
+    	for(j = 0; j < vars.length; j++){
+    		if (vars[j].search("scene=") > 0) { scene = vars[j].replace("?scene=",""); }
+    		if (vars[j].search("ath=") > 0) { ath = vars[j].replace("?ath=","") }
+    		if (vars[j].search("atv=") > 0) { atv = vars[j].replace("?atv=",""); }
+    		if (vars[j].search("fov=") > 0) { fov = vars[j].replace("?fov=",""); }
+      }
+      krpano.call('loadscene('+scene+', null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+      krpano.call("lookto(" + ath + "," + atv + "," + fov + ")");
     }
-    krpano.call('loadscene('+scene+', null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
-    krpano.call("lookto(" + ath + "," + atv + "," + fov + ")");
 });
 
 
@@ -1629,7 +1679,14 @@ function goto_scene(scene_name){
 	var krpano = document.getElementById('krpanoSWFObject');
   var blend_type = 'NOBLEND';
 
-  krpano.call('loadscene('+scene_name+', null, MERGE, '+blend_type+');');
+  // if (scene_name=='scene_2cd324a473d7d0d4' || scene_name=='scene_517d7f393240de77' || scene_name=='scene_74554e23eb33d7c6') {
+  //   krpano.call('loadscene('+'scene_1697e0e33408b9b9'+', null, MERGE, '+blend_type+');');
+    krpano.call('loadscene('+scene_name+', null, MERGE, '+blend_type+');');
+
+
+
+
+
 
   <!-- krpano.call('loadscene('+scene_name+', null, MERGE, ZOOMBLEND(0.5, 3.0, easeinquart));'); -->
 }

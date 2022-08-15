@@ -1235,6 +1235,9 @@ function showviewnum_init(data){
       });
 
       $('.overlay .overlay_btn').click(function() {
+        var krpano = document.getElementById('krpanoSWFObject');
+        var blend_type = $("body").data("panoData").blend_setting['blend_type']
+
         if (localStorage.getItem('overlay_step') == 0) {
           $('.overlay .logo').hide()
           $('.overlay .overlay_conversation_area').show()
@@ -1272,6 +1275,7 @@ function showviewnum_init(data){
           localStorage.setItem('overlay_step', 2);
           clue_reset();
           $('.overlay_conversation_text').removeAttr("style");
+          krpano.call('loadscene('+'scene_1697e0e33408b9b9'+', null, MERGE, '+blend_type+');');
         } else if (localStorage.getItem('overlay_step') == 12) {
           window.open('https://forms.gle/5LsfzYDrLosEL8Jc9')
           $('.overlay .overlay_btn').hide()
@@ -1281,6 +1285,7 @@ function showviewnum_init(data){
           localStorage.setItem('overlay_step', 2);
           clue_reset();
           $('.overlay_conversation_text').removeAttr("style");
+          krpano.call('loadscene('+'scene_1697e0e33408b9b9'+', null, MERGE, '+blend_type+');');
         } else if (localStorage.getItem('overlay_step') == 13) {
           window.open('https://forms.gle/8nHJhemvEkSVbniLA')
           $('.overlay .overlay_btn').hide()
@@ -1290,6 +1295,7 @@ function showviewnum_init(data){
           localStorage.setItem('overlay_step', 2);
           clue_reset();
           $('.overlay_conversation_text').removeAttr("style");
+          krpano.call('loadscene('+'scene_1697e0e33408b9b9'+', null, MERGE, '+blend_type+');');
         }
 
 

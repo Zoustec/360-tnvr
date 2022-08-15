@@ -508,6 +508,8 @@ body {
 	.overlay_conversation_text {
 		margin-top: 60px;
 	}
+
+
 }
 
 @media (max-width: 550px) {
@@ -546,11 +548,17 @@ body {
 	.overlay_conversation_text {
 		margin-top: 0px !important;
 	}
+	.price_table {
+		/* width: 170px !important; */
+		width: 65% !important;
+		/* margin-top: 15px; */
+		vertical-align: middle;
+	}
 }
 
 @media (max-width: 450px) {
 	.overlay .overlay_btn {
-		margin-top: 470px !important;
+		/* margin-top: 470px !important; */
 	}
 	.overlay_conversation_area {
 		height: 175px !important;
@@ -738,10 +746,10 @@ body {
 	position: absolute;
 
 	width: 600px;
-	height: 400px;
+	height: 300px;
 	background-image: url("../../skin/空白對話框.png");
 	background-repeat: no-repeat;
-	background-size: 600px 400px;
+	background-size: 600px 300px;
 
 	transform: translate(-50%, -50%);
   left: 50%;
@@ -754,7 +762,7 @@ body {
 	width: 180px;
 	background-size: 180px 180px;
   float: left;
-	margin-top: 214px;
+	margin-top: 115px;
   margin-left: 15px;
 }
 
@@ -864,7 +872,7 @@ body {
 
 .overlay_conversation_2 {
 	width: 390px;
-  height: 375px;
+  height: 275px;
   margin-left: 175px;
   margin-right: 40px;
   font-size: 20px;
@@ -1062,4 +1070,10 @@ body {
   display: none;
 	background-image: url("../../skin/sValK.png");
   background-size:contain;
+}
+.price_table {
+	/* width: 170px !important; */
+	width: 90%;
+	/* margin-top: 15px; */
+	vertical-align: middle;
 }

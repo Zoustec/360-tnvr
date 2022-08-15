@@ -979,15 +979,38 @@ function check_done_scene(){
       $('.right_menu').hide()
       $('.vrshow_container_2_min').hide()
 
-      var html = '<div class="overlay_conversation_area_avatar"></div>';
-      html += '<div class="overlay_conversation_2">';
-      html += '恭喜達成任務！填寫問卷送好禮';
-      html += '</div>';
-      $('.overlay .overlay_conversation_area').html(html)
+      // var html = '<div class="overlay_conversation_area_avatar"></div>';
+      // html += '<div class="overlay_conversation_2">';
+      // html += '恭喜達成任務！填寫問卷送好禮';
+      // html += '</div>';
+      // $('.overlay .overlay_conversation_area').html(html)
+
+      var html = '恭喜達成任務！填寫問卷送好禮';
+      $('.overlay_conversation_text').html(html)
+      // $('.overlay .overlay_btn2').show();
 
       $('.overlay .overlay_btn').text('填寫問卷')
       $('.overlay .overlay_btn').css('font-size', '50px')
       $('.overlay .overlay_btn').css('letter-spacing', '10px')
+      $('.overlay .overlay_btn').show()
+      $('.overlay .overlay_btn2').hide()
+      $('.overlay_conversation_text').css('margin-top','0')
+
+
+      $('.overlay_btn').css('width', '164px');
+      $('.overlay_btn').css('height', '70px');
+      $('.overlay_btn').css('background-size', '164px 70px');
+      $('.overlay_btn').css('letter-spacing', '5px');
+      $('.overlay_btn').css('font-size', '22px');
+      $('.overlay_btn').css('position', 'absolute');
+      $('.overlay_btn').css('margin-top', '355px');
+
+      if ($('.overlay_conversation_area').css('width') == '400px') {
+        $('.overlay_btn').css('margin-top', '325px');
+      }
+      if ($('.overlay_conversation_area').css('width') == '350px') {
+        $('.overlay_btn').css('margin-top', '315px');
+      }
 
       localStorage.setItem('overlay_step', 11);
     }
@@ -999,15 +1022,37 @@ function check_done_scene(){
       $('.right_menu').hide()
       $('.vrshow_container_2_min').hide()
 
-      var html = '<div class="overlay_conversation_area_avatar"></div>';
-      html += '<div class="overlay_conversation_2">';
-      html += '恭喜達成任務！填寫問卷送好禮';
-      html += '</div>';
-      $('.overlay .overlay_conversation_area').html(html)
+      // var html = '<div class="overlay_conversation_area_avatar"></div>';
+      // html += '<div class="overlay_conversation_2">';
+      // html += '恭喜達成任務！填寫問卷送好禮';
+      // html += '</div>';
+      // $('.overlay .overlay_conversation_area').html(html)
+
+      var html = '恭喜達成任務！填寫問卷送好禮';
+      $('.overlay_conversation_text').html(html)
+      // $('.overlay .overlay_btn2').show();
 
       $('.overlay .overlay_btn').text('填寫問卷')
       $('.overlay .overlay_btn').css('font-size', '50px')
       $('.overlay .overlay_btn').css('letter-spacing', '10px')
+      $('.overlay .overlay_btn').show()
+      $('.overlay .overlay_btn2').hide()
+      $('.overlay_conversation_text').css('margin-top','0')
+
+      $('.overlay_btn').css('width', '164px');
+      $('.overlay_btn').css('height', '70px');
+      $('.overlay_btn').css('background-size', '164px 70px');
+      $('.overlay_btn').css('letter-spacing', '5px');
+      $('.overlay_btn').css('font-size', '22px');
+      $('.overlay_btn').css('position', 'absolute');
+      $('.overlay_btn').css('margin-top', '355px');
+
+      if ($('.overlay_conversation_area').css('width') == '400px') {
+        $('.overlay_btn').css('margin-top', '325px');
+      }
+      if ($('.overlay_conversation_area').css('width') == '350px') {
+        $('.overlay_btn').css('margin-top', '315px');
+      }
 
       localStorage.setItem('overlay_step', 12);
     }
@@ -1019,15 +1064,37 @@ function check_done_scene(){
       $('.right_menu').hide()
       $('.vrshow_container_2_min').hide()
 
-      var html = '<div class="overlay_conversation_area_avatar"></div>';
-      html += '<div class="overlay_conversation_2">';
-      html += '恭喜達成任務！填寫問卷送好禮';
-      html += '</div>';
-      $('.overlay .overlay_conversation_area').html(html)
+      // var html = '<div class="overlay_conversation_area_avatar"></div>';
+      // html += '<div class="overlay_conversation_2">';
+      // html += '恭喜達成任務！填寫問卷送好禮';
+      // html += '</div>';
+      // $('.overlay .overlay_conversation_area').html(html)
+
+      var html = '恭喜達成任務！填寫問卷送好禮';
+      $('.overlay_conversation_text').html(html)
+      // $('.overlay .overlay_btn2').show();
 
       $('.overlay .overlay_btn').text('填寫問卷')
       $('.overlay .overlay_btn').css('font-size', '50px')
       $('.overlay .overlay_btn').css('letter-spacing', '10px')
+      $('.overlay .overlay_btn').show()
+      $('.overlay .overlay_btn2').hide()
+      $('.overlay_conversation_text').css('margin-top','0')
+
+      $('.overlay_btn').css('width', '164px');
+      $('.overlay_btn').css('height', '70px');
+      $('.overlay_btn').css('background-size', '164px 70px');
+      $('.overlay_btn').css('letter-spacing', '5px');
+      $('.overlay_btn').css('font-size', '22px');
+      $('.overlay_btn').css('position', 'absolute');
+      $('.overlay_btn').css('margin-top', '355px');
+
+      if ($('.overlay_conversation_area').css('width') == '400px') {
+        $('.overlay_btn').css('margin-top', '325px');
+      }
+      if ($('.overlay_conversation_area').css('width') == '350px') {
+        $('.overlay_btn').css('margin-top', '315px');
+      }
 
       localStorage.setItem('overlay_step', 13);
     }

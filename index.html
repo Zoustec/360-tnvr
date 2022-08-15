@@ -1062,6 +1062,11 @@ function showviewnum_init(data){
           $('.overlay .overlay_btn2').hide();
           $('.overlay .overlay_btn').show();
           $('.overlay_conversation_text').css('margin-top','0')
+          $('.overlay_conversation_area').css('height', '400px')
+          $('.overlay_conversation_area').css('background-size', '600px 400px')
+          $('.overlay_conversation_2').css('height', '375px')
+          $('.overlay_conversation_area_avatar').css('margin-top','213px')
+
         }
 
 
@@ -1103,10 +1108,10 @@ function showviewnum_init(data){
           $('.right_menu_item_3 .right_menu_item_text').text('看三樣水保文物介紹')
           $('.right_menu_item_4 .right_menu_item_text').text('到照片牆看看大事記載')
 
-          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '30px')
-          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '20px')
-          $('.right_menu_item_3 .right_menu_item_text').css('font-size', '20px')
-          $('.right_menu_item_4 .right_menu_item_text').css('font-size', '18px')
+          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '16px')
+          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '16px')
+          $('.right_menu_item_3 .right_menu_item_text').css('font-size', '16px')
+          $('.right_menu_item_4 .right_menu_item_text').css('font-size', '16px')
 
           localStorage.setItem('overlay_entry_1_step', 4);
         }
@@ -1158,8 +1163,8 @@ function showviewnum_init(data){
           $('.right_menu_item_2 .right_menu_item_text').text('土石流守護戰記')
           $('.right_menu_item_3 .right_menu_item_text').text('土石流防災專員裝備競賽')
 
-          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '30px')
-          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '26px')
+          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '16px')
+          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '16px')
           $('.right_menu_item_3 .right_menu_item_text').css('font-size', '16px')
 
 
@@ -1220,10 +1225,10 @@ function showviewnum_init(data){
           $('.right_menu_item_3 .right_menu_item_text').text('坡地保育人')
           $('.right_menu_item_4 .right_menu_item_text').text('國土守護人')
 
-          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '30px')
-          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '30px')
-          $('.right_menu_item_3 .right_menu_item_text').css('font-size', '30px')
-          $('.right_menu_item_4 .right_menu_item_text').css('font-size', '30px')
+          $('.right_menu_item_1 .right_menu_item_text').css('font-size', '16px')
+          $('.right_menu_item_2 .right_menu_item_text').css('font-size', '16px')
+          $('.right_menu_item_3 .right_menu_item_text').css('font-size', '16px')
+          $('.right_menu_item_4 .right_menu_item_text').css('font-size', '16px')
 
           localStorage.setItem('overlay_entry_3_step', 8);
         }
@@ -1253,6 +1258,10 @@ function showviewnum_init(data){
 
           $('.overlay .overlay_entries').show()
           $('.overlay_conversation_text').removeAttr("style");
+
+          $('.overlay_conversation_area').removeAttr("style");
+          $('.overlay_conversation_2').removeAttr("style");
+          $('.overlay_conversation_area_avatar').removeAttr("style");
           localStorage.setItem('overlay_step', 2);
         } else if (localStorage.getItem('overlay_step') == 11) {
           window.open('https://forms.gle/aFdj1Jepc8JHS3KK6')
@@ -1262,6 +1271,7 @@ function showviewnum_init(data){
           $('.overlay .overlay_entries').show()
           localStorage.setItem('overlay_step', 2);
           clue_reset();
+          $('.overlay_conversation_text').removeAttr("style");
         } else if (localStorage.getItem('overlay_step') == 12) {
           window.open('https://forms.gle/5LsfzYDrLosEL8Jc9')
           $('.overlay .overlay_btn').hide()
@@ -1270,6 +1280,7 @@ function showviewnum_init(data){
           $('.overlay .overlay_entries').show()
           localStorage.setItem('overlay_step', 2);
           clue_reset();
+          $('.overlay_conversation_text').removeAttr("style");
         } else if (localStorage.getItem('overlay_step') == 13) {
           window.open('https://forms.gle/8nHJhemvEkSVbniLA')
           $('.overlay .overlay_btn').hide()
@@ -1278,6 +1289,7 @@ function showviewnum_init(data){
           $('.overlay .overlay_entries').show()
           localStorage.setItem('overlay_step', 2);
           clue_reset();
+          $('.overlay_conversation_text').removeAttr("style");
         }
 
 
@@ -1525,6 +1537,7 @@ function showviewnum_init(data){
       });
 
       $('.overlay .overlay_entry_2_btn').click(function() {
+        console.log('###overlay_entry_2_btn###')
           localStorage.setItem('current_scene', 'scene_bd6ca129f85fe168');
           var krpano = document.getElementById('krpanoSWFObject');
           krpano.call('loadscene("scene_bd6ca129f85fe168", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
@@ -1638,6 +1651,10 @@ function showviewnum_init(data){
       localStorage.setItem('event3_clue2', 'false');
       localStorage.setItem('event3_clue3', 'false');
       localStorage.setItem('event3_clue4', 'false');
+
+      localStorage.setItem('overlay_entry_1_step', 0);
+      localStorage.setItem('overlay_entry_2_step', 0);
+      localStorage.setItem('overlay_entry_3_step', 0);
 
       $('.right_menu_item_1').hide()
       $('.right_menu_item_2').hide()

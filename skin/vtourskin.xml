@@ -1332,8 +1332,8 @@
         set(hotspot[get(schp_name)].atv,%5);
 
         set(hotspot[get(schp_name)].linkedscene,%3);
-        set(hotspot[get(schp_name)].width,'100');
-        set(hotspot[get(schp_name)].height,'100');
+        set(hotspot[get(schp_name)].width,'50');
+        set(hotspot[get(schp_name)].height,'50');
         set(hotspot[get(schp_name)].visible,%8);
         set(hotspot[get(schp_name)].hsvrfalse,true);
         if(%7 == false,
@@ -1537,7 +1537,7 @@
         set(plugin[get(tooltipname)].border,false);
         set(plugin[get(tooltipname)].glow,0);
         set(plugin[get(tooltipname)].glowcolor,0xFFFFFF);
-        set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:MicrosoftYahei; font-size:18px;');
+        set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:MicrosoftYahei; font-size:14px;');
         if(device.mobile,set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF;
         font-family:MicrosoftYahei; font-weight:bold; font-size:14px;'); ); set(plugin[get(tooltipname)].textshadow,0);
         set(plugin[get(tooltipname)].textshadowrange,6.0); set(plugin[get(tooltipname)].textshadowangle,90); if(text ==

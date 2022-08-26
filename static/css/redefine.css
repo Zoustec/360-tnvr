@@ -108,7 +108,7 @@
     cursor: pointer;
     background-size: 30px;
 }
-} 
+}
 
 .btn_sand_table_text {
     display: inline-block;
@@ -484,7 +484,7 @@
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     border-left: 1px solid #ddd;
-    
+
 }
 
 #panoSettingModal .tab-content {
@@ -4338,7 +4338,7 @@ html,body{
 }
 /*header.css*/
 .navbar{
-  border: 0; 
+  border: 0;
   border-bottom: 1px solid #ddd;
 }
 .navbar-brand{
@@ -4432,7 +4432,7 @@ html,body{
   margin-right: auto;
 }
 .nav_wrap{
-  width: 100%;   
+  width: 100%;
 }
 .list_wrap{
  width: 100%;
@@ -4443,7 +4443,7 @@ html,body{
 .card_text{
     display: block;
     line-height: 54px;
-    white-space:nowrap; 
+    white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
@@ -4499,7 +4499,7 @@ html,body{
 }
 /*header.css*/
 .navbar{
-  border: 0; 
+  border: 0;
   border-bottom: 1px solid #ddd;
 }
 .navbar-brand{
@@ -4585,7 +4585,7 @@ html,body{
   margin-bottom: 20px;
 }
 .nav_wrap{
-  width: 100%;   
+  width: 100%;
 }
 .list_wrap{
  width: 100%;
@@ -4596,7 +4596,7 @@ html,body{
 .card_text{
     display: block;
     line-height: 54px;
-    white-space:nowrap; 
+    white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }

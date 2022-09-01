@@ -199,6 +199,17 @@ body{
   background: none;
 }
 
+.right_menu_arraw {
+  background-image: url("../../skin/arrow.png");
+  width: 22px;
+  height: 24px;
+  margin-bottom: 15px;
+  margin-left: -30px;
+  transform: rotate(180deg);
+  position: absolute;
+}
+
+
 .right_menu_item {
   display: none;
   width: 300px;
@@ -214,7 +225,8 @@ body{
   width: 200px;
   height: 50px;
   font-size: 30px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
+  margin-left: 60px;
   color: white;
   display: flex;
   align-items: center;
@@ -226,7 +238,8 @@ body{
   height: 30px;
   background-size: contain;
   margin-top: 10px;
-  margin-left: 260px;
+  /* margin-left: 260px; */
+  margin-left: 20px;
   background-image: url("../../skin/打勾框.png");
 }
 .right_menu_item .right_menu_item_checked {
@@ -236,7 +249,8 @@ body{
   height: 50px;
   margin-top: 10px;
   background-size: 30px 30px;
-  margin-left: 260px;
+  /* margin-left: 260px; */
+  margin-left: 20px;
   background-image: url("../../skin/打勾.png");
   background-repeat: no-repeat;
 }
@@ -253,7 +267,7 @@ body{
   .right_menu {
     margin-top: -300px;
   }
-  .right_menu_item .right_menu_item_text {
+  /* .right_menu_item .right_menu_item_text {
     margin-left: 60px;
   }
   .right_menu_item .right_menu_item_box {
@@ -261,7 +275,7 @@ body{
   }
   .right_menu_item .right_menu_item_checked {
     margin-left: 20px;
-  }
+  } */
 }
 
 @media (max-width: 700px) {

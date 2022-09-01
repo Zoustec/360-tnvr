@@ -11,6 +11,8 @@
     <meta content="0" http-equiv="Expires" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta property="og:image" content="skin/記憶之脈_抽獎貼文.jpg"/>
+    <meta property="og:title" content="記憶之脈"/>
 
     <link rel="stylesheet" href="static/css/zui.min.css">
     <link rel="stylesheet" href="static/css/zui-theme.css">
@@ -972,6 +974,9 @@ function showviewnum_init(data){
     </div>
 
     <div class="right_menu">
+      <div class="right_menu_arraw">
+      </div>
+
       <div class="right_menu_item right_menu_item_1">
         <div class="right_menu_item_text"></div>
         <div class="right_menu_item_box"></div>
@@ -1019,8 +1024,10 @@ function showviewnum_init(data){
       $('.right_menu').click(function() {
         if($(this).css('right') == '-240px') {
           $(this).animate({'right': '0px'});
+          $('.right_menu_arraw').css('transform', 'rotate(180deg)')
         } else {
           $(this).animate({'right': '-240px'});
+          $('.right_menu_arraw').css('transform', 'rotate(0deg)')
           clearTimeout(hide_menu_timeout);
         }
       });
@@ -1078,7 +1085,7 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_1_step', 2);
         } else if (localStorage.getItem('overlay_entry_1_step') == 2) {
-          var html = '在這裡只要完成右方欄位的任務，<br>就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！';
+          var html = '在這裡只要完成<span style="color:#ffa800">右方欄位的任務</span>，<br>就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_1_step', 3);
         } else if (localStorage.getItem('overlay_entry_1_step') == 3) {
@@ -1094,11 +1101,14 @@ function showviewnum_init(data){
           $('#profileDiv').hide()
 
           $('.right_menu').show()
-          if($(window).width() <= 768) {
+          $('.right_menu_arraw').css('margin-top', '87px')
+          // if($(window).width() <= 768) {
             hide_menu_timeout = setTimeout(function() {
               $('.right_menu').animate({'right': '-240px'}, 500);
+              // $('.right_menu_arraw').animate({'transform': 'rotate(0deg)'}, 500);
+              $('.right_menu_arraw').css('transform', 'rotate(0deg)')
             }, 2000);
-          }
+          // }
           $('.right_menu_item_1').show()
           $('.right_menu_item_2').show()
           $('.right_menu_item_3').show()
@@ -1135,10 +1145,11 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 5);
         } else if (localStorage.getItem('overlay_entry_2_step') == 5) {
-          var html = '只要看過三個遊戲的任務，<br>就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！';
+          var html = '只要看過<span style="color:#ffa800">右方欄位三個遊戲影片，<br>欄位勾選完成後</span>，就能填寫最終問卷得到獎品囉！快來挑戰吧！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 6);
         } else if (localStorage.getItem('overlay_entry_2_step') == 6) {
+
           $('.overlay').hide()
           // $('.vrshow_container_logo').show()
           // $('.vrshow_container_1_min').show()
@@ -1151,11 +1162,14 @@ function showviewnum_init(data){
           $('#profileDiv').hide()
 
           $('.right_menu').show()
-          if($(window).width() <= 768) {
+          $('.right_menu_arraw').css('margin-top', '61px')
+          // if($(window).width() <= 768) {
             hide_menu_timeout = setTimeout(function() {
               $('.right_menu').animate({'right': '-240px'}, 500);
+              // $('.right_menu_arraw').animate({'transform': 'rotate(0deg)'}, 500);
+              $('.right_menu_arraw').css('transform', 'rotate(0deg)')
             }, 2000);
-          }
+          // }
           $('.right_menu_item_1').show()
           $('.right_menu_item_2').show()
           $('.right_menu_item_3').show()
@@ -1195,9 +1209,10 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_3_step', 6);
         } else if (localStorage.getItem('overlay_entry_3_step') == 6) {
-          var html = '只要從傳送門進去過四個關卡，<br>就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！';
+          var html = '只要從傳送門進去過四個關卡，<br><span style="color:#ffa800">右方四個欄位，勾選完成後</span>，就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_3_step', 7);
+
         } else if (localStorage.getItem('overlay_entry_3_step') == 7) {
           $('.overlay').hide()
           // $('.vrshow_container_logo').show()
@@ -1211,11 +1226,14 @@ function showviewnum_init(data){
           $('#profileDiv').hide()
 
           $('.right_menu').show()
-          if($(window).width() <= 768) {
+          $('.right_menu_arraw').css('margin-top', '87px')
+          // if($(window).width() <= 768) {
             hide_menu_timeout = setTimeout(function() {
               $('.right_menu').animate({'right': '-240px'}, 500);
+              // $('.right_menu_arraw').animate({'transform': 'rotate(0deg)'}, 500);
+              $('.right_menu_arraw').css('transform', 'rotate(0deg)')
             }, 2000);
-          }
+          // }
           $('.right_menu_item_1').show()
           $('.right_menu_item_2').show()
           $('.right_menu_item_3').show()

@@ -6437,42 +6437,42 @@ var data =
             "type": "img"
           }
         ]
-      },
-      {
-        "name": "scene_86e0ff8c37a2fb02",
-        "hotspot": [
-          {
-            "name": "hotspot_bhhn13",
-            "videourl": "resource/tie/53d36fa190e4d348.png",
-            "locationurl": "",
-            "hotspottitle": "u89d2u8272u5927u982du8cbc-04.png",
-            "ath": "-94.422107121116",
-            "atv": "-5.3188172694462",
-            "width": "186",
-            "height": "100",
-            "rx": "-4",
-            "ry": "7",
-            "rz": "-1",
-            "depth": "603",
-            "type": "img"
-          },
-          {
-            "name": "hotspot_g7xcjm",
-            "videourl": "resource/tie/82ccbe36acfc4be6.png",
-            "locationurl": "",
-            "hotspottitle": "u89d2u8272u5927u982du8cbc-06.png",
-            "ath": "-139.38102023615",
-            "atv": "1.0034304970325",
-            "width": "241",
-            "height": "132",
-            "rx": "0",
-            "ry": "15",
-            "rz": "-1",
-            "depth": "791",
-            "type": "img"
-          }
-        ]
       }
+      // {
+      //   "name": "scene_86e0ff8c37a2fb02",
+      //   "hotspot": [
+      //     {
+      //       "name": "hotspot_bhhn13",
+      //       "videourl": "resource/tie/53d36fa190e4d348.png",
+      //       "locationurl": "",
+      //       "hotspottitle": "u89d2u8272u5927u982du8cbc-04.png",
+      //       "ath": "-94.422107121116",
+      //       "atv": "-5.3188172694462",
+      //       "width": "186",
+      //       "height": "100",
+      //       "rx": "-4",
+      //       "ry": "7",
+      //       "rz": "-1",
+      //       "depth": "603",
+      //       "type": "img"
+      //     },
+      //     {
+      //       "name": "hotspot_g7xcjm",
+      //       "videourl": "resource/tie/82ccbe36acfc4be6.png",
+      //       "locationurl": "",
+      //       "hotspottitle": "u89d2u8272u5927u982du8cbc-06.png",
+      //       "ath": "-139.38102023615",
+      //       "atv": "1.0034304970325",
+      //       "width": "241",
+      //       "height": "132",
+      //       "rx": "0",
+      //       "ry": "15",
+      //       "rz": "-1",
+      //       "depth": "791",
+      //       "type": "img"
+      //     }
+      //   ]
+      // }
       // {
       //   "name": "scene_1697e0e33408b9b9",
       //   "hotspot": [

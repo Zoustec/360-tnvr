@@ -1,0 +1,193 @@
+<krpano version="1.19" title="茁思環景大師" debugmode="false">
+ 
+<include url="%SWFPATH%/skin/vtourskin.xml" />
+<include url="%SWFPATH%/autorotate.xml" />
+
+<include url="%SWFPATH%/skin/visited_spots.xml" />
+<include url="%SWFPATH%/object.xml" />
+
+<events name="bgstart" keep="true" onpreviewcomplete="js(hidebg())" onclick="closeshare();"/>	
+
+<action name="showshare">
+
+tween(layer[share].x,-20);
+
+set(events[bgstart].onclick,closeshare());
+
+</action>
+
+<action name="closeshare">
+
+tween(layer[share].x,-80);
+
+set(events[bgstart].onclick,showshare());
+
+
+</action>
+
+
+
+<contextmenu fullscreen="false" versioninfo="false">
+        <item name="logo" caption="茁思環景大師" separator="true" onclick="openurl('https://360.zoustec.com/')" devices="flash|webgl"/>
+        
+</contextmenu>
+<events name="musicevents"
+    onnewpano="indexoftxt(result, get(scene[get(xml.scene)].bgmusic),sound); if(result GE 0,tween(sound[bgsnd].volume, 0.5)); set(music_bgmusic,get(scene[get(xml.scene)].bgmusic)); if(music_bgmusic,js(openMusicVoiceBtn());playsound(bgm,get(scene[get(xml.scene)].bgmusic),1,tween(sound[bgsnd].volume, 1)););"
+    keep="true"/>
+ <layer name="open_alert" url="" keep="true" align="center" edge="center" x="0" y="0"  maxwidth="800" maxheight="1000"  maxwidth.mobile="500" maxheight.mobile="800" 
+           enabled="false" visible="false"/>
+<action name="show_open_alert">set(layer[open_alert].url,%1); set(layer[open_alert].visible,true); delayedcall(5,
+    tween(layer[open_alert].alpha,0,1));
+</action>
+	 <hotspot name="shadelogo" url="" ath="0" atv="90" distorted="true" scale="1.0" rotate="0.0" rotatewithview="true" enabled="false"
+         visible="false" keep="true" onloaded="set(hotspot[shadelogo].rotate,get(view.hlookat));"/>
+<events name="shadelogorotation" keep="true"
+        onviewchange="if(hotspot[shadelogo].rotatewithview, set(hotspot[shadelogo].rotate,get(view.hlookat)) );"/>
+<action name="show_shade">
+    set(hotspot[shadelogo].url,%1);
+    set(hotspot[shadelogo].atv,%2);
+    set(hotspot[shadelogo].visible,true);
+    set(hotspot[shadelogo].depth,2000);
+</action>
+<action name="addShade">
+    txtadd(shade_name, 'shade_',%1); 
+    addhotspot(get(shade_name));
+    set(hotspot[get(shade_name)].url,%2); 
+    <!-- set(hotspot[get(shade_name)].ath,0);  -->
+    set(hotspot[get(shade_name)].atv,%3);
+    set(hotspot[get(shade_name)].distorted,true); 
+    set(hotspot[get(shade_name)].scale,"1.0");
+    set(hotspot[get(shade_name)].rotate,"0.0");
+     set(hotspot[get(shade_name)].rotatewithview,"true");
+    set(hotspot[get(shade_name)].visible,"true"); 
+    set(hotspot[get(shade_name)].keep,"false");
+    set(hotspot[get(shade_name)].onloaded,"set(hotspot[get(shade_name)].rotate,get(view.hlookat));");
+</action>  
+ <action name="startup" autorun="onstart">
+ 	copy(startscene,scene[0].name); 
+    if(device.fullscreensupport == true,js(showFullscreenBtn()););
+    if(device.mobile OR device.tablet,js(hideShareAndFootmarkBtn()););
+    loadscene(get(startscene), null, MERGE);
+    if(startactions !== null, startactions()); if(autorotate.enabled,bombtimer(0));   
+ </action>
+	   	 <scene name="scene_179184fca19185ca" title="1-1"    onstart="activatespot(90)" thumburl="resource/pano/179184fca19185ca/thumb.jpg?1656418178" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="" limitview="lookat"/>
+		<preview url="resource/pano/179184fca19185ca/preview.jpg" />
+		<image>
+			<cube url="resource/pano/179184fca19185ca/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/179184fca19185ca/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_e712c9d6e6659640" title="1-2"    onstart="activatespot(90)" thumburl="resource/pano/e712c9d6e6659640/thumb.jpg?1656418178" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="" limitview="lookat"/>
+		<preview url="resource/pano/e712c9d6e6659640/preview.jpg" />
+		<image>
+			<cube url="resource/pano/e712c9d6e6659640/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/e712c9d6e6659640/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_c3fbc0cf1954e842" title="2-1"    onstart="activatespot(90)" thumburl="resource/pano/c3fbc0cf1954e842/thumb.jpg?1656418178" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="" limitview="lookat"/>
+		<preview url="resource/pano/c3fbc0cf1954e842/preview.jpg" />
+		<image>
+			<cube url="resource/pano/c3fbc0cf1954e842/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/c3fbc0cf1954e842/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_1d1d29ff9800454d" title="2-2"    onstart="activatespot(90)" thumburl="resource/pano/1d1d29ff9800454d/thumb.jpg?1656418178" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="" limitview="lookat"/>
+		<preview url="resource/pano/1d1d29ff9800454d/preview.jpg" />
+		<image>
+			<cube url="resource/pano/1d1d29ff9800454d/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/1d1d29ff9800454d/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_18660de6942281d1" title="3-1"    onstart="activatespot(90)" thumburl="resource/pano/18660de6942281d1/thumb.jpg?1656418178" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="" limitview="lookat"/>
+		<preview url="resource/pano/18660de6942281d1/preview.jpg" />
+		<image>
+			<cube url="resource/pano/18660de6942281d1/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/18660de6942281d1/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_04e78c7766783b16" title="3-2"    onstart="activatespot(90)" thumburl="resource/pano/04e78c7766783b16/thumb.jpg?1656418178" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="" limitview="lookat"/>
+		<preview url="resource/pano/04e78c7766783b16/preview.jpg" />
+		<image>
+			<cube url="resource/pano/04e78c7766783b16/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/04e78c7766783b16/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	  	 <scene name="scene_7acf894b669a3e2b" title="4"    onstart="activatespot(90)" thumburl="resource/pano/7acf894b669a3e2b/thumb.jpg?1656418178" lat="" lng="" heading="">
+   
+		 <view hlookat="0" vlookat="0" fovtype="MFOV" fov="90" fovmin="5" fovmax="120" vlookatmin="-90" vlookatmax="90" album_index="" limitview="lookat"/>
+		<preview url="resource/pano/7acf894b669a3e2b/preview.jpg" />
+		<image>
+			<cube url="resource/pano/7acf894b669a3e2b/pano_%s.jpg" />
+			<!-- <cube url="resource/pano/7acf894b669a3e2b/mobile/pano_%s.jpg" devices="mobile" /> -->
+		</image>	
+		
+	</scene>   
+	
+
+		 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	 
+		 
+			
+		 	
+
+	<action name="skin_showthumbs">
+		if(%1 == null || %1 == true,
+			js(show_listbox()),
+			js(close_listbox())
+		);		
+	</action>
+	<action name="update_active_thumb">
+
+	</action>
+
+
+	 <layer name="share" type="container" visible="true" align="right" x="-80" y="40" keep="true" width="80" height="300" devices="mobile">
+ 
+ 
+ <layer name="s1" url="face.png" x="0" y="0" align="top" alpha="0.8" ondown="set(x,-10);set(zorder,99);set(scale,1.5);set(alpha,1)" onup="set(x,0);set(zorder,0);set(scale,1);set(alpha,0.8);js(goshare1());"></layer>
+ <layer name="s2" url="twitter.png" x="0" y="50" align="top" alpha="0.8" ondown="set(x,-10);set(zorder,99);set(scale,1.5);set(alpha,1)" onup="set(x,0);set(zorder,0);set(scale,1);set(alpha,0.8);js(goshare2());"></layer>
+ <layer name="s3" url="message.png" x="0" y="100" align="top" alpha="0.8" ondown="set(x,-10);set(zorder,99);set(scale,1.5);set(alpha,1)" onup="set(x,0);set(zorder,0);set(scale,1);set(alpha,0.8);js(goshare3());"></layer>
+ <layer name="s4" url="line.png" x="0" y="150" align="top" alpha="0.8" ondown="set(x,-10);set(zorder,99);set(scale,1.5);set(alpha,1)" onup="set(x,0);set(zorder,0);set(scale,1);set(alpha,0.8);js(goshare4());"></layer>
+ 
+ 
+ 
+ 
+ 
+ </layer>
+
+</krpano>

@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control" />
+    <meta content="no-cache" http-equiv="Pragma" />
+    <meta content="0" http-equiv="Expires" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta property="og:url" content="https://fiveformula.github.io/360-tnvr" />
+<meta property="og:title" content="「小小交通規畫師」VR互動網頁" />
+<meta property="og:description" content="和阿秋一起在環景網頁中，找出最符合人本交通精神的選擇吧！體驗完環景網頁後還能填問卷抽好禮唷！" />
+<meta property="og:image" content="https://fiveformula.github.io/360-tnvr/skin/logo.png" />
+    <link rel="stylesheet" href="static/css/zui.min.css">
+    <link rel="stylesheet" href="static/css/zui-theme.css">
+    <link rel="stylesheet" href="static/css/redefine.css">
+    <link rel="stylesheet" href="static/css/response.css">
+    <link rel="stylesheet" href="static/css/alivideo.css">
+    <link rel="stylesheet" href="static/css/landing_page.css?v=20220826002">
+    <link rel="stylesheet" href="static/css/main_page.css?v=20220826002">
+    <script language="JavaScript" type="text/javascript" src="static/js/data.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/jquery-1.9.1.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/zui.js"></script>
+    <script language="JavaScript" type="text/javascript" src="tour.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/vrshow.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/alivideo.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/object.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/video_patch.js?v=20220615001"></script>
+    <script src="wave.js"></script>
+    <script async src="https://platform-api.sharethis.com/js/sharethis.js#property=5d27f28e35a1b20012696b81&product=inline-share-buttons" sticky-share-buttons></script>
+  </head>
+  <body>
+    <div class="turnDeviceNotification" style="z-index:1000000000000000;"></div>
+
+    <div id="fullscreenid" style="position:relative;width:100%; height:100%;">
+      <div id="panoBtns" style="display:none">
+        <!-- <div class="vrshow_container_logo">
+          <img id="logoImg" src="resource/images/custom_logo.png" style="display: none;">
+          <div class="vrshow_logo_title" id="user_name_wrap">
+            <div id="authorDiv" style="display: none;">作者： <span id="user_nickName">fiveformula</span>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+          <div class="vrshow_logo_title">
+            <div id="viewnumDiv">人氣： <span id="user_viewNum">0</span>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+        </div> -->
+        <div class="vrshow_container_1_min">
+          <div class="btn_fullscreen" onClick="fullscreen(this)" title="" style="display:none"></div>
+          <!-- <div class="btn_vrmode" onClick="showWebVR()" style="display:none"></div> -->
+          <div class="btn_gyro btn_snapshot" onClick="sceneSnapshot();" style="background-image:url('/static/images/skin1/snapshot.png');display:none;"></div>
+          <!--<div class="btn_reward"  onClick="showRwardModal();" style="display:none"></div> -->
+          <div class="btn_gyro" onClick="toggleGyro(this)" style="display:none;"></div>
+          <!-- <style>
+.btn_bgmusic {
+    background: url("/plugin/bgmusic/images/bgmusic-open.png") no-repeat;
+}
+
+.btn_bgmusic_off {
+    background: url("/plugin/bgmusic/images/bgmusic-close.png") no-repeat;
+}
+</style>
+ -->
+          <div class="btn_bgmusic" onClick="pause_bgMusic(this)" style="display:none"></div>
+          <audio loop id="audiojs">
+          </audio>
+          <iframe src="skin/250-milliseconds-of-silence.mp3" allow="autoplay" id="audio" hidden ></iframe>
+          <script>
+            localStorage.setItem('overlay_step', 0);
+            localStorage.setItem('end_step', -1);
+
+            // $(document).ready(function () {
+            //   function reorient(e) {
+            //     var portrait = (window.orientation % 180 == 0);
+            //     $("body > div").css("-webkit-transform", !portrait ? "rotate(-90deg)" : "");
+            //   }
+            //   window.onorientationchange = reorient;
+            //   window.setTimeout(reorient, 0);
+            // });
+
+            $(document).ready(function() {
+                $('.overlay .landing-btn').click(function() {
+                  // document.getElementById('overlay_conversation_area').scrollTop += 200;
+                    if (localStorage.getItem('overlay_step')==0) {
+                        $('.overlay .logo').hide()
+                        $('.overlay .overlay_background').hide()
+                        $('.overlay .overlay_conversation_area').show()
+                        $('.overlay .overlay_bottom_logo_area').hide()
+                        // $('.overlay .overlay_bottom_mask').show()
+
+
+                        $('.overlay .overlay_btn').text("")
+                        $('.overlay .overlay_btn').removeClass("btn-cus2 overlay_btn").addClass("btn-next overlay_btn2")
+
+                        var html =''
+                        html += '<div class="overlay_conversation_cha1 overlay_conversation1">';
+                        html += '<div class="overlay_conversation_content">哈囉！阿秋，你今天也一個人走路上學嗎？</div>';
+                        html += '</div>';
+                        html += '<div class="overlay_conversation_cha2 overlay_conversation2">';
+                        html += '<div class="overlay_conversation_content2">今天媽媽太忙了，交給我自己上下學的任務！</div>';
+                        html += '</div>';
+                        html += '<div class="overlay_conversation_cha1 overlay_conversation3">';
+                        html += '<div class="overlay_conversation_content">太好了！剛好有機會讓你看看學校附近的交通事件。</div>';
+                        html += '</div>';
+                        html += '<div class="overlay_conversation_cha1 overlay_conversation4">';
+                        html += '<div class="overlay_conversation_content">來！給你這支魔法棒，在你遇到交通事件的選擇時可以看情況使用它！</div>';
+                        html += '</div>';
+                        html += '<div class="overlay_conversation_cha2 overlay_conversation5">';
+                        html += '<div class="overlay_conversation_content2">謝謝土地公爺爺，<br>包在我身上！</div>';
+                        html += '</div>';
+                        html += '<div class="overlay_conversation_cha1 overlay_conversation6">';
+                        html += '<div class="overlay_conversation_content">那就出發去看看交通事件吧！去吧！</div>';
+                        html += '</div>'
+                        $('.overlay .overlay_conversation_area').append(html)
+                        $('.overlay_conversation1').css("opacity", 1)
+
+
+                        localStorage.setItem('overlay_step', 1);
+                    }
+                    else if (localStorage.getItem('overlay_step')==1) {
+                        $('.overlay_conversation2').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "200" });
+                        localStorage.setItem('overlay_step', 2);
+                    }
+                    else if (localStorage.getItem('overlay_step')==2) {
+                        $('.overlay_conversation3').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "400" });
+                        localStorage.setItem('overlay_step', 3);
+                    }
+                    else if (localStorage.getItem('overlay_step')==3) {
+                        $('.overlay_conversation4').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "600" });
+                        localStorage.setItem('overlay_step', 4);
+                    }
+                    else if (localStorage.getItem('overlay_step')==4) {
+                        $('.overlay_conversation5').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "800" });
+                        localStorage.setItem('overlay_step', 5);
+                    }
+                    else if (localStorage.getItem('overlay_step')==5) {
+                        $('.overlay_conversation6').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "1000" });
+                        localStorage.setItem('overlay_step', 6);
+                    }
+                    else if (localStorage.getItem('overlay_step')==6) {
+                        $('.overlay_conversation_content').html('')
+                        // $('.overlay .overlay_conversation_area').append(html)
+                        $('.overlay .overlay_conversation_area').html("<div class='overlay_conversation_top_blank'></div>")
+                        $("#overlay_conversation_area").animate({ scrollTop: "0" });
+
+                        $(this).parent().fadeOut(1200);
+                        localStorage.setItem('overlay_step', 7);
+                        setTimeout(function(){
+                          $('.overlay2').fadeOut(1200);
+                        }, 5000);
+
+                    }
+
+                    if (localStorage.getItem('end_step')==0) {
+
+                          var html =''
+                          html += '<div class="overlay_conversation_cha1 overlay_conversation1">';
+                          html += '<div class="overlay_conversation_content">阿秋，這一趟下來，看了這麼多交通事件，感覺怎麼樣啊？</div>';
+                          html += '</div>';
+                          html += '<div class="overlay_conversation_cha2 overlay_conversation2">';
+                          html += '<div class="overlay_conversation_content2">我發現馬路上真的有很多小細節以前都沒有注意到，藏了這麼多危險。</div>';
+                          html += '</div>';
+                          html += '<div class="overlay_conversation_cha1 overlay_conversation3">';
+                          html += '<div class="overlay_conversation_content">是啊，除了建造人本交通建設改善環境，自己本身也要遵守交通規則，了解道安知識，才能用路平安！</div>';
+                          html += '</div>';
+                          html += '<div class="overlay_conversation_cha2 overlay_conversation4">';
+                          html += '<div class="overlay_conversation_content2">我瞭解了！<br>也要跟我爸爸媽媽和同學們說！</div>';
+                          html += '</div>';
+                          html += '<div class="overlay_conversation_cha1 overlay_conversation5">';
+                          html += '<div class="overlay_conversation_content">這樣就對了！<br>那我們下次見吧，拜拜！</div>';
+                          html += '</div>';
+                          $('.overlay .overlay_conversation_area').append(html)
+                          $('.overlay_conversation1').css("opacity", 1)
+
+                          localStorage.setItem('end_step', 1);
+                    }
+                    else if (localStorage.getItem('end_step')==1) {
+                        $('.overlay_conversation2').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "200" });
+                        localStorage.setItem('end_step', 2);
+                    }
+                    else if (localStorage.getItem('end_step')==2) {
+                        $('.overlay_conversation3').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "400" });
+                        localStorage.setItem('end_step', 3);
+                    }
+                    else if (localStorage.getItem('end_step')==3) {
+                        $('.overlay_conversation4').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "600" });
+                        localStorage.setItem('end_step', 4);
+                    }
+                    else if (localStorage.getItem('end_step')==4) {
+                        $('.overlay_conversation5').css("opacity", 1)
+                        $("#overlay_conversation_area").animate({ scrollTop: "800" });
+                        localStorage.setItem('end_step', 5);
+
+                        $('.overlay .landing-btn').css("left", "unset")
+                        $('.overlay .landing-btn').css("right", "10%")
+                        $('.overlay .landing-btn').css("width", "80px")
+                        $('.overlay .landing-btn2').show()
+                        $('.overlay_ending_form').show()
+                        $("#overlay_conversation_area").hide()
+                    }
+                    // else if (localStorage.getItem('end_step')==5) {
+                    //   $('.overlay_ending_form').show()
+                    //   $("#overlay_conversation_area").hide()
+                    //   localStorage.setItem('end_step', 6);
+                    // }
+                    else if (localStorage.getItem('end_step')==5) {
+
+                        $('.overlay_ending_form').hide()
+                        $('.landing-btn2').hide()
+                        // window.open("https://forms.gle/GhNbNUJAbo5XSQSy8")
+                        $('.overlay_ending_button_area').show()
+                        $('.overlay .overlay_conversation').hide()
+                        $('.overlay .landing-btn').remove()
+                        $('.overlay .overlay_background').show()
+                        $('.overlay .logo').show()
+                        $('.overlay .overlay_bottom_logo_area').show()
+                        $('.overlay_conversation_content').html('')
+                        $('.overlay .overlay_conversation_area').hide()
+
+                        localStorage.setItem('end_step', 6);
+                    }
+
+                });
+                $('.landing-btn2').click(function() {
+                  window.open("https://forms.gle/GhNbNUJAbo5XSQSy8")
+                  console.log('a')
+                });
+
+                $('.overlay_ending_button1').click(function() {
+                    var krpano = document.getElementById('krpanoSWFObject');
+                    krpano.call('loadscene("scene_179184fca19185ca", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+                    $('.overlay').fadeOut(1200);
+                });
+                $('.overlay .overlay_ending_button2').click(function() {
+                    var krpano = document.getElementById('krpanoSWFObject');
+                    krpano.call('loadscene("scene_c3fbc0cf1954e842", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+                    $('.overlay').fadeOut(1200);
+                });
+                $('.overlay .overlay_ending_button3').click(function() {
+                    var krpano = document.getElementById('krpanoSWFObject');
+                    krpano.call('loadscene("scene_18660de6942281d1", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+                    $('.overlay').fadeOut(1200);
+                });
+                $('.overlay .overlay_ending_button4').click(function() {
+                    var krpano = document.getElementById('krpanoSWFObject');
+                    krpano.call('loadscene("scene_7acf894b669a3e2b", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+                    $('.overlay').fadeOut(1200);
+                });
+
+
+                // window.addEventListener('resize', () => {
+                //     if (window.innerHeight<) {
+                //
+                //     }
+                // });
+
+                $(window).on('orientationchange', function(e) {
+                  detectOrientation();
+                });
+                detectOrientation();
+                function detectOrientation() {
+                  switch ( window.orientation ) {
+                      case 0:
+                          $('.turnDeviceNotification').css('display', 'none');
+                          // alert('')
+                          // The device is in portrait mode now
+                          // alert(window.orientation);
+                          break;
+
+                      case 180:
+                          $('.turnDeviceNotification').css('display', 'none');
+                          // The device is in portrait mode now
+                          // alert(window.orientation);
+                          break;
+
+                      case 90:
+                          // The device is in landscape now
+                          $('.turnDeviceNotification').css('display', 'block');
+                          // alert(window.orientation);
+                          break;
+
+                      case -90:
+                          // The device is in landscape now
+                          $('.turnDeviceNotification').css('display', 'block');
+                          // alert(window.orientation);
+                          break;
+                  }
+                }
+            })
+
+
+            $(function() {
+              plugins_init_function.push(bgmusic_init);
+            })
+            var whole = 1;
+
+            function bgmusic_init(data, settings) {
+              //背景音乐
+              var musicObj = data.bg_music;
+              if (musicObj.isWhole == '1') {
+                if (musicObj.useMusic == '1') {
+                  document.getElementById("audiojs").src = musicObj.mediaUrl;
+
+                  //                settings["onstart"] += "playsound(bgmusic, '" + musicObj.mediaUrl + "', 0);";
+                }
+              } else {
+                whole = 0;
+                $(musicObj.sceneSettings).each(function(idx) {
+                  if (this.useMusic == '1') {
+                    settings['scene[scene_' + this.imgUuid + '].bgmusic'] = this.mediaUrl;
+                  }
+                });
+              }
+              settings["events[skin_events].onloadcomplete"] += "js(toggleMusicBtn(get(xml.scene)));";
+              <!-- document.getElementById("audiojs").play() -->
+            }
+
+            function toggleMusicBtn(sceneName) {
+              var musicObj = $("body").data("panoData").bg_music;
+              if (musicObj.isWhole == '1') {
+                if (musicObj.useMusic == '1') {
+                  $('.btn_bgmusic,.btn_bgmusic_off').show();
+                } else {
+                  $('.btn_bgmusic,.btn_bgmusic_off').hide();
+                }
+              } else {
+                var imgUuid = sceneName.substring(sceneName.indexOf("_") + 1, sceneName.length).toLowerCase();
+                $(musicObj.sceneSettings).each(function(idx) {
+                  if (imgUuid == this.imgUuid) {
+                    if (this.useMusic == '1') {
+                      $('.btn_bgmusic,.btn_bgmusic_off').show();
+                    } else {
+                      $('.btn_bgmusic,.btn_bgmusic_off').hide();
+                    }
+                  }
+                });
+              }
+            }
+
+            function bf() {
+              var audio = document.getElementById('audiojs');
+              if (audio !== null) {
+                if (audio.paused) {
+                  audio.play();
+                } else {
+                  audio.pause();
+                }
+              }
+            }
+
+            function pause_bgMusic(el) {
+              var krpano = document.getElementById('krpanoSWFObject');
+              // krpano.call("pausesoundtoggle(bgmusic);pausesoundtoggle(bgm);");
+              console.log('pau')
+              krpano.call("pausesoundtoggle(bgmusic);pausesoundtoggle(bgm);");
+              if (whole == '1') {
+                bf();
+              }
+              toggleMusic(el);
+            }
+
+            function toggleMusic(el) {
+              if ($(el).hasClass("btn_bgmusic")) {
+                $(el).removeClass("btn_bgmusic");
+                $(el).addClass("btn_bgmusic_off");
+              } else {
+                $(el).removeClass("btn_bgmusic_off");
+                $(el).addClass("btn_bgmusic");
+              }
+            }
+          </script>
+          <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+              function audioAutoPlay() {
+                var audio = document.getElementById('audiojs');
+                audio.play();
+                document.removeEventListener('click', audioAutoPlay);
+              }
+              document.addEventListener('click', audioAutoPlay);
+            });
+            if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
+              $(document).one('touchstart', function(e) {
+                $('#audiojs').get(0).touchstart = true;
+                $('#audiojs').get(0).play();
+                return false;
+              });
+            }
+          </script>
+          <!-- <style>
+	.btn_music {
+	    background: url("/plugin/bgvoice/images/music-open.png") no-repeat;
+	}
+	.btn_music_off {
+	    background: url("/plugin/bgvoice/images/music-close.png") no-repeat;
+	}
+</style> -->
+          <audio src="" autoplay id="audiojs2"></audio>
+          <div class="btn_music" style="display:none" onClick="pauseSpeech(this)"></div>
+          <script>
+            $(function() {
+              plugins_init_function.push(bgvoice_init);
+            })
+            var wholev = 1;
+
+            function bgvoice_init(data, settings) {
+              var speechObj = data.speech_explain;
+              if (speechObj.isWhole == '1') {
+                if (speechObj.useSpeech == '1') {
+                  document.getElementById("audiojs2").src = speechObj.mediaUrl;
+                  //		        settings["onstart"] += "playsound(bgspeech, '"+speechObj.mediaUrl+"', 0);";
+                }
+              } else {
+                $(speechObj.sceneSettings).each(function(idx) {
+                  if (this.useSpeech == '1') {
+                    settings['scene[scene_' + this.imgUuid + '].bgspeech'] = this.mediaUrl;
+                  }
+                });
+              }
+              settings["events[skin_events].onloadcomplete"] += "js(toggleSpeechBtn(get(xml.scene)));";
+            }
+
+            function toggleSpeechBtn(sceneName) {
+              var speechObj = $("body").data("panoData").speech_explain;
+              if (speechObj.isWhole == '1') {
+                if (speechObj.useSpeech == '1') {
+                  $('.btn_music').show();
+                } else {
+                  $('.btn_music').hide();
+                }
+              } else {
+                var imgUuid = sceneName.substring(sceneName.indexOf("_") + 1, sceneName.length).toLowerCase();
+                $(speechObj.sceneSettings).each(function(idx) {
+                  if (imgUuid == this.imgUuid) {
+                    if (this.useSpeech == '1') {
+                      $('.btn_music').show();
+                    } else {
+                      $('.btn_music').hide();
+                    }
+                  }
+                });
+              }
+            }
+
+            function bf2() {
+              var audio = document.getElementById('audiojs2');
+              if (audio !== null) {
+                if (audio.paused) {
+                  audio.play();
+                } else {
+                  audio.pause();
+                }
+              }
+            }
+
+            function pauseSpeech(el) {
+              var krpano = document.getElementById('krpanoSWFObject');
+              krpano.call("pausesoundtoggle(bgspeech);pausesoundtoggle(bgs);");
+              if (wholev == '1') {
+                bf2();
+              }
+              toggleSpeech(el);
+            }
+
+            function toggleSpeech(el) {
+              if ($(el).hasClass("btn_music")) {
+                $(el).removeClass("btn_music");
+                $(el).addClass("btn_music_off");
+              } else {
+                $(el).removeClass("btn_music_off");
+                $(el).addClass("btn_music");
+                var audio = document.getElementById('audiojs2');
+                if (audio.paused) {
+                  audio.play();
+                }
+              }
+            }
+          </script>
+          <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+              function audioAutoPlay2() {
+                var audio = document.getElementById('audiojs2');
+                audio.play();
+              }
+              audioAutoPlay2();
+            });
+            if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
+              $(document).one('touchstart', function(e) {
+                $('#audiojs2').get(0).touchstart = true;
+                $('#audiojs2').get(0).play();
+                return false;
+              });
+            }
+            var stopv = "0";
+            var audio = document.getElementById('audiojs2');
+            if (audio) {
+              audio.addEventListener('ended', function() {
+                $('.btn_music').addClass("btn_music_off");
+                $('.btn_music').removeClass("btn_music");
+                stopv = "1";
+                audio.play();
+                audio.pause();
+              }, false);
+            }
+          </script>
+        </div>
+        <div class="vrshow_radar_btn" onClick="toggleKrpSandTable()">
+          <!-- <span class="btn_sand_table_text">沙盘</span> -->
+        </div>
+        <div class="vrshow_tour_btn" onClick="startTourGuide()">
+          <span class="btn_tour_text">一鍵導賞</span>
+        </div>
+        <div class="vrshow_container_2_min">
+          <!-- <div class="img_desc_container_min" id="share2Div">
+            <img src="/static/images/skin1/vr-btn-share2.png" onclick="showShareUrl()">
+            <div class="img_desc_min">分享網址</div>
+          </div>
+          <div class="img_desc_container_min" id="profileDiv">
+            <img src="/static/images/skin1/vr-btn-desc.png" onClick="showProfile()">
+            <div class="img_desc_min">簡介</div>
+          </div> -->
+        </div>
+        <div class="vrshow_container_3_min">
+          <div class="img_desc_container_min scene-choose-width" style="display:none">
+            <!-- <a class="slide-menux" href="javascript:void(0);" style="color:#fff;text-decoration:none;"></a> -->
+            <!-- <a id="cjing" class="slide-menu" href="javascript:void(0);" style="background-color:rgba(220,38,38,0);">
+              <img src="static/images/skin1/vr-btn-scene.png">
+              <div class="img_desc_min">場景</div>
+            </a> -->
+          </div>
+        </div>
+      </div>
+      <div id="pano" style="width:100%; height:100%;"></div>
+
+      <div class="modal" id="pictextModal" data-backdrop="static" data-keyboard="false" style="z-index:2002">
+        <div class="modal-dialog">
+
+          <!-- <div class="modal-header text-center">
+            <button type="button" class="close" onClick="hidePictext()">
+              <span>&times;</span>
+            </button>
+            <span style="color: #353535;font-weight:700" id="pictextWorkName"></span>
+          </div> -->
+          <!-- <div class="modal-body" style="height:400px;overflow-y:scroll "> -->
+          <div class="modal-body">
+            <div class="row">
+
+
+              <div class="col-md-12 col-sm-12 col-xs-12" id="pictextContent"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <img id="pictextAvatar" src="" >
+            <div id='button-area'></div>
+
+            <!-- <button type="button" class="btn btn-primary" id="pictextButtonFirst"></button> -->
+          </div>
+        </div>
+      </div>
+
+      <div id="logreg"></div>
+      <script>
+        $(function() {
+          plugins_init_function.push(showvrglass_init);
+        })
+
+        function showvrglass_init(data, settings) {
+          settings['skin_settings.webvr'] = data.hidevrglasses_flag == 1 ? false : true;
+        }
+
+        function showWebvrBtn() {
+          $('.btn_vrmode').show();
+        }
+      </script>
+      <script>
+        $(function() {
+          $("#logoImg").show();
+          plugins_init_function.push(custom_logo_init);
+        })
+
+        function custom_logo_init(data) {
+          var logoObj = data.custom_logo;
+          if (logoObj) {
+            if (logoObj.useCustomLogo == '1') $('.vrshow_container_logo img').attr('src', logoObj.logoImgPath);
+            if (logoObj.logoLink) $('.vrshow_container_logo img').attr('onclick', 'javascript:window.open("' + logoObj.logoLink + '")');
+          }
+        }
+      </script>
+      <script>
+        $(function() {
+          plugins_init_function.push(showlogo_init);
+        })
+
+        function showlogo_init(data) {
+          if (data.hidelogo_flag == '1') {
+            $("#logoImg").hide();
+          } else {
+            $("#logoImg").show();
+          }
+        }
+      </script>
+      <script type="text/javascript" src="/static/js/html2canvas.js"></script>
+      <script>
+        $(function() {
+          plugins_init_function.push(snapshot_init);
+        })
+
+        function snapshot_init(data) {
+          if (data.snapshot != "0" && !VisitPC()) {
+            $(".btn_snapshot").show();
+          }
+        }
+        /**********************  snapshot start ***********************/
+        function sceneSnapshot() {
+          $("#panoBtns").hide();
+          $("#snapshot_modal").modal("show");
+          var canvas = document.querySelector('canvas');
+          var imgUri = canvas.toDataURL("image/png");
+          $("#imgcanvas").attr("src", imgUri);
+        }
+
+        function createScreenshot() {
+          $(".btn-snap-submit").attr("disabled", true).removeClass("btn-primary").addClass("btn-default");
+          $("#snapshot_txt").html($("#snapshot_txt input").val());
+          html2canvas(document.querySelector("#snapshot_main"), {
+            useCORS: true
+          }).then(function(canvas) {
+              var imgUri = canvas.toDataURL();
+              $("#snapshot_main_res").html(' < a href = "'+imgUri+'"
+                download = "下載的圖片" > < img src = "'+imgUri+'"
+                width = "100%"
+                height = "100%" / > < /a>');
+                $("#snapshot_main").hide(); $("#snapshot_main_res").show(); new $.zui.Messager('請長按圖片保存或分享', {
+                  icon: 'check-circle',
+                  type: 'danger',
+                  close: false,
+                  placement: 'center',
+                }).show();
+              });
+          }
+
+          function cancelScreenshot() {
+            $("#panoBtns").show();
+            $(".btn-snap-submit").attr("disabled", false).removeClass("btn-default").addClass("btn-primary");
+            $("#snapshot_main_res").hide();
+            $("#snapshot_txt").html(' < input type = "text"
+              class = "form-control"
+              placeholder = "請輸入想說的話"
+              style = "width:100%;margin-top:14px;border-radius:10px" / > ');
+              $("#snapshot_main").show();
+            }
+            $(function() {
+              $(".btn-snap-cancel").click(function() {
+                $("#snapshot_modal").modal("hide");
+                cancelScreenshot();
+              });
+              $('#snapshot_modal').on('hide.zui.modal', function() {
+                cancelScreenshot();
+              });
+            });
+
+            function VisitPC() {
+              var userAgentInfo = navigator.userAgent;
+              var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+              var flag = true;
+              for (var v = 0; v < Agents.length; v++) {
+                if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                  flag = false;
+                  break;
+                }
+              }
+              return flag;
+            }
+      </script>
+      <script type="text/javascript">
+        $(function() {
+          plugins_init_function.push(reward_init);
+        })
+
+        function reward_init(data) {
+          if (data.reward == "1") {
+            $(".btn_reward").show();
+          }
+        }
+      </script>
+      <script>
+        $(function() {
+          plugins_init_function.push(gyro_init);
+        })
+
+        function gyro_init(data, settings) {
+          if (data.gyro != "0") {
+            $(".btn_gyro").show;
+          }
+          settings['skin_settings.gyro'] = data.gyro == "1" ? true : false;
+        }
+
+        function showGyroBtn() {
+          var gyro = $("body").data("panoData").gyro;
+          if (gyro) {
+            var krpano = document.getElementById('krpanoSWFObject');
+            krpano.set("plugin[skin_gyro].enabled", true);
+            $(".btn_gyro").show();
+          }
+        }
+
+        function toggleGyro(el) {
+          var krpano = document.getElementById('krpanoSWFObject');
+          if ($(el).hasClass("btn_gyro")) {
+            krpano.set("plugin[skin_gyro].enabled", false);
+            $(el).removeClass("btn_gyro");
+            $(el).addClass("btn_gyro_off");
+          } else {
+            krpano.set("plugin[skin_gyro].enabled", true);
+            $(el).removeClass("btn_gyro_off");
+            $(el).addClass("btn_gyro");
+          }
+        }
+
+        function openGyro() {
+          var krpano = document.getElementById('krpanoSWFObject');
+          alert(krpano.get("plugin[skin_gyro].isavailable"));
+        }
+      </script>
+      <script>
+        $(function() {
+          plugins_init_function.push(link_init);
+          $('#mapMarkModal').on('hide.zui.modal', function(e) {
+            toggleBtns(true);
+          });
+        })
+
+        function link_init(data) {
+          $(".vrshow_container_3_min .img_desc_container_min:first").nextAll().remove();
+          if (data.url_phone_nvg.linkSettings && data.url_phone_nvg.linkSettings.length > 0) {
+            console.log(data.pk_user_main);
+            $(data.url_phone_nvg.linkSettings).each(function(idx) {
+              var imgSrc = this.imgPath;
+              var title = this.title;
+              var htmlStr = '';
+              if (this.type == 0) {
+                var locationData = this.content;
+                htmlStr += ' < div class = "img_desc_container_min img_add" > '+
+                ' < img src = "'+imgSrc+'"
+                onclick = "openMapModal(this,true)" > '+
+                ' < div class = "img_desc_min" > '+title+' < /div>'+
+                ' < /div>';
+                $(".vrshow_container_3_min").append(htmlStr);
+                $(".vrshow_container_3_min > div:last img").data("locationData", locationData);
+              } else {
+                var url = this.content;
+                if (!isNaN(url)) {
+                  url = "tel://" + url;
+                } else {
+                  if (url.indexOf('http://') != 0 && url.indexOf('https://') != 0) {
+                    url = 'http://' + url;
+                  }
+                }
+                if (data.pk_user_main == 16) {
+                  console.log('kkk');
+                  htmlStr += ' < div class = "img_desc_container_min img_add" > '+
+                  ' < img src = "'+imgSrc+'"
+                  onclick = "lookLinkUrl(\''+url+'\')" > '+
+                  ' < div class = "img_desc_min" > '+title+' < /div>'+
+                  ' < /div>';
+                } else {
+                  htmlStr += ' < div class = "img_desc_container_min img_add" > '+
+                  ' < img src = "'+imgSrc+'"
+                  onclick = "lookLinkUrl(\''+url+'\')" > '+
+                  ' < div class = "img_desc_min" > '+title+' < /div>'+
+                  ' < /div>';
+                  //							            htmlStr += '
+                  < div class = "img_desc_container_min img_add" > '+
+                    //		                '
+                    < img src = "'+imgSrc+'"
+                  onclick = "lookLinkUrl(\''+url+'\')"
+                  '+(isIos()?'
+                  ':'
+                  data - toggle = "tooltip"
+                  ')+'
+                  title = "'+title+'" > '+
+                    //		                '
+                    < div class = "img_desc_min" > '+title+' < /div>'+
+                    //		                '
+                    < /div>';
+                    //		            htmlStr += '
+                    < div class = "img_desc_container_min img_add" > '+
+                    //		                '
+                    < img src = "'+imgSrc+'"
+                  onclick = "lookLinkUrl(\''+url+'\')"
+                  '+(isIos()?'
+                  ':'
+                  data - toggle = "tooltip"
+                  ')+'
+                  title = "'+(url.length > 20 ? url.substring(0,20)+'...' : url)+'" > '+
+                    //		                '
+                    < div class = "img_desc_min" > '+title+' < /div>'+
+                    //		                '
+                    < /div>';
+                }
+                $(".vrshow_container_3_min").append(htmlStr);
+              }
+            });
+            $('.vrshow_container_3_min [data-toggle=tooltip]').tooltip({});
+          }
+        }
+
+        function isIos() {
+          var ua = navigator.userAgent.toLowerCase();
+          if (/iphone|ipad|ipod/.test(ua)) {
+            return true;
+          }
+          return false;
+        }
+
+        function lookLinkUrl(url) {
+          window.open(url);
+        }
+
+        function openMapModal(el, readonly) {
+          // toggleBtns();
+          mapModalEl = el;
+          //_U.mapMarkModal().openModal($(mapModalEl).data("locationData"),readonly);
+          //console.log(mapModalEl.lng);
+          //console.log(mapModalEl.lat);
+          // console.log($(mapModalEl).data("locationData").lng);
+          lng = $(mapModalEl).data("locationData").lng;
+          // console.log($(mapModalEl).data("locationData").lat);
+          lat = $(mapModalEl).data("locationData").lat;
+          model = ' < div id = "qq-map-container" > '+
+          ' < div style = "position:absolute;left:0;top:0;height:50px;line-height:50px;padding-left:10px;" > 地圖導航 < /div>'+
+          ' < iframe src = "https://uri.amap.com/marker?position='+lng+','+lat+'&src=mypage&coordinate=gaode&callnative=0"
+          '+
+          'frameborder="0" width="100%" height="88%" style="position:absolute;left:0;top:50px;">' + '</iframe>' + ' < div class = "s_close btn btn-primary"
+          style = "position: absolute;right:20px;top:10px;text-align: center;" > '+
+          ' < a href = "javascript:;"
+          style = "text-decoration:none;color:#fff" > 關閉 < /a>'+
+          ' < /div>'+
+          ' < /div>';
+          $("#fullscreenid").append(model);
+          if ($(window).width() > 640) {
+            $("#qq-map-container").css({
+              "position": "absolute",
+              "left": "15%",
+              "top": "10%",
+              "width": "70%",
+              "height": "80%",
+              "border": "1px solid #ccc",
+              "background": "#fff",
+              "z-index": 9999
+            });
+          } else {
+            $("#qq-map-container").css({
+              "position": "absolute",
+              "left": 0,
+              "top": 0,
+              "width": "100%",
+              "height": "100%",
+              "border": "1px solid #ccc",
+              "background": "#fff",
+              "z-index": 9999
+            });
+          }
+          $(".s_close").click(function() {
+            $("#qq-map-container").remove();
+          });
+        }
+      </script>
+      <script>
+        $(function() {
+          $("#authorDiv").show();
+          plugins_init_function.push(custom_user_init);
+        })
+
+        function custom_user_init(data) {
+          var logoObj = data.custom_logo;
+          if (logoObj && logoObj.user) {
+            $("#user_nickName").text(logoObj.user);
+          }
+        }
+      </script>
+      <script>
+        $(function() {
+          $("#authorDiv").show();
+          plugins_init_function.push(custom_user_init);
+        })
+
+        function custom_user_init(data) {
+          var logoObj = data.custom_logo;
+          if (logoObj && logoObj.user) {
+            $("#user_nickName").text(logoObj.user);
+          }
+        }
+      </script>
+      <script>
+        $(function() {
+          $("#authorDiv").show();
+          plugins_init_function.push(custom_user_init);
+        })
+
+        function custom_user_init(data) {
+          var logoObj = data.custom_logo;
+          if (logoObj && logoObj.user) {
+            $("#user_nickName").text(logoObj.user);
+          }
+        }
+      </script>
+      <script>
+        $(function() {
+          plugins_init_function.push(shade_sky_floor_init);
+        })
+
+        function shade_sky_floor_init(data, settings) {
+          if (data.sky_land_shade.isWhole == '1') { //全局遮罩
+            var useShade = data.sky_land_shade.useShade;
+            if (useShade == '1') {
+              var imgPath = data.sky_land_shade.shadeSetting.imgPath;
+              var location = data.sky_land_shade.shadeSetting.location;
+              if (location == 0) {
+                location = -90;
+              } else {
+                location = 90;
+              }
+              settings["events[skin_events].onloadcomplete"] += "show_shade('" + imgPath + "'," + location + ",true);";
+            }
+          } else { //单场景遮罩
+            settings["events[skin_events].onloadcomplete"] += "js(getShade(get(xml.scene)));";
+          }
+        }
+
+        function getShade(sceneName) {
+          var imgUuid = sceneName.substring(sceneName.indexOf('_') + 1).toLowerCase();
+          var panoData = $("body").data("panoData");
+          var shadeSetting = panoData.sky_land_shade.shadeSetting;
+          if (shadeSetting) {
+            for (var i = 0; i < shadeSetting.length; i++) {
+              var obj = shadeSetting[i];
+              if (imgUuid == obj.imgUuid) {
+                var useShade = obj.useShade;
+                if (useShade == '1') {
+                  var imgPath = obj.imgPath;
+                  var location = obj.location;
+                  if (location == 0) {
+                    location = -90;
+                  } else {
+                    location = 90;
+                  }
+                  var krpano = document.getElementById('krpanoSWFObject');
+                  krpano.call("addShade('" + imgUuid + "','" + imgPath + "'," + location + ");");
+                }
+              }
+            }
+          }
+        }
+      </script>
+      <script>
+        $(function() {
+          plugins_init_function.push(custom_right_init);
+        })
+
+        function custom_right_init(data) {
+          // $(".vrshow_container_3_min .img_desc_container_min:first").nextAll().remove();
+          // if (data.url_phone_nvg.linkSettings && data.url_phone_nvg.linkSettings.length > 0) {
+          //     $(data.custom_right_button.linkSettings).each(function(idx){
+          //         var title = this.title;
+          //         var htmlStr = '';
+          //         var url = this.content;
+          //            if(!isNaN(url)){
+          //                url = "tel://" + url;
+          //            }else{
+          //                if(!(url.indexOf('http://') == 0)){
+          //                    url = 'http://' + url;
+          //                }
+          //            }
+          //     });
+          // }
+        }
+
+        function lookLinkUrl(url) {
+          window.open(url);
+        }
+      </script>
+      <script>
+        $(function() {
+          plugins_init_function.push(open_alert_init);
+        })
+
+        function open_alert_init(data, settings) {
+          if (data.open_alert.useAlert == '1') {
+            settings["events[skin_events].onloadcomplete"] += "show_open_alert('" + data.open_alert.imgPath + "');";
+          }
+        }
+      </script>
+      <script>
+        var ad_sys_default = "測試";
+        $(function() {
+          plugins_init_function.push(top_ad_init);
+        })
+
+        function top_ad_init(data, settings) {
+          var data = data.top_ad;
+          if (data && data.adcontent != undefined && data != null && data != 'null' && data.show != "0") {
+            $(".vrshow_container_logo").css('top', '45px');
+            $(".vrshow_container_1_min").css('top', '45px');
+            if (data.adcontent && data.adcontent.length > 0) {
+              $("#top_ad").show();
+              $("#top_ad span").text(data.adcontent);
+            } else if (ad_sys_default.length > 0) {
+              $("#top_ad").show();
+              $("#top_ad span").text(ad_sys_default);
+            }
+            marquee();
+          }
+        }
+
+        function marquee() {
+          var scrollWidth = $(window).width(); //$('#top_ad').width();
+          //console.log(scrollWidth );
+          var i = scrollWidth;
+          setInterval(function() {
+            i--;
+            var textWidth = $('#top_ad span').width();
+            if (i < -textWidth) {
+              i = scrollWidth;
+            }
+            $('#top_ad span').animate({
+              'left': i + 'px'
+            }, 10);
+          }, 20);
+        }
+      </script>
+      <script>
+        $(function() {
+          plugins_init_function.push(showuser_init);
+        })
+
+        function showuser_init(data) {
+          if (data.hideuser_flag == '1') {
+            $("#authorDiv").hide();
+          } else {
+            $("#authorDiv").show();
+          }
+        }
+      </script>
+      <script>
+        $(function() {
+          plugins_init_function.push(showviewnum_init);
+        })
+
+        function showviewnum_init(data) {
+          if (data.hideviewnum_flag == '1') {
+            $("#viewnumDiv").hide();
+          }
+        }
+      </script>
+      <div class="modal" id="infomationModal" data-backdrop="static" data-keyboard="false" style="z-index:2002">
+        <div class="modal-dialog">
+          <div class="modal-header text-center">
+            <button type="button" class="close" onClick="hideProfile()">
+              <span>&times;</span>
+            </button>
+            <span style="color: #353535;font-weight:700" id="profileWorkName"></span>
+          </div>
+          <div class="modal-body" style="height:250px;overflow-y:scroll ">
+            <div class="row">
+              <div class="col-sm-offset-1 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+                <span id="profileProfile"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        $(function() {
+          plugins_init_function.push(profile_init);
+        })
+
+        function profile_init(data) {
+          if (data.hideprofile_flag == '1') {
+            $("#profileDiv").hide();
+          }
+        }
+
+        function hideProfile() {
+          $('#infomationModal').modal('hide');
+          toggleBtns(true);
+        }
+
+        function showProfile() {
+          toggleBtns(false);
+          var data = $("body").data("panoData");
+          $('#profileWorkName').text('');
+          $('#profileProfile').text('');
+          $('#profileWorkName').text(data.name);
+          $('#profileProfile').text(data.profile == null ? "" : data.profile);
+          $('#infomationModal').modal("show");
+        }
+
+        function showShareUrl() {
+          toggleBtns(false);
+          var link = getlink();
+          var data = $("body").data("panoData");
+          $('#profileWorkName').text('');
+          $('#profileProfile').text('');
+          $('#profileWorkName').text('分享網址');
+          $('#profileProfile').html(' < input value = "'+link+'"
+            readonly style = "width:80%;" > < button onclick = "copyToClipBoard()" > 複製 < /button>');
+            $('#infomationModal').modal("show");
+          }
+
+          function copyToClipBoard() {
+            var copyText = $('#profileProfile').find('input');
+            copyText.select();
+            document.execCommand("Copy");
+            alert("複製成功");
+          }
+
+          function getlink() {
+            var krpano = document.getElementById("krpanoSWFObject");
+            var scene = krpano.get("xml.scene");
+            var ath = krpano.get("view.hlookat").toFixed(2);
+            var atv = krpano.get("view.vlookat").toFixed(2);
+            var fov = krpano.get("view.fov").toFixed(2);
+            var link = "?scene=" + scene + "&?ath=" + ath + "&?atv=" + atv + "&?fov=" + fov;
+            link = window.location.origin + window.location.pathname + link;
+            return link;
+            // alert(link);
+          }
+      </script>
+    </div>
+    <div class="modal" id="video_player_modal" data-keyboard="false" style="z-index:2002">
+      <div class="modal-dialog">
+        <div class="modal-body" style="padding: 0">
+          <a href="javascript:;" onClick="close_video_player()" style="position:absolute;color:white;z-index:99999;right:5px;top: 3px;">關閉</a>
+          <div class="prism-player" id="J_prismPlayer"></div>
+        </div>
+      </div>
+    </div>
+    <div class="overlay" style="z-index:100001;">
+      <img src="skin/VR360_UI-26.png" class="left" alt="">
+      <img src="skin/VR360_UI-27.png" class="right" alt="">
+      <img src="skin/logo.png" class="logo" alt="">
+      <img src="skin/前導_web.png" class="overlay_background" alt="">
+
+
+      <div id="overlay_conversation_area" class="overlay_conversation_area">
+        <div class='overlay_conversation_top_blank'></div>
+      </div>
+
+      <div class="overlay_ending_form">
+        <div class='overlay_ending_form_text'>
+            感謝你的體驗，寫下心得回饋，能填問卷抽好禮唷！
+        </div>
+        <div class='overlay_ending_form_img'></div>
+      </div>
+
+      <a href="#" class="landing-btn">
+        <button type="button" class="btn btn-cus2 overlay_btn">開始遊戲</button>
+      </a>
+
+      <a href="#" class="landing-btn2">
+        <button type="button" class="btn overlay_btn5">填寫問卷</button>
+      </a>
+
+      <div class="overlay_ending_button_area">
+        <img src="skin/按鈕4.png" class="overlay_ending_button_head_img">
+        <div class="overlay_ending_button_head_content">回顧劇情</div>
+        <img src="skin/VR360_UI-41.png" class="overlay_ending_button overlay_ending_button1">
+        <img src="skin/VR360_UI-42.png" class="overlay_ending_button overlay_ending_button2">
+        <img src="skin/VR360_UI-43.png" class="overlay_ending_button overlay_ending_button3">
+        <img src="skin/VR360_UI-44.png" class="overlay_ending_button overlay_ending_button4">
+      </div>
+      <div class="overlay_bottom_logo_area">
+        <img src="skin/VR360_UI-50.png" class="overlay_bottom_logo">
+        <img src="skin/VR360_UI-51.png" class="overlay_bottom_logo">
+      </div>
+    </div>
+
+    <div class="overlay2" style="z-index:100000;"></div>
+
+
+  </body>
+  <!-- <script language="JavaScript" type="text/javascript" src="static/js/kr/object.js"></script> -->
+  <script>
+    $(function() {
+      initPano();
+      $("#shareDiv img").attr('src', 'static/images/skin1/vr-btn-share.png');
+      $("#profileDiv img").attr('src', 'static/images/skin1/vr-btn-desc.png');
+    })
+
+    function custom_logo_init(data) {
+      var logoObj = data.custom_logo;
+      if (logoObj) {
+        if (logoObj.useCustomLogo == '1') $('.vrshow_container_logo img').attr('src', logoObj.logoImgPath);
+        else $('.vrshow_container_logo img').attr('src', 'resource/images/custom_logo.png');
+        if (logoObj.logoLink) $('.vrshow_container_logo img').attr('onclick', 'javascript:window.open("' + logoObj.logoLink + '")');
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="static/css/slide-in-out.css?v=061701">
+  <!-- 侧边导航 -->
+  <!-- <div class="slide-mask"></div> -->
+  <aside class="slide-wrapper parentlistbox">
+    <div>
+      <div class="listbox-title">
+        <strong>環景列表</strong>
+        <a href="javascript:void(0);" onClick="javascript:close_listbox();" class="listbox-close">×</a>
+      </div>
+      <ul id="listbox-ul" class="listbox-container"></ul>
+    </div>
+  </aside>
+  <aside class="slide-wrapper sublistbox">
+    <div>
+      <div>
+        <strong id="sublist_title"></strong>
+        <a href="javascript:void(0);" onClick="javascript:close_subdiv();" class="listbox-close">×</a>
+      </div>
+      <ul id="sublist-ul" class="listbox-container"></ul>
+    </div>
+  </aside>
+  <script type="text/javascript">
+    var scene_groups = $.parseJSON('[{"iconType":"system","imgPath":"resource\/images\/vr-btn-scene.png","groupName":"\u5834\u666f\u9078\u64c7","scenes":[{"sceneName":"scene_179184fca19185ca","viewuuid":"179184fca19185ca","imgPath":"resource\/pano\/179184fca19185ca\/thumb.jpg","sceneTitle":"1-1","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/250\/sourceimg\/1656324409881j83.jpg"},{"sceneName":"scene_e712c9d6e6659640","viewuuid":"e712c9d6e6659640","imgPath":"resource\/pano\/e712c9d6e6659640\/thumb.jpg","sceneTitle":"1-2","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/250\/sourceimg\/1656324409883119.jpg"},{"sceneName":"scene_c3fbc0cf1954e842","viewuuid":"c3fbc0cf1954e842","imgPath":"resource\/pano\/c3fbc0cf1954e842\/thumb.jpg","sceneTitle":"2-1","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/250\/sourceimg\/1656324409884t0q.jpg"},{"sceneName":"scene_1d1d29ff9800454d","viewuuid":"1d1d29ff9800454d","imgPath":"resource\/pano\/1d1d29ff9800454d\/thumb.jpg","sceneTitle":"2-2","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/250\/sourceimg\/1656324409885h9h.jpg"},{"sceneName":"scene_18660de6942281d1","viewuuid":"18660de6942281d1","imgPath":"resource\/pano\/18660de6942281d1\/thumb.jpg","sceneTitle":"3-1","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/250\/sourceimg\/1656324409886s9g.jpg"},{"sceneName":"scene_04e78c7766783b16","viewuuid":"04e78c7766783b16","imgPath":"resource\/pano\/04e78c7766783b16\/thumb.jpg","sceneTitle":"3-2","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/250\/sourceimg\/16563244098879a5.jpg"},{"sceneName":"scene_7acf894b669a3e2b","viewuuid":"7acf894b669a3e2b","imgPath":"resource\/pano\/7acf894b669a3e2b\/thumb.jpg","sceneTitle":"4","levels":"2624,1280,640","location":"https:\/\/360.zoustec.com\/panos\/250\/sourceimg\/1656324409887pca.jpg"}]}]');
+    $(function() {
+      //生成初始分组数据
+      if (scene_groups.length > 1) {
+        var html_groups = '';
+        for (var i = 0; i < scene_groups.length; i++) {
+          html_groups += ' < li class = "scene_group_li"
+          id = "scene_group_'+i+'" > '+
+          ' < a href = "javascript:void(0);"
+          onClick = "javascript:show_subdiv('+i+');" > '+
+          ' < img src = "'+scene_groups[i]['scenes'][0].imgPath+'" / > '+
+          ' < span > '+scene_groups[i]['
+          groupName ']+' < /span>'+
+          ' < /a>'+
+          ' < /li>';
+        }
+        $("#listbox-ul").html(html_groups);
+        $('a.slide-menu').on('click', function(e) {
+          show_listbox();
+        });
+      } else {
+        var scenes = scene_groups[0]['scenes'];
+        var html_groups = '';
+        for (var i = 0; i < scenes.length; i++) {
+          html_groups += ' < li id = "'+scenes[i].sceneName+'" > '+
+          ' < a href = "javascript:void(0);"
+          onClick = "javascript:goto_scene(\'scene_'+scenes[i].viewuuid+'\');" > '+
+          ' < img src = "'+scenes[i].imgPath+'" / > '+
+          ' < span > '+scenes[i].sceneTitle+' < /span>'+
+          ' < /a>'+
+          ' < /li>';
+        }
+        $("#listbox-ul").html(html_groups);
+        $("#" + scenes[0].sceneName).addClass("active");
+        $('a.slide-menu').on('click', function(e) {
+          show_listbox2();
+        });
+      }
+      $('aside.slide-wrapper').on('touchstart', 'li', function(e) {
+        $(this).addClass('current').siblings('li').removeClass('current');
+      });
+      $('aside.slide-wrapper').on('click', 'li', function(e) {
+        $(this).siblings('li').removeClass('active');
+        $(this).addClass('current').siblings('li').removeClass('current');
+      });
+      $('div.slide-mask').on('click', function() {
+        close_listbox();
+      });
+      var krpano = document.getElementById("krpanoSWFObject");
+      // var scenes = scene_groups[0]['scenes'];
+      var ath = "10";
+      var atv = "10";
+      var fov = "100";
+      var vars = window.location.search.split("&");
+      for (j = 0; j < vars.length; j++) {
+        if (vars[j].search("scene=") > 0) {
+          scene = vars[j].replace("?scene=", "");
+        }
+        if (vars[j].search("ath=") > 0) {
+          ath = vars[j].replace("?ath=", "")
+        }
+        if (vars[j].search("atv=") > 0) {
+          atv = vars[j].replace("?atv=", "");
+        }
+        if (vars[j].search("fov=") > 0) {
+          fov = vars[j].replace("?fov=", "");
+        }
+      }
+      krpano.call('loadscene(' + scene + ', null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+      krpano.call("lookto(" + ath + "," + atv + "," + fov + ")");
+    });
+
+    function remove_active() {
+      var krpano = document.getElementById('krpanoSWFObject');
+      var sceneName = krpano.get("xml.scene");
+      $("#" + sceneName).removeClass("active");
+      $("#" + sceneName).removeClass("current");
+    }
+
+    function add_active() {
+      var krpano = document.getElementById('krpanoSWFObject');
+      var sceneName = krpano.get("xml.scene");
+      $("#" + sceneName).addClass("active");
+      show_subdiv_hide();
+    }
+
+    function show_listbox2() {
+      var wh = $('div.wrapper').height();
+      $('div.slide-mask').css('height', wh).show();
+      $('aside.parentlistbox').css('height', wh).addClass('moved');
+      $(".listbox-container").css({
+        height: ($(document).height() - $(".listbox-title").height())
+      });
+      $('#cjing').css('display', 'none');
+      $('.img_add').css('display', 'none');
+      //$('aside.slide-wrapper').siblings('li').removeClass('active');
+      var krpano = document.getElementById('krpanoSWFObject');
+      var sceneName = krpano.get("xml.scene");
+      $("#" + sceneName).addClass("active");
+      console.log("abc2");
+      //	var wh = $('div.wrapper').height();
+      //	$('aside.sublistbox').css('height', wh).addClass('moved');
+      //	show_subdiv();
+    }
+
+    function show_subdiv_hide(index) {
+      var krpano = document.getElementById('krpanoSWFObject');
+      if (index == undefined) {
+        var index = krpano.get("view.album_index");
+        //		alert(index);
+      }
+      $("#scene_group_" + index).addClass('current').siblings('li').removeClass('current');
+      var scenes = scene_groups[index]['scenes'];
+      $(".scene_group_li").removeClass("active");
+      $("#scene_group_" + index).addClass("active");
+      $("#sublist_title").text(scene_groups[index].groupName);
+      var html_groups = '';
+      for (var i = 0; i < scenes.length; i++) {
+        html_groups += ' < li id = "'+scenes[i].sceneName+'" > '+
+        ' < a href = "javascript:void(0);"
+        onClick = "javascript:goto_scene(\''+scenes[i].sceneName+'\');" > '+
+        ' < img src = "'+scenes[i].imgPath+'" / > '+
+        ' < span > '+scenes[i].sceneTitle+' < /span>'+
+        ' < /a>'+
+        ' < /li>';
+      }
+      $("#sublist-ul").html(html_groups);
+      var sceneName = krpano.get("xml.scene");
+      $("#" + sceneName).addClass("active");
+    }
+
+    function show_listbox() {
+      var wh = $('div.wrapper').height();
+      $('div.slide-mask').css('height', wh).show();
+      $('aside.parentlistbox').css('height', wh).addClass('moved');
+      $(".listbox-container").css({
+        height: ($(document).height() - $(".listbox-title").height())
+      });
+      $('#cjing').css('display', 'none');
+      $('.img_add').css('display', 'none');
+      show_subdiv_hide();
+      //	show_subdiv();
+    }
+
+    function goto_scene(scene_name) {
+      var krpano = document.getElementById('krpanoSWFObject');
+      var blend_type = 'NOBLEND';
+      krpano.call('loadscene(' + scene_name + ', null, MERGE, ' + blend_type + ');'); < !--krpano.call('loadscene(' + scene_name + ', null, MERGE, ZOOMBLEND(0.5, 3.0, easeinquart));');
+      -- >
+    }
+
+    function show_subdiv(index) {
+      var krpano = document.getElementById('krpanoSWFObject');
+      if (index == undefined) {
+        var index = krpano.get("view.album_index");
+        //		alert(index);
+      }
+      $("#scene_group_" + index).addClass('current').siblings('li').removeClass('current');
+      var scenes = scene_groups[index]['scenes'];
+      $(".scene_group_li").removeClass("active");
+      $("#scene_group_" + index).addClass("active");
+      $("#sublist_title").text(scene_groups[index].groupName);
+      var html_groups = '';
+      for (var i = 0; i < scenes.length; i++) {
+        html_groups += ' < li id = "'+scenes[i].sceneName+'" > '+
+        ' < a href = "javascript:void(0);"
+        onClick = "javascript:goto_scene(\''+scenes[i].sceneName+'\');" > '+
+        ' < img src = "'+scenes[i].imgPath+'" / > '+
+        ' < span > '+scenes[i].sceneTitle+' < /span>'+
+        ' < /a>'+
+        ' < /li>';
+      }
+      $("#sublist-ul").html(html_groups);
+      var sceneName = krpano.get("xml.scene");
+      $("#" + sceneName).addClass("active");
+      var wh = $('div.wrapper').height();
+      $('aside.sublistbox').css('height', wh).addClass('moved');
+    }
+
+    function close_subdiv() {
+      $('aside.sublistbox').removeClass('moved');
+    }
+
+    function close_listbox() {
+      $('div.slide-mask').hide();
+      $('aside.parentlistbox').removeClass('moved');
+      $('aside.sublistbox').removeClass('moved');
+      $('#cjing').css('display', 'block');
+      $('.img_add').css('display', 'inline-block');
+    }
+  </script>
+</html>

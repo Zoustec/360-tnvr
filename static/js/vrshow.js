@@ -985,7 +985,7 @@ function check_done_scene(){
       // html += '</div>';
       // $('.overlay .overlay_conversation_area').html(html)
 
-      var html = '恭喜達成任務！填寫問卷送好禮';
+      var html = '恭喜達成任務！若有建議可以填寫問卷給我們喔！';
       $('.overlay_conversation_text').html(html)
       // $('.overlay .overlay_btn2').show();
 
@@ -1028,7 +1028,7 @@ function check_done_scene(){
       // html += '</div>';
       // $('.overlay .overlay_conversation_area').html(html)
 
-      var html = '恭喜達成任務！填寫問卷送好禮';
+      var html = '恭喜達成任務！若有建議可以填寫問卷給我們喔！';
       $('.overlay_conversation_text').html(html)
       // $('.overlay .overlay_btn2').show();
 
@@ -1070,7 +1070,7 @@ function check_done_scene(){
       // html += '</div>';
       // $('.overlay .overlay_conversation_area').html(html)
 
-      var html = '恭喜達成任務！填寫問卷送好禮';
+      var html = '恭喜達成任務！若有建議可以填寫問卷給我們喔！';
       $('.overlay_conversation_text').html(html)
       // $('.overlay .overlay_btn2').show();
 

@@ -26,7 +26,7 @@
     <script language="JavaScript" type="text/javascript" src="static/js/jquery-1.9.1.js"></script>
     <script language="JavaScript" type="text/javascript" src="static/js/zui.js"></script>
     <script language="JavaScript" type="text/javascript" src="tour.js"></script>
-    <script language="JavaScript" type="text/javascript" src="static/js/vrshow.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/js/vrshow.js?v=20220815001"></script>
     <script language="JavaScript" type="text/javascript" src="static/js/alivideo.js"></script>
     <script language="JavaScript" type="text/javascript" src="static/js/object.js"></script>
     <script language="JavaScript" type="text/javascript" src="static/js/video_patch.js?v=20220615001"></script>
@@ -1052,10 +1052,18 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_conversation_step', 3);
         } else if (localStorage.getItem('overlay_conversation_step') == 3) {
-          var html = '選擇一條你想先體驗的遊程吧！<br>完成一條遊程後填寫問卷，<br>前100位可以獲得Hagan Dazs冰品券，';
+          var html = '選擇一條你想先體驗的遊程，<br>開始你的記憶之脈旅程吧！';
           console.log('in4')
           $('.overlay_conversation_text').html(html)
-          localStorage.setItem('overlay_conversation_step', 4);
+          localStorage.setItem('overlay_conversation_step', 6);
+
+          $('.overlay .overlay_btn2').hide();
+          $('.overlay .overlay_btn').show();
+          $('.overlay_conversation_text').css('margin-top','0')
+          // $('.overlay_conversation_area').css('height', '400px')
+          // $('.overlay_conversation_area').css('background-size', '600px 400px')
+          // $('.overlay_conversation_2').css('height', '375px')
+          // $('.overlay_conversation_area_avatar').css('margin-top','213px')
         } else if (localStorage.getItem('overlay_conversation_step') == 4) {
           var html = '101-500位填寫者可以獲得超商購物金。<br>快開始你的記憶之脈旅程吧！';
           console.log('in5')
@@ -1086,7 +1094,7 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_1_step', 2);
         } else if (localStorage.getItem('overlay_entry_1_step') == 2) {
-          var html = '在這裡只要完成<span style="color:#ffa800">右方欄位的任務</span>，<br>就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！';
+          var html = '在這裡只要完成<span style="color:#ffa800">右方欄位的任務</span>，<br>就能填寫問卷給予我們寶貴的意見喔！<br>快來挑戰吧！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_1_step', 3);
         } else if (localStorage.getItem('overlay_entry_1_step') == 3) {
@@ -1146,7 +1154,7 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 5);
         } else if (localStorage.getItem('overlay_entry_2_step') == 5) {
-          var html = '只要看過<span style="color:#ffa800">右方欄位三個遊戲影片，<br>欄位勾選完成後</span>，就能填寫最終問卷得到獎品囉！快來挑戰吧！';
+          var html = '只要看過<span style="color:#ffa800">右方欄位三個遊戲影片，<br>欄位勾選完成後</span>，就能填寫問卷給予我們寶貴的意見喔！快來挑戰吧！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_2_step', 6);
         } else if (localStorage.getItem('overlay_entry_2_step') == 6) {
@@ -1210,7 +1218,7 @@ function showviewnum_init(data){
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_3_step', 6);
         } else if (localStorage.getItem('overlay_entry_3_step') == 6) {
-          var html = '只要從傳送門進去過四個關卡，<br><span style="color:#ffa800">右方四個欄位，勾選完成後</span>，就能填寫最終問卷得到獎品囉！<br>快來挑戰吧！';
+          var html = '只要從傳送門進去過四個關卡，<br><span style="color:#ffa800">右方四個欄位，勾選完成後</span>，就能填寫問卷給予我們寶貴的意見喔！<br>快來挑戰吧！';
           $('.overlay_conversation_text').html(html)
           localStorage.setItem('overlay_entry_3_step', 7);
 

@@ -724,7 +724,7 @@
       set(hotspot[get(schp_name)].height,'50');
       set(hotspot[get(schp_name)].visible,%8);
       if(%7 == false,
-        set(hotspot[get(schp_name)].onclick,js(showPictext(get(hotspot[get(name)].hotspottitle),%9)));
+        set(hotspot[get(schp_name)].onclick,js(showPictext(get(hotspot[get(name)].hotspottitle),%9,%2)));
         <!-- toggle_word_show(true,get(hotspot[get(name)].hotspottitle),get(hotspot[get(name)].wordcontent)); -->
         ,
         set(hotspot[get(schp_name)].ondown,draghotspot(););
@@ -800,13 +800,17 @@
           set(view.vlookatmax,%3);
 
           js(getComment(get(xml.scene)));
-          js(initHotspotSetting(get(xml.scene)));
+          <!-- js(initHotspotSetting(get(xml.scene))); -->
           set(events[init_view_event].onnewscene,'js(initViewSetting(get(xml.scene),get(backgo)));js(getComment(get(xml.scene)));
           js(initHotspotSetting(get(xml.scene)));');
         );
         delayedcall(3,init_gyro(););
+
         );
+
         );
+
+
       );
     </action>
   <!--   <action name="skin_setup_littleplanetintro">
@@ -1306,40 +1310,53 @@
         if(lhotspot.hsvrfalse, set(lhotspot.visible,true); ); if(lhotspot.hsvrtrue, set(lhotspot.visible,false); ); );
     </action>
     <action name="addSceneChangeHotSpot">
-        set(schp_name,%2);
-        addhotspot(get(schp_name));
+       set(schp_name,%2);
+       addhotspot(get(schp_name));
         set(hotspot[get(schp_name)].url,%1);
         indexoftxt(indexhot,%1,1564163182379pr);
         if(indexhot EQ -1,indexoftxt(indexhot,%1,15645660699289kw););
         if(indexhot EQ -1,indexoftxt(indexhot,%1,1564566092012ap4););
 
-        if(indexhot EQ -1,
-          indexoftxt(indexhot_s,%1,1565084738397c2t);
-          if(indexhot_s EQ -1, indexoftxt(indexhot_s,%1,1565084868966b3c);  );
-          if(indexhot_s EQ -1, indexoftxt(indexhot_s,%1,15650846126064f9);  );
-          if(indexhot_s GT 0,set(indexhot,200););
-        );
+                 if(indexhot EQ -1,
 
-        if(indexhot EQ -1,
-          indexoftxt(indexhot_s,%1,1565084657939zmq);
-          if(indexhot_s EQ -1, indexoftxt(indexhot_s,%1,1565084837449k18);  );
-          if(indexhot_s EQ -1, indexoftxt(indexhot_s,%1,1565084887832ibm);  );
+           indexoftxt(indexhot_s,%1,1565084738397c2t);
+             if(indexhot_s EQ -1, indexoftxt(indexhot_s,%1,1565084868966b3c);  );
+               if(indexhot_s EQ -1, indexoftxt(indexhot_s,%1,15650846126064f9);  );
+
+
+          if(indexhot_s GT 0,set(indexhot,200););
+
+          );
+
+
+                  if(indexhot EQ -1,
+
+           indexoftxt(indexhot_s,%1,1565084657939zmq);
+             if(indexhot_s EQ -1, indexoftxt(indexhot_s,%1,1565084837449k18);  );
+               if(indexhot_s EQ -1, indexoftxt(indexhot_s,%1,1565084887832ibm);  );
+
+
           if(indexhot_s GT 0,set(indexhot,300););
-        );
+
+          );
+
+
+
+
 
         set(hotspot[get(schp_name)].back,get(indexhot));
         set(hotspot[get(schp_name)].ath,%4);
         set(hotspot[get(schp_name)].atv,%5);
 
         set(hotspot[get(schp_name)].linkedscene,%3);
-        set(hotspot[get(schp_name)].width,'100');
-        set(hotspot[get(schp_name)].height,'100');
-        set(hotspot[get(schp_name)].visible,%8);
+        set(hotspot[get(schp_name)].width,'prop');
+        set(hotspot[get(schp_name)].height,'50');
+         set(hotspot[get(schp_name)].visible,%8);
         set(hotspot[get(schp_name)].hsvrfalse,true);
         if(%7 == false,
-          set(hotspot[get(schp_name)].onclick,'set(backgo,get(back));trace(get(back));loadscene(get(linkedscene), null, MERGE, %9);js(add_active());'); ,
-          set(hotspot[get(schp_name)].ondown,'draghotspot();');
-          set(hotspot[get(schp_name)].onup,'js(updateHotSpotData(get(xml.scene),get(name),get(ath),get(atv),"scene"));');
+        set(hotspot[get(schp_name)].onclick,'set(backgo,get(back));trace(get(back));loadscene(get(linkedscene), null, MERGE, %9);js(add_active());'); ,
+        set(hotspot[get(schp_name)].ondown,'draghotspot();');
+        set(hotspot[get(schp_name)].onup,'js(updateHotSpotData(get(xml.scene),get(name),get(ath),get(atv),"scene"));');
         );
         if(%6 == '1', txtadd(hotspot[get(schp_name)].onloaded,"do_crop_animation(128,128, 60);"); );
         txtadd(hotspot[get(schp_name)].onloaded,"add_all_the_time_tooltip(scene[get(linkedscene)].title);
@@ -1350,11 +1367,12 @@
         copy(hotspot[get(vrhs)].ath,ath);
         copy(hotspot[get(vrhs)].atv,atv);
         copy(hotspot[get(vrhs)].linkedscene,linkedscene);
-        copy(hotspot[get(vrhs)].width,width);
+         copy(hotspot[get(vrhs)].width,width);
         copy(hotspot[get(vrhs)].height,height);
         copy(hotspot[get(vrhs)].onclick,onclick);
         if(%6 == '1',
-          txtadd(hotspot[get(vrhs)].onloaded,
+          txtadd(hotspot[get(vrhs)].onloaded
+          ,
           'do_crop_animation(128,128, 60);');
         );
         txtadd(hotspot[get(vrhs)].onloaded,
@@ -1369,7 +1387,7 @@
         set(hotspot[get(schp_name)].hotspottitle,%3); set(hotspot[get(schp_name)].hotspotlink,%9);
         set(hotspot[get(schp_name)].width,'prop'); set(hotspot[get(schp_name)].height,'50');
         set(hotspot[get(schp_name)].visible,%8); if(%7 == false,
-         set(hotspot[get(schp_name)].onclick,'js(openHotspotLink(%9,%11,%12,%2);)');  ,
+         set(hotspot[get(schp_name)].onclick,'js(openHotspotLink(%9,%11,%12);)');  ,
         set(hotspot[get(schp_name)].ondown,'draghotspot();');
         set(hotspot[get(schp_name)].onup,'js(updateHotSpotData(get(xml.scene),get(name),get(ath),get(atv),"link"));');
         ); if(%6 == '1', txtadd(hotspot[get(schp_name)].onloaded,"do_crop_animation(128,128, 60);"); ); if(%10 == true,
@@ -1410,6 +1428,13 @@
       set(hotspot[get(schp_name)].width,'prop');
       set(hotspot[get(schp_name)].height,'50');
       set(hotspot[get(schp_name)].visible,%8);
+      if(%11 == 'big',
+        set(hotspot[get(schp_name)].width,'prop');
+        set(hotspot[get(schp_name)].height,'100');
+        ,
+        set(hotspot[get(schp_name)].width,'prop');
+        set(hotspot[get(schp_name)].height,'50');
+      );
       if(%7 == false,
         set(hotspot[get(schp_name)].onclick,js(showPictext(get(hotspot[get(name)].hotspottitle),%9,%2)));
         <!-- toggle_word_show(true,get(hotspot[get(name)].hotspottitle),get(hotspot[get(name)].wordcontent)); -->
@@ -1505,7 +1530,7 @@
          set(hotspot[get(schp_name)].height,'50');
         set(hotspot[get(schp_name)].visible,%8);
          if(%7 == false,
-        set(hotspot[get(schp_name)].onclick,js(playvideo(%9, %2)) );
+        set(hotspot[get(schp_name)].onclick,js(playvideo(%9)) );
         ,
         set(hotspot[get(schp_name)].ondown,'draghotspot();');
         set(hotspot[get(schp_name)].onup,'js(updateHotSpotData(get(xml.scene),get(name),get(ath),get(atv),"video"));');
@@ -1518,28 +1543,27 @@
         );
     </action>
     <action name="add_all_the_time_tooltip">
-        txtadd(tooltipname, 'tooltip_', get(name));
-        addplugin(get(tooltipname));
+      txtadd(tooltipname, 'tooltip_', get(name)); addplugin(get(tooltipname));
         txtadd(plugin[get(tooltipname)].parent, 'hotspot[', get(name), ']');
         set(plugin[get(tooltipname)].url,'%SWFPATH%/plugins/textfield.swf');
-        set(plugin[get(tooltipname)].align,top);
+         set(plugin[get(tooltipname)].align,top);
         set(plugin[get(tooltipname)].edge,bottom);
-        set(plugin[get(tooltipname)].x,0);
+         set(plugin[get(tooltipname)].x,0);
         set(plugin[get(tooltipname)].y,5);
-        set(plugin[get(tooltipname)].autowidth,true);
-        set(plugin[get(tooltipname)].height,32);
+         set(plugin[get(tooltipname)].autowidth,true);
+        set(plugin[get(tooltipname)].height,28);
         set(plugin[get(tooltipname)].background,true);
         set(plugin[get(tooltipname)].backgroundcolor,0x000000);
         set(plugin[get(tooltipname)].roundedge,5);
         set(plugin[get(tooltipname)].backgroundalpha,0.65);
-        set(plugin[get(tooltipname)].padding,5);
+         set(plugin[get(tooltipname)].padding,5);
         set(plugin[get(tooltipname)].vcenter,true);
         set(plugin[get(tooltipname)].border,false);
         set(plugin[get(tooltipname)].glow,0);
         set(plugin[get(tooltipname)].glowcolor,0xFFFFFF);
-        set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:MicrosoftYahei; font-size:20px;');
+        set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:MicrosoftYahei; font-size:14px;');
         if(device.mobile,set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF;
-        font-family:MicrosoftYahei; font-weight:bold; font-size:18px;'); ); set(plugin[get(tooltipname)].textshadow,0);
+        font-family:MicrosoftYahei; font-weight:bold; font-size:14px;'); ); set(plugin[get(tooltipname)].textshadow,0);
         set(plugin[get(tooltipname)].textshadowrange,6.0); set(plugin[get(tooltipname)].textshadowangle,90); if(text ==
         '' OR text === null, copy(plugin[get(tooltipname)].html,%1), copy(plugin[get(tooltipname)].html,text) );
         set(plugin[get(tooltipname)].enabled,false);

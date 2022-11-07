@@ -93,219 +93,491 @@ function showthumbs(){
 function hidePictext() {
     $('#pictextModal').modal('hide');
     toggleBtns(true);
-
-    if (localStorage.getItem('current_schp')=='schp_hianckwpjh') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_z3st55rgts') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_8ei23bwkr2') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_fhrimxdgbx') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_njhxaegbex') {check_done_scene();}
-
-
-    if (localStorage.getItem('current_schp')=='schp_by4sck82dp') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_fzyyheehtq') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_eerm7wjbm8') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_sgfzemykda') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_bcxkkmscgm') {check_done_scene();}
-
-    if (localStorage.getItem('current_schp')=='schp_fsbbc3zs3w') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_rn2mrt8c6x') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_jwgqrzsxqq') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_y2j2aszwxe') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_zc662szhsm') {check_done_scene();}
-
-    if (localStorage.getItem('current_schp')=='schp_d2wbtaaxwa') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_xs6jgxjfdh') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_ewyci5rp5f') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_biacnfmr58') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_mnex5mfbce') {check_done_scene();}
-
-    if (localStorage.getItem('current_schp')=='schp_px7qd8fgdx') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_4fdw35t7qh') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_zmknyw4ts5') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_nsazhem8yc') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_d6w7kjstci') {check_done_scene();}
-
-    if (localStorage.getItem('current_schp')=='schp_khpqxh8nra') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_rkfizzmzrf') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_hhhpbrfwaj') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_heazthykms') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_ehn7yrqagt') {check_done_scene();}
-
-    if (localStorage.getItem('current_schp')=='schp_myyrarjikf') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_hbtbtpcex2') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_d7ma45bpcn') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_4ztnr5tgcz') {check_done_scene();}
-    if (localStorage.getItem('current_schp')=='schp_wznb2a2r46') {check_done_scene();}
-
-    if (localStorage.getItem('current_schp')=='schp_z2dazzfsrw') {check_done_scene();}
 }
 
 function showPictext(title,content,name) {
     toggleBtns(false);
-    //var data = $("body").data("panoData");
-    // $('#pictextWorkName').text('');
-    // $('#pictextContent').text('');
-    $('#pictextWorkName').text(title);
-    $('#pictextContent').html(imgtext_decode(content));
-    //$('#pictextContent').append(content);
-    $('#pictextModal').modal("show");
+    var krpano = document.getElementById('krpanoSWFObject');
+    $('#pictextContent').html('');
+    $('#button-area').html('');
+    $("#pictextAvatar").attr('src', '');
 
-    console.log('showPictext')
-    console.log(name)
-    localStorage.setItem('current_schp', name);
+    //scene 1 start
+    if (name=='schp_jwrw5fekh3') {
+        if (localStorage.getItem('event1')=='true') {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('我來想想，對行人最好的做法是？');
+            $('#button-area').append('<button type="button" class="btn btn-cus1" id="event1_sol1">移除機車格<br>建立人行道</button>');
+            $('#button-area').append('<button type="button" class="btn btn-cus1" id="event1_sol2">規定不能<br>停機車</button>');
+            $('#pictextModal').modal("show");
+            $("#event1_sol1").click(function(){
+                showPictext('事件一', '事件一', 'event1_sol1_msg');
+            });
+            $("#event1_sol2").click(function(){
+                showPictext('事件一', '事件一', 'event1_sol2_msg');
+            });
+        } else {
+            $("#pictextAvatar").attr('src', 'skin/character/01_擔心.png');
 
-    if (name == 'schp_hianckwpjh') {
-      localStorage.setItem('event1_clue2', 'true');
-      $('.right_menu_item_2 .right_menu_item_checked').show();
+            $('#pictextContent').append('前面好像發生什麼事了，快過去看看');
+            // $('#pictextContent').append('是啊，除了建造人本交通建設改善環境，自己本身也要遵守交通規則，了解道安知識，才能用路平安！');
+            $('#button-area').append('<button type="button" class="btn btn-next" id="event1"></button>');
+            // $('#button-area').append('<button type="button" class="btn btn-cus1" id="event1_sol1">移除機車格<br>建立人行道</button>');
+            // $('#button-area').append('<button type="button" class="btn btn-cus1" id="event1_sol2">規定不能<br>停機車</button>');
+            $('#pictextModal').modal("show");
+            $("#event1").click(function(){
+                // shootcut 1
+                // krpano.call('loadscene("scene_7acf894b669a3e2b", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+
+                krpano.call('addImgTextHotSpot("resource/images/76e464114d75128d.png","schp_md2jcgzbpt",'+html_encode("事件一")+','+(-85.360528863935)+','+(-2.8240510800472)+',0,false,true,'+imgtext_encode("事件一")+',"",'+"small"+')');
+                krpano.call('set(hotspot["schp_jwrw5fekh3"].visible ,false)')
+                hidePictext()
+            });
+        }
+    }
+    if (name=='schp_md2jcgzbpt') {
+        $("#pictextAvatar").attr('src', 'skin/character/1-1.png');
+        $('#pictextContent').append('這裡停滿了機車好難走，我差點要被車撞到了！');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event1_in1"></button>');
+        $('#pictextModal').modal("show");
+        $("#event1_in1").click(function(){
+            showPictext('事件一', '事件一', 'event1_in2');
+        });
+    }
+    if (name=='event1_in2') {
+        $("#pictextAvatar").attr('src', 'skin/character/1-1.png');
+        $('#pictextContent').append('我該怎麼辦呢？也許能去問問阿秋。');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event1_in3"></button>');
+        $('#pictextModal').modal("show");
+        $("#event1_in3").click(function(){
+            localStorage.setItem('event1', 'true');
+            krpano.call('set(hotspot["schp_jwrw5fekh3"].visible ,true)')
+            krpano.call('set(hotspot["schp_md2jcgzbpt"].visible ,false)')
+
+            hidePictext()
+        });
+    }
+    if (name=='event1_sol1_msg') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('來看看人本交通的魔法吧！');
+        $('#button-area').append('<button type="button" class="btn btn-wand" id="event1_nextscene"></button>');
+        $('#pictextModal').modal("show");
+        $("#event1_nextscene").click(function(){
+            hidePictext()
+            krpano.call('loadscene("scene_e712c9d6e6659640", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+        });
+    }
+    if (name=='event1_sol2_msg') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('嗯？好像可以再想想有沒有更好的辦法？');
+        $('#button-area').append('<button type="button" class="btn btn-cus3" id="event1_sol1_msg_back">返回</button>');
+        $('#pictextModal').modal("show");
+        $("#event1_sol1_msg_back").click(function(){
+            showPictext('事件一', '事件一', 'schp_jwrw5fekh3');
+        });
+    }
+    //scene 1 end
+
+    //scene 2 start
+    if (name=='schp_gbif4dtmjw') {
+        if (localStorage.getItem('event2')=='true') {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('接下來去下一關，看看其他交通事件吧！');
+            $('#button-area').append('<button type="button" class="btn btn-cus3" id="event2_sol1">前往下一關</button>');
+            $('#pictextModal').modal("show");
+            $("#event2_sol1").click(function(){
+                hidePictext()
+                krpano.call('loadscene("scene_c3fbc0cf1954e842", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+            });
+        } else {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('哇！施展人本交通魔法後，變得好不一樣喔！不知道他覺得怎麼樣？去問問他！');
+            $('#button-area').append('<button type="button" class="btn btn-next" id="event2"></button>');
+            $('#pictextModal').modal("show");
+            $("#event2").click(function(){
+                krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_hdfmtkhdmt",'+html_encode("事件二")+','+(-91.08143970606)+','+(-3.0908234328123)+',0,false,true,'+imgtext_encode("事件二")+',"",'+"small"+')');
+                krpano.call('set(hotspot["schp_gbif4dtmjw"].visible ,false)')
+                hidePictext()
+            });
+        }
+    }
+    if (name=='schp_hdfmtkhdmt') {
+        $("#pictextAvatar").attr('src', 'skin/character/1-2.png');
+        $('#pictextContent').append('有了人行道後，走路的空間變好大，我能安心上下學了！');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event2_in1"></button>');
+        $('#pictextModal').modal("show");
+        $("#event2_in1").click(function(){
+            localStorage.setItem('event2', 'true');
+            krpano.call('set(hotspot["schp_gbif4dtmjw"].visible ,true)')
+            krpano.call('set(hotspot["schp_hdfmtkhdmt"].visible ,false)')
+            hidePictext()
+        });
+    }
+    //scene 2 end
+
+    //scene 3 start
+    if (name=='schp_fg8ct3syh8') {
+        if (localStorage.getItem('event3')=='true') {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('要怎麼樣才能讓轉彎的車，不會撞到在斑馬線上的行人呢？');
+            $('#button-area').append('<button type="button" class="btn btn-cus1" id="event3_sol1">將行穿線內縮</button>');
+            $('#button-area').append('<button type="button" class="btn btn-cus1" id="event3_sol2">用跑的過馬路</button>');
+            $('#pictextModal').modal("show");
+            $("#event3_sol1").click(function(){
+                showPictext('事件一', '事件一', 'event3_sol1_msg');
+            });
+            $("#event3_sol2").click(function(){
+                showPictext('事件一', '事件一', 'event3_sol2_msg');
+            });
+        } else {
+            $("#pictextAvatar").attr('src', 'skin/character/01_擔心.png');
+            $('#pictextContent').append('天啊！那個女生差點被車撞到耶！快過去看下一下。');
+            $('#button-area').append('<button type="button" class="btn btn-next" id="event3"></button>');
+            $('#pictextModal').modal("show");
+            $("#event3").click(function(){
+                krpano.call('addImgTextHotSpot("resource/images/76e464114d75128d.png","schp_phsnjqqwns",'+html_encode("事件三")+','+(-172.42906649763)+','+(-2.4096750487546)+',0,false,true,'+imgtext_encode("事件三")+',"",'+"small"+')');
+                krpano.call('set(hotspot["schp_fg8ct3syh8"].visible ,false)')
+                hidePictext()
+            });
+        }
+    }
+    if (name=='schp_phsnjqqwns') {
+        $("#pictextAvatar").attr('src', 'skin/character/2-1.png');
+        $('#pictextContent').append('啊！這輛車差點撞到我，為什麼他轉彎時會離我這麼近？');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event3_in1"></button>');
+        $('#pictextModal').modal("show");
+        $("#event3_in1").click(function(){
+            localStorage.setItem('event3', 'true');
+            krpano.call('set(hotspot["schp_fg8ct3syh8"].visible ,true)')
+            krpano.call('set(hotspot["schp_phsnjqqwns"].visible ,false)')
+            hidePictext()
+        });
+    }
+    if (name=='event3_sol1_msg') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('行穿線，指的是「提供行人穿越馬路的標線」像是斑馬線就是喔！來看看人本交通的魔法吧！');
+        $('#button-area').append('<button type="button" class="btn btn-wand" id="event1_nextscene"></button>');
+        $('#pictextModal').modal("show");
+        $("#event1_nextscene").click(function(){
+            hidePictext()
+            krpano.call('loadscene("scene_1d1d29ff9800454d", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+        });
+    }
+    if (name=='event3_sol2_msg') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('嗯？好像可以再想想有沒有更好的辦法？');
+        $('#button-area').append('<button type="button" class="btn btn-cus3" id="event1_sol1_msg_back">返回</button>');
+        $('#pictextModal').modal("show");
+        $("#event1_sol1_msg_back").click(function(){
+            showPictext('事件一', '事件一', 'schp_fg8ct3syh8');
+        });
+    }
+    //scene 3 end
+
+    //scene 4 start
+    if (name=='schp_4fwszezmty') {
+        if (localStorage.getItem('event4')=='true') {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('行穿線內縮後，車子在轉彎時有更大的角度和距離，讓行人比較不會被轉彎的車影響喔！來看看下一個交通事件吧！');
+            $('#button-area').append('<button type="button" class="btn btn-cus3" id="event4_sol1">前往下一關</button>');
+            $('#pictextModal').modal("show");
+            $("#event4_sol1").click(function(){
+                hidePictext()
+                krpano.call('loadscene("scene_18660de6942281d1", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+            });
+        } else {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('哇！行穿線看起來往內移了！那位女同學可以安全通過了。');
+            $('#button-area').append('<button type="button" class="btn btn-next" id="event4"></button>');
+            $('#pictextModal').modal("show");
+            $("#event4").click(function(){
+                krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_c4egmirnfe",'+html_encode("事件四")+','+(169.2731113722)+','+(-3.8583427415254)+',0,false,true,'+imgtext_encode("事件四")+',"",'+"small"+')');
+                krpano.call('set(hotspot["schp_4fwszezmty"].visible ,false)')
+                hidePictext()
+            });
+        }
+    }
+    if (name=='schp_c4egmirnfe') {
+        $("#pictextAvatar").attr('src', 'skin/character/2-2.png');
+        $('#pictextContent').append('這樣我走在斑馬線上，就不怕轉彎的車撞到我了。');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event4_in1"></button>');
+        $('#pictextModal').modal("show");
+        $("#event4_in1").click(function(){
+            localStorage.setItem('event4', 'true');
+            krpano.call('set(hotspot["schp_4fwszezmty"].visible ,true)')
+            krpano.call('set(hotspot["schp_c4egmirnfe"].visible ,false)')
+            hidePictext()
+        });
+    }
+    //scene 4 end
+
+    //scene 5 start
+    if (name=='schp_txpzkw5nf8') {
+        if (localStorage.getItem('event5')=='true') {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('要怎麼樣才能上學的路變得更安全呢？');
+            $('#button-area').append('<button type="button" class="btn btn-cus1" id="event5_sol1">拆除圍牆<br>改建通學步道</button>');
+            $('#button-area').append('<button type="button" class="btn btn-cus1" id="event5_sol2">讓阿嬤<br>載到校門口</button>');
+            $('#pictextModal').modal("show");
+            $("#event5_sol1").click(function(){
+                showPictext('事件一', '事件一', 'event5_sol1_msg');
+            });
+            $("#event5_sol2").click(function(){
+                showPictext('事件一', '事件一', 'event5_sol2_msg');
+            });
+        } else {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('這是我們的學校臺南國小，圍牆外的路是平常上下學都會通過的路線。');
+            $('#button-area').append('<button type="button" class="btn btn-next" id="event5"></button>');
+            $('#pictextModal').modal("show");
+            $("#event5").click(function(){
+                showPictext('事件一', '事件一', 'event5_in2');
+            });
+        }
+    }
+    if (name=='event5_in2') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_擔心.png');
+        $('#pictextContent').append('但是你看！圍牆外的路空間太小了，那輛車差點擦過那個女同學！');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event5_in1"></button>');
+        $('#pictextModal').modal("show");
+        $("#event5_in1").click(function(){
+            krpano.call('addImgTextHotSpot("resource/images/76e464114d75128d.png","schp_rynybb2rbh",'+html_encode("事件五")+','+(-2.4427279173341)+','+(-1.6953092877172)+',0,false,true,'+imgtext_encode("事件五")+',"",'+"small"+')');
+            krpano.call('set(hotspot["schp_txpzkw5nf8"].visible ,false)')
+            hidePictext()
+        });
+    }
+    if (name=='schp_rynybb2rbh') {
+        $("#pictextAvatar").attr('src', 'skin/character/2-1.png');
+        $('#pictextContent').append('這裡路好小好難走喔，剛剛那輛車還差點撞到我！');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event5_in1"></button>');
+        $('#pictextModal').modal("show");
+        $("#event5_in1").click(function(){
+            localStorage.setItem('event5', 'true');
+            krpano.call('set(hotspot["schp_txpzkw5nf8"].visible ,true)')
+            krpano.call('set(hotspot["schp_rynybb2rbh"].visible ,false)')
+            hidePictext()
+        });
+    }
+    if (name=='event5_sol1_msg') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('來看看人本交通的魔法吧！');
+        $('#button-area').append('<button type="button" class="btn btn-wand" id="event1_nextscene"></button>');
+        $('#pictextModal').modal("show");
+        $("#event1_nextscene").click(function(){
+            hidePictext()
+            krpano.call('loadscene("scene_04e78c7766783b16", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+        });
+    }
+    if (name=='event5_sol2_msg') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('嗯？好像可以再想想有沒有更好的辦法？');
+        $('#button-area').append('<button type="button" class="btn btn-cus3" id="event1_sol1_msg_back">返回</button>');
+        $('#pictextModal').modal("show");
+        $("#event1_sol1_msg_back").click(function(){
+            showPictext('事件一', '事件一', 'schp_txpzkw5nf8');
+        });
+    }
+    //scene 5 end
+
+    //scene 6 start
+    if (name=='schp_dcazfxyxez') {
+        // if (localStorage.getItem('event6')=='true') {
+        //     $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        //     $('#pictextContent').append('行穿線內縮後，車子在轉彎時有更大的角度和距離，讓行人比較不會被轉彎的車影響喔！來看看下一個交通事件吧！');
+        //     $('#button-area').append('<button type="button" class="btn btn-cus3" id="event6_sol1">前往下一關</button>');
+        //     $('#pictextModal').modal("show");
+        //     $("#event6_sol1").click(function(){
+        //         hidePictext()
+        //         krpano.call('loadscene("scene_18660de6942281d1", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+        //     });
+        // } else {
+            $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+            $('#pictextContent').append('圍牆拆除後，空出好大的空間喔，蓋上人行道後，就能安心上下學了。');
+            $('#button-area').append('<button type="button" class="btn btn-next" id="event6"></button>');
+            $('#pictextModal').modal("show");
+            $("#event6").click(function(){
+                krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_zwcrfjsae2",'+html_encode("事件六")+','+(-1.5897539071423)+','+(-3.3258701496608)+',0,false,true,'+imgtext_encode("事件六")+',"",'+"small"+')');
+                krpano.call('set(hotspot["schp_dcazfxyxez"].visible ,false)')
+                hidePictext()
+            });
+        // }
+    }
+    if (name=='schp_zwcrfjsae2') {
+        $("#pictextAvatar").attr('src', 'skin/character/2-2.png');
+        $('#pictextContent').append('拆除圍牆後，空出了蓋通學步道的空間，讓行人能走的通學步道變大了，上學路上也更安全了。');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event6_in1"></button>');
+        $('#pictextModal').modal("show");
+        $("#event6_in1").click(function(){
+            localStorage.setItem('event6', 'true');
+            hidePictext()
+            krpano.call('loadscene("scene_7acf894b669a3e2b", null, MERGE, ZOOMBLEND(1.0, 2.0, easeoutquart));');
+        });
+    }
+    //scene 6 end
+
+    //scene 7 start
+    if (name=='schp_pcny2brrmm') {
+        // if (localStorage.getItem('event7-1') == 'true' && localStorage.getItem('event7-2') == 'true' && localStorage.getItem('event7-3') == 'true') {
+        //     $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        //     $('#pictextContent').append('要怎麼樣才能上學的路變得更安全呢？');
+        //     $('#button-area').append('<button type="button" class="btn btn-cus1" id="event5_sol1">拆除圍牆<br>改建通學步道</button>');
+        //     $('#button-area').append('<button type="button" class="btn btn-cus1" id="event5_sol2">讓嬤嬤<br>載到校門口</button>');
+        //     $('#pictextModal').modal("show");
+        //     $("#event5_sol1").click(function(){
+        //         showPictext('事件一', '事件一', 'event5_sol1_msg');
+        //     });
+        //     $("#event5_sol2").click(function(){
+        //         showPictext('事件一', '事件一', 'event5_sol2_msg');
+        //     });
+        // } else {
+            $("#pictextAvatar").attr('src', 'skin/character/01_擔心.png');
+            $('#pictextContent').append('這裡好像有些地方怪怪的，去看看那些驚嘆號發生什麼事了？');
+            $('#button-area').append('<button type="button" class="btn btn-next" id="event5"></button>');
+            $('#pictextModal').modal("show");
+            $("#event5").click(function(){
+                krpano.call('addImgTextHotSpot("resource/images/76e464114d75128d.png","schp_fzgd25hmsc",'+html_encode("事件七之一")+','+(-26.368131239493)+','+(-7.5101736963872)+',0,false,true,'+imgtext_encode("事件七之一")+',"",'+"small"+')');
+                krpano.call('addImgTextHotSpot("resource/images/76e464114d75128d.png","schp_wzazkkxde6",'+html_encode("事件七之二")+','+(22.668447840045)+','+(-5.5358128467857)+',0,false,true,'+imgtext_encode("事件七之二")+',"",'+"small"+')');
+                krpano.call('addImgTextHotSpot("resource/images/76e464114d75128d.png","schp_nhhjdw2htf",'+html_encode("事件七之三")+','+(66.903564389049)+','+(-6.6450739401113)+',0,false,true,'+imgtext_encode("事件七之三")+',"",'+"small"+')');
+                krpano.call('set(hotspot["schp_pcny2brrmm"].visible ,false)')
+                hidePictext()
+            });
+        // }
     }
 
-    if (name == 'schp_z3st55rgts') {
-      localStorage.setItem('event1_clue3_1_1', 'true');
-      check_event2_clues();
+    // hotspot 7-1 start
+    if (name=='schp_fzgd25hmsc') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('騎機車要戴安全帽嗎？');
+        $('#button-area').append('<button type="button" class="btn btn-cus1" id="event7_1_sol1">一定要戴才安全！</button>');
+        $('#button-area').append('<button type="button" class="btn btn-cus1" id="event7_1_sol2">很近的話<br>應該不用吧？</button>');
+        $('#pictextModal').modal("show");
+        $("#event7_1_sol1").click(function(){
+            showPictext('事件七之一', '事件七之一', 'event7_1_sol1');
+        });
+        $("#event7_1_sol2").click(function(){
+            showPictext('事件七之一', '事件七之一', 'event7_1_sol2');
+        });
+
     }
-    if (name == 'schp_8ei23bwkr2') {
-      localStorage.setItem('event1_clue3_1_2', 'true');
-      check_event2_clues();
+    if (name=='event7_1_sol1') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('答對了！騎機車戴安全帽，萬一發生意外時才能保護自己喔！看看其他事件吧！');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event7_1_solved"></button>');
+        $('#pictextModal').modal("show");
+        $("#event7_1_solved").click(function(){
+            localStorage.setItem('event7-1', 'true');
+            krpano.call('set(hotspot["schp_fzgd25hmsc"].visible ,false)')
+            if (localStorage.getItem('event7-1') == 'true' && localStorage.getItem('event7-2') == 'true' && localStorage.getItem('event7-3') == 'true') {
+                // final
+                // krpano.call('set(hotspot["schp_pcny2brrmm"].visible ,true)')
+                $('.overlay').fadeIn(1200);
+                localStorage.setItem('end_step', 0);
+                $('.overlay .landing-btn').click()
+            }
+            hidePictext()
+        });
     }
-    if (name == 'schp_fhrimxdgbx') {
-      localStorage.setItem('event1_clue3_1_3', 'true');
-      check_event2_clues();
+    if (name=='event7_1_sol2') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('嗯?好像可以再想想喔！');
+        $('#button-area').append('<button type="button" class="btn btn-cus3" id="event1_sol1_msg_back">返回</button>');
+        $('#pictextModal').modal("show");
+        $("#event1_sol1_msg_back").click(function(){
+            showPictext('事件七之一', '事件七之一', 'schp_fzgd25hmsc');
+        });
     }
-    if (name == 'schp_njhxaegbex') {
-      localStorage.setItem('event1_clue3_1_4', 'true');
-      check_event2_clues();
+    // hotspot 7-1 end
+
+    // hotspot 7-2 start
+    if (name=='schp_wzazkkxde6') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('路上都沒車，可以不走斑馬線直接通過嗎？');
+        $('#button-area').append('<button type="button" class="btn btn-cus1" id="event7_2_sol1">太危險了！<br>一定要走斑馬線</button>');
+        $('#button-area').append('<button type="button" class="btn btn-cus1" id="event7_2_sol2">斑馬線好遠，<br>直接過去比較方便</button>');
+        $('#pictextModal').modal("show");
+        $("#event7_2_sol1").click(function(){
+            showPictext('事件七之一', '事件七之一', 'event7_2_sol1');
+        });
+        $("#event7_2_sol2").click(function(){
+            showPictext('事件七之一', '事件七之一', 'event7_2_sol2');
+        });
+
     }
-    if (name == 'schp_by4sck82dp') {
-      localStorage.setItem('event1_clue3_1_5', 'true');
-      check_event2_clues();
+    if (name=='event7_2_sol1') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('答對了！就算斑馬線再遠，也要走斑馬線上才安全喔！去看看其他事件吧！');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event7_1_solved"></button>');
+        $('#pictextModal').modal("show");
+        $("#event7_1_solved").click(function(){
+            localStorage.setItem('event7-2', 'true');
+            krpano.call('set(hotspot["schp_wzazkkxde6"].visible ,false)')
+            if (localStorage.getItem('event7-1') == 'true' && localStorage.getItem('event7-2') == 'true' && localStorage.getItem('event7-3') == 'true') {
+                // final
+                // krpano.call('set(hotspot["schp_pcny2brrmm"].visible ,true)')
+                $('.overlay').fadeIn(1200);
+                localStorage.setItem('end_step', 0);
+                $('.overlay .landing-btn').click()
+            }
+            hidePictext()
+        });
     }
-    if (name == 'schp_fzyyheehtq') {
-      localStorage.setItem('event1_clue3_1_6', 'true');
-      check_event2_clues();
+    if (name=='event7_2_sol2') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('嗯?好像可以再想想喔！');
+        $('#button-area').append('<button type="button" class="btn btn-cus3" id="event1_sol1_msg_back">返回</button>');
+        $('#pictextModal').modal("show");
+        $("#event1_sol1_msg_back").click(function(){
+            showPictext('事件七之一', '事件七之一', 'schp_wzazkkxde6');
+        });
     }
-    if (name == 'schp_eerm7wjbm8') {
-      localStorage.setItem('event1_clue3_1_7', 'true');
-      check_event2_clues();
+    // hotspot 7-2 end
+
+    // hotspot 7-3 start
+    if (name=='schp_nhhjdw2htf') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('車子停上人行道是正確的嗎？');
+        $('#button-area').append('<button type="button" class="btn btn-cus1" id="event7_3_sol1">這是不對的！<br>行人都被擋到了。</button>');
+        $('#button-area').append('<button type="button" class="btn btn-cus1" id="event7_3_sol2">反正給個方便，<br>沒差吧？</button>');
+        $('#pictextModal').modal("show");
+        $("#event7_3_sol1").click(function(){
+            showPictext('事件七之一', '事件七之一', 'event7_3_sol1');
+        });
+        $("#event7_3_sol2").click(function(){
+            showPictext('事件七之一', '事件七之一', 'event7_3_sol2');
+        });
+
     }
+    if (name=='event7_3_sol1') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('答對了！汽車佔用人行道是錯誤的行為，這樣行人就會被擋到，無路可走了。所以汽車一定要停在車位中，不能停在人行道喔！去看看其他事件吧！');
+        $('#button-area').append('<button type="button" class="btn btn-next" id="event7_1_solved"></button>');
+        $('#pictextModal').modal("show");
+        $("#event7_1_solved").click(function(){
+            localStorage.setItem('event7-3', 'true');
+            krpano.call('set(hotspot["schp_nhhjdw2htf"].visible ,false)')
+            if (localStorage.getItem('event7-1') == 'true' && localStorage.getItem('event7-2') == 'true' && localStorage.getItem('event7-3') == 'true') {
+                // final
+                // krpano.call('set(hotspot["schp_pcny2brrmm"].visible ,true)')
+                $('.overlay').fadeIn(1200);
+                localStorage.setItem('end_step', 0);
+                $('.overlay .landing-btn').click()
+            }
+            hidePictext()
+        });
+    }
+    if (name=='event7_3_sol2') {
+        $("#pictextAvatar").attr('src', 'skin/character/01_快樂.png');
+        $('#pictextContent').append('嗯?好像可以再想想喔！');
+        $('#button-area').append('<button type="button" class="btn btn-cus3" id="event1_sol1_msg_back">返回</button>');
+        $('#pictextModal').modal("show");
+        $("#event1_sol1_msg_back").click(function(){
+            showPictext('事件七之一', '事件七之一', 'schp_nhhjdw2htf');
+        });
+    }
+    // hotspot 7-3 end
 
 
-    if (name == 'schp_sgfzemykda') {
-      localStorage.setItem('event1_clue3_2_1', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_bcxkkmscgm') {
-      localStorage.setItem('event1_clue3_2_2', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_fsbbc3zs3w') {
-      localStorage.setItem('event1_clue3_2_3', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_rn2mrt8c6x') {
-      localStorage.setItem('event1_clue3_2_4', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_jwgqrzsxqq') {
-      localStorage.setItem('event1_clue3_2_5', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_y2j2aszwxe') {
-      localStorage.setItem('event1_clue3_2_6', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_zc662szhsm') {
-      localStorage.setItem('event1_clue3_2_7', 'true');
-      check_event2_clues();
-    }
-
-
-    if (name == 'schp_d2wbtaaxwa') {
-      localStorage.setItem('event1_clue3_3_1', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_xs6jgxjfdh') {
-      localStorage.setItem('event1_clue3_3_2', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_ewyci5rp5f') {
-      localStorage.setItem('event1_clue3_3_3', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_biacnfmr58') {
-      localStorage.setItem('event1_clue3_3_4', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_mnex5mfbce') {
-      localStorage.setItem('event1_clue3_3_5', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_px7qd8fgdx') {
-      localStorage.setItem('event1_clue3_3_6', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_4fdw35t7qh') {
-      localStorage.setItem('event1_clue3_3_7', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_zmknyw4ts5') {
-      localStorage.setItem('event1_clue3_3_8', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_nsazhem8yc') {
-      localStorage.setItem('event1_clue3_3_9', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_d6w7kjstci') {
-      localStorage.setItem('event1_clue3_3_10', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_khpqxh8nra') {
-      localStorage.setItem('event1_clue3_3_11', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_rkfizzmzrf') {
-      localStorage.setItem('event1_clue3_3_12', 'true');
-      check_event2_clues();
-    }
-
-
-    if (name == 'schp_hhhpbrfwaj') {
-      localStorage.setItem('event1_clue3_4_1', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_heazthykms') {
-      localStorage.setItem('event1_clue3_4_2', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_ehn7yrqagt') {
-      localStorage.setItem('event1_clue3_4_3', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_myyrarjikf') {
-      localStorage.setItem('event1_clue3_4_4', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_hbtbtpcex2') {
-      localStorage.setItem('event1_clue3_4_5', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_d7ma45bpcn') {
-      localStorage.setItem('event1_clue3_4_6', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_4ztnr5tgcz') {
-      localStorage.setItem('event1_clue3_4_7', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_wznb2a2r46') {
-      localStorage.setItem('event1_clue3_4_8', 'true');
-      check_event2_clues();
-    }
-    if (name == 'schp_z2dazzfsrw') {
-      localStorage.setItem('event1_clue3_4_9', 'true');
-      check_event2_clues();
-    }
-
+    //scene 7 end
 }
 
 //krpano调用 初始化高级设置
@@ -426,6 +698,52 @@ function addRadarSpot(name,x,y){
 }
 
 function initHotspotSetting(sceneName){
+    localStorage.setItem('event1', 'false');
+    localStorage.setItem('event2', 'false');
+    localStorage.setItem('event3', 'false');
+    localStorage.setItem('event4', 'false');
+    localStorage.setItem('event5', 'false');
+    localStorage.setItem('event6', 'false');
+    localStorage.setItem('event7-1', 'false');
+    localStorage.setItem('event7-2', 'false');
+    localStorage.setItem('event7-3', 'false');
+    console.log("js2");
+
+    var krpano = document.getElementById('krpanoSWFObject');
+    var hotspotObj = ($("body").data("panoData").hotspot)[sceneName];
+
+
+
+    switch (sceneName) {
+        case "scene_179184fca19185ca":
+            krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_jwrw5fekh3",'+html_encode("阿秋一")+','+(-109.35297974014)+','+(22.335071074347)+',0,false,true,'+imgtext_encode("阿秋一")+',"",'+"big"+')');
+            break;
+        case "scene_e712c9d6e6659640":
+            krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_gbif4dtmjw",'+html_encode("阿秋二")+','+(-113.68477924938)+','+(20.113213049767)+',0,false,true,'+imgtext_encode("阿秋二")+',"",'+"big"+')');
+            break;
+        case "scene_c3fbc0cf1954e842":
+            krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_fg8ct3syh8",'+html_encode("阿秋三")+','+(-154.49974153526)+','+(15.634695876176)+',0,false,true,'+imgtext_encode("阿秋三")+',"",'+"big"+')');
+            break;
+        case "scene_1d1d29ff9800454d":
+            krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_4fwszezmty",'+html_encode("阿秋四")+','+(130.9954180972)+','+(14.627903683966)+',0,false,true,'+imgtext_encode("阿秋四")+',"",'+"big"+')');
+            break;
+        case "scene_18660de6942281d1":
+            krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_txpzkw5nf8",'+html_encode("阿秋五")+','+(-38.054037098665)+','+(23.716450735411)+',0,false,true,'+imgtext_encode("阿秋五")+',"",'+"big"+')');
+            break;
+        case "scene_04e78c7766783b16":
+            krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_dcazfxyxez",'+html_encode("阿秋六")+','+(-31.812456516082)+','+(17.163045558016)+',0,false,true,'+imgtext_encode("阿秋六")+',"",'+"big"+')');
+            break;
+        case "scene_7acf894b669a3e2b":
+            krpano.call('addImgTextHotSpot("skin/對話icon.png","schp_pcny2brrmm",'+html_encode("阿秋七")+','+(-42.065935851096)+','+(4.4411525758593)+',0,false,true,'+imgtext_encode("阿秋七")+',"",'+"big"+')');
+            break;
+        default:
+
+    }
+
+}
+
+
+function initHotspotSetting_old(sceneName){
     console.log("js2");
 
     var krpano = document.getElementById('krpanoSWFObject');
@@ -434,103 +752,11 @@ function initHotspotSetting(sceneName){
     // var blend_setting = "BLEND(1.0, easeInCubic)";
     var blend_type = $("body").data("panoData").blend_setting['blend_type']
 
-console.log(sceneName)
-    switch (sceneName) {
-        case "scene_ede93bca08bdaa3f":
-            localStorage.setItem('event3_clue1', 'true');
-            $('.right_menu_item_1 .right_menu_item_checked').show();
-            break;
-        case "scene_5bd7d1f3f5146d82":
-            localStorage.setItem('event3_clue2', 'true');
-            $('.right_menu_item_2 .right_menu_item_checked').show();
-            break;
-        case "scene_9bd1d9e892de4613":
-            localStorage.setItem('event3_clue3', 'true');
-            $('.right_menu_item_3 .right_menu_item_checked').show();
-            break;
-        case "scene_4f2458d5503863ac":
-            localStorage.setItem('event3_clue4', 'true');
-            $('.right_menu_item_4 .right_menu_item_checked').show();
-            break;
-        case "scene_f9e4735bf06cfd30":
-            localStorage.setItem('event1_clue1', 'true');
-            $('.right_menu_item_1 .right_menu_item_checked').show();
-            break;
-        case "scene_30ae1fcbbaae5e5f":
-            localStorage.setItem('event1_clue4', 'true');
-            $('.right_menu_item_4 .right_menu_item_checked').show();
-            check_done_scene();
-            break;
-        case "scene_8036ecb5482d1e96":
-            localStorage.setItem('event1_clue4', 'true');
-            $('.right_menu_item_4 .right_menu_item_checked').show();
-            check_done_scene();
-            break;
-
-
-        case "scene_a2bc1edfe53702a9":
-        case "scene_1af65dc810d9bf27":
-        case "scene_eb3fc21370fdb5b7":
-        case "scene_740177daf5c4c61d":
-        case "scene_01396e1af068c1e2":
-        case "scene_bbcf956c95fe0a05":
-        case "scene_bfa70a75ac560375":
-            check_done_scene();
-            break;
-
-
-        case "scene_86cd2c276838888d":
-            check_done_scene();
-            break;
-
-
-        case "scene_2cd324a473d7d0d4":
-        case "scene_517d7f393240de77":
-        case "scene_74554e23eb33d7c6":
-          // goto_scene('scene_1697e0e33408b9b9')
-          // krpano.call('loadscene('+'scene_1697e0e33408b9b9'+', null, MERGE, '+blend_type+');');
-          // initAdvancedSetting()
-
-
-            $('.overlay').show()
-            $('.right_menu').hide()
-            $('.vrshow_container_1_min').hide()
-            $('.vrshow_container_2_min').hide()
-
-            $('.overlay .overlay_btn').hide()
-            $('.overlay .overlay_conversation_area').hide()
-
-            $('.overlay .overlay_entries').show()
-            localStorage.setItem('overlay_step', 2);
-            break;
-        case "scene_1697e0e33408b9b9":
-            if (localStorage.getItem('overlay_step') == 2) {
-                $('.overlay').show()
-                $('.right_menu').hide()
-                $('.vrshow_container_1_min').hide()
-                $('.vrshow_container_2_min').hide()
-
-                $('.overlay .overlay_btn').hide()
-                $('.overlay .overlay_conversation_area').hide()
-
-                $('.overlay .overlay_entries').show()
-            }
-            break;
-
-
-        default:
-
-    }
-
     if(hotspotObj){
         $.each(hotspotObj,function(key,value){
             if(key == 'scene'){
                 $(value).each(function(idx){
-                    if (this.linkedscene=='scene_2cd324a473d7d0d4' || this.linkedscene=='scene_517d7f393240de77' || this.linkedscene=='scene_74554e23eb33d7c6') {
-                      krpano.call('addSceneChangeHotSpot("resource/images/15645662749277sm.png","schp_4bms6p8sa6",'+'scene_1697e0e33408b9b9'+','+(this.ath)+','+(this.atv)+',"1",false,true,' + blend_type + ')');
-                    } else {
-                      krpano.call('addSceneChangeHotSpot("'+this.imgPath+'","'+ (this.name) +'",'+this.linkedscene+','+(this.ath)+','+(this.atv)+','+this.isDynamic+',false,true,' + blend_type + ')');
-                    }
+                    krpano.call('addSceneChangeHotSpot("'+this.imgPath+'","'+ (this.name) +'",'+this.linkedscene+','+(this.ath)+','+(this.atv)+','+this.isDynamic+',false,true,' + blend_type + ')');
                     // krpano.call('addSceneChangeHotSpot("'+this.imgPath+'","'+ (this.name) +'",'+this.linkedscene+','+(this.ath)+','+(this.atv)+','+this.isDynamic+',false,true)');
                 });
             }else if(key == 'link'){
@@ -552,10 +778,6 @@ console.log(sceneName)
             }else if(key == 'around'){
                 $(value).each(function(idx){
                     krpano.call('addAroundHotSpot("'+this.imgPath+'","'+ (this.name) +'",'+html_encode(this.hotspotTitle)+','+(this.ath)+','+(this.atv)+','+this.isDynamic+',false,true,'+this.aroundPath+','+this.fileCount+','+this.isShowSpotName+')');
-                });
-            }else if(key == 'imgtext'){
-                $(value).each(function(idx){
-                    krpano.call('addImgTextHotSpot("'+this.imgPath+'","'+ (this.name) +'",'+html_encode(this.hotspotTitle)+','+(this.ath)+','+(this.atv)+','+this.isDynamic+',false,true,'+imgtext_encode(this.imgtext_wordContent)+','+this.isShowSpotName+')');
                 });
             }else if(key == 'obj'){
                 $(value).each(function(idx){
@@ -732,8 +954,9 @@ function getWorkPrivacyFlag(){
 }
 
 
-function openHotspotLink(_link,_blank,_alert,name){
-  console.log(name)
+function openHotspotLink(_link,_blank,_alert){
+
+
 	var protocolStr = document.location.protocol;
 
 	var linkto = null;
@@ -752,18 +975,11 @@ if(linkto.indexOf("https") == -1 ){
             '<div class="modal-dialog">'+
                 '<div class="modal-body" style="padding: 0">'+
                   '<i class="icon-remove-sign" onClick="javascript:closeHotspotLink();" style="position:absolute;z-index:99999;left:0;top:0;font-size:20px;color:#8000FF;"></i>'+
-                  '  <iframe src="'+ linkto +'" frameborder="0" width="100%" height="400"></iframe>'+
+                  '  <iframe src="'+ linkto +'" frameborder="0" width="100%" height="800"></iframe>'+
                ' </div>'+
            ' </div>'+
        ' </div>');
 	   $("#hotspot_link_alert").modal('show');
-
-     if (name == "schp_jspdnaxmrz") {
-       localStorage.setItem('event2_clue2', 'true');
-       $('.right_menu_item_2 .right_menu_item_checked').show();
-     }
-     // $('.right_menu_item_1 .right_menu_item_checked').show();
-
 	}
 	else{
 		var target = _blank=="1" ? "_blank" : "_self";
@@ -771,10 +987,8 @@ if(linkto.indexOf("https") == -1 ){
 	}
 }
 function closeHotspotLink(){
-  console.log('closeHotspotLink')
 	$("#hotspot_link_alert").modal('hide');
 	$("#hotspot_link_alert").remove();
-  check_done_scene();
 }
 
 
@@ -894,260 +1108,25 @@ function openSpeechVoiceBtn(){
     voiceOff.addClass('btn_music');
 }
 var player ;
-function playvideo(url, name){
-    console.log('#')
-    console.log(name)
-    var location = window.location.href;
-    url = location.substring(0,location.lastIndexOf("\/")+1)+url;
-
-    // url = 'https://drive.google.com/file/d/1RYB_d6ijoL-hAQisc_HMdmn3KtS53vEa/preview';
-    // url = 'https://drive.google.com/uc?export=download&id=1RYB_d6ijoL-hAQisc_HMdmn3KtS53vEa';
-
-
+function playvideo(url){
+   var location = window.location.href;
+   url = location.substring(0,location.lastIndexOf("\/")+1)+url;
     var krpano = document.getElementById('krpanoSWFObject');
     krpano.call("pausesoundtoggle(bgmusic);pausesoundtoggle(bgm);");
     toggleBtns(false);
-    // player = new prismplayer({
-    //    id: "J_prismPlayer", // 容器id
-    //    source:url,
-    //    autoplay: true,      // 自动播放
-    //    width: "100%",       // 播放器宽度
-    //    height: "400px"      // 播放器高度
-    //  });
-
-
-    // data-setup='{ "autoplay": true, "controls": true, "poster": "", "preload": "auto" }'
-    var html = "<video id='vid' controls>";
-    html += "<source src='"+url+"'>";
-    html += "</video>";
-    html += "<br />";
-    // html += "<button onclick='play()'>Play</button>";
-    // html += "<button onclick='pause()'>Pause</button>";
-    // html += "<button onclick='mute()'>Mute</button>";
-
-    $('#J_prismPlayer').html(html);
-    $("#video_player_modal").modal('show');
-    // var videoPlayer = videojs( "vid" );
-    player = $('#vid').get(0);
-    player.play();
-
-
-
-    if (name == 'schp_6naehpbrxg') {
-      localStorage.setItem('event2_clue1', 'true');
-      $('.right_menu_item_1 .right_menu_item_checked').show();
-    }
-    if (name == 'schp_yi3acwicna') {
-      localStorage.setItem('event2_clue3', 'true');
-      $('.right_menu_item_3 .right_menu_item_checked').show();
-    }
+   player = new prismplayer({
+      id: "J_prismPlayer", // 容器id
+      source: url,
+      autoplay: true,      // 自动播放
+      width: "100%",       // 播放器宽度
+      height: "400px"      // 播放器高度
+    });
+   $("#video_player_modal").modal('show');
 }
-
-// function play()
-// {
-//   var videoPlayer = videojs( "vid" );
-//   videoPlayer.play(); // 播放
-// }
-// function pause()
-// {
-//   var videoPlayer = videojs( "vid" );
-//   videoPlayer.pause(); // 暫停
-// }
-// function mute()
-// {
-//   var videoPlayer = videojs( "vid" );
-//   videoPlayer.muted( true ); // 靜音
-// }
-
-
 function close_video_player(){
-    var krpano = document.getElementById('krpanoSWFObject');
+	var krpano = document.getElementById('krpanoSWFObject');
     krpano.call("pausesoundtoggle(bgmusic);pausesoundtoggle(bgm);");
     toggleBtns(true);
     player.pause();
     $("#video_player_modal").modal('hide');
-
-    check_done_scene();
-}
-function check_done_scene(){
-  console.log('check_done_scene')
-  if (localStorage.getItem('current_scene') == 'scene_a2bc1edfe53702a9') {
-    console.log('in1')
-    if (localStorage.getItem('event1_clue1') == 'true' && localStorage.getItem('event1_clue2') == 'true' && localStorage.getItem('event1_clue3') == 'true'&& localStorage.getItem('event1_clue4') == 'true') {
-      console.log('in2')
-      $('.overlay').show()
-      $('.right_menu').hide()
-      $('.vrshow_container_2_min').hide()
-
-      // var html = '<div class="overlay_conversation_area_avatar"></div>';
-      // html += '<div class="overlay_conversation_2">';
-      // html += '恭喜達成任務！填寫問卷送好禮';
-      // html += '</div>';
-      // $('.overlay .overlay_conversation_area').html(html)
-
-      var html = '恭喜達成任務！若有建議可以填寫問卷給我們喔！';
-      $('.overlay_conversation_text').html(html)
-      // $('.overlay .overlay_btn2').show();
-
-      $('.overlay .overlay_btn').text('填寫問卷')
-      $('.overlay .overlay_btn').css('font-size', '50px')
-      $('.overlay .overlay_btn').css('letter-spacing', '10px')
-      $('.overlay .overlay_btn').show()
-      $('.overlay .overlay_btn2').hide()
-      $('.overlay_conversation_text').css('margin-top','0')
-
-
-      $('.overlay_btn').css('width', '164px');
-      $('.overlay_btn').css('height', '70px');
-      $('.overlay_btn').css('background-size', '164px 70px');
-      $('.overlay_btn').css('letter-spacing', '5px');
-      $('.overlay_btn').css('font-size', '22px');
-      $('.overlay_btn').css('position', 'absolute');
-      $('.overlay_btn').css('margin-top', '355px');
-
-      if ($('.overlay_conversation_area').css('width') == '400px') {
-        $('.overlay_btn').css('margin-top', '325px');
-      }
-      if ($('.overlay_conversation_area').css('width') == '350px') {
-        $('.overlay_btn').css('margin-top', '315px');
-      }
-
-      localStorage.setItem('overlay_step', 11);
-    }
-  }
-
-  if (localStorage.getItem('current_scene') == 'scene_bd6ca129f85fe168') {
-    if (localStorage.getItem('event2_clue1') == 'true' && localStorage.getItem('event2_clue2') == 'true' && localStorage.getItem('event2_clue3') == 'true') {
-      $('.overlay').show()
-      $('.right_menu').hide()
-      $('.vrshow_container_2_min').hide()
-
-      // var html = '<div class="overlay_conversation_area_avatar"></div>';
-      // html += '<div class="overlay_conversation_2">';
-      // html += '恭喜達成任務！填寫問卷送好禮';
-      // html += '</div>';
-      // $('.overlay .overlay_conversation_area').html(html)
-
-      var html = '恭喜達成任務！若有建議可以填寫問卷給我們喔！';
-      $('.overlay_conversation_text').html(html)
-      // $('.overlay .overlay_btn2').show();
-
-      $('.overlay .overlay_btn').text('填寫問卷')
-      $('.overlay .overlay_btn').css('font-size', '50px')
-      $('.overlay .overlay_btn').css('letter-spacing', '10px')
-      $('.overlay .overlay_btn').show()
-      $('.overlay .overlay_btn2').hide()
-      $('.overlay_conversation_text').css('margin-top','0')
-
-      $('.overlay_btn').css('width', '164px');
-      $('.overlay_btn').css('height', '70px');
-      $('.overlay_btn').css('background-size', '164px 70px');
-      $('.overlay_btn').css('letter-spacing', '5px');
-      $('.overlay_btn').css('font-size', '22px');
-      $('.overlay_btn').css('position', 'absolute');
-      $('.overlay_btn').css('margin-top', '355px');
-
-      if ($('.overlay_conversation_area').css('width') == '400px') {
-        $('.overlay_btn').css('margin-top', '325px');
-      }
-      if ($('.overlay_conversation_area').css('width') == '350px') {
-        $('.overlay_btn').css('margin-top', '315px');
-      }
-
-      localStorage.setItem('overlay_step', 12);
-    }
-  }
-
-  if (localStorage.getItem('current_scene') == 'scene_86cd2c276838888d') {
-    if (localStorage.getItem('event3_clue1') == 'true' && localStorage.getItem('event3_clue2') == 'true' && localStorage.getItem('event3_clue3') == 'true'&& localStorage.getItem('event3_clue4') == 'true') {
-      $('.overlay').show()
-      $('.right_menu').hide()
-      $('.vrshow_container_2_min').hide()
-
-      // var html = '<div class="overlay_conversation_area_avatar"></div>';
-      // html += '<div class="overlay_conversation_2">';
-      // html += '恭喜達成任務！填寫問卷送好禮';
-      // html += '</div>';
-      // $('.overlay .overlay_conversation_area').html(html)
-
-      var html = '恭喜達成任務！若有建議可以填寫問卷給我們喔！';
-      $('.overlay_conversation_text').html(html)
-      // $('.overlay .overlay_btn2').show();
-
-      $('.overlay .overlay_btn').text('填寫問卷')
-      $('.overlay .overlay_btn').css('font-size', '50px')
-      $('.overlay .overlay_btn').css('letter-spacing', '10px')
-      $('.overlay .overlay_btn').show()
-      $('.overlay .overlay_btn2').hide()
-      $('.overlay_conversation_text').css('margin-top','0')
-
-      $('.overlay_btn').css('width', '164px');
-      $('.overlay_btn').css('height', '70px');
-      $('.overlay_btn').css('background-size', '164px 70px');
-      $('.overlay_btn').css('letter-spacing', '5px');
-      $('.overlay_btn').css('font-size', '22px');
-      $('.overlay_btn').css('position', 'absolute');
-      $('.overlay_btn').css('margin-top', '355px');
-
-      if ($('.overlay_conversation_area').css('width') == '400px') {
-        $('.overlay_btn').css('margin-top', '325px');
-      }
-      if ($('.overlay_conversation_area').css('width') == '350px') {
-        $('.overlay_btn').css('margin-top', '315px');
-      }
-
-      localStorage.setItem('overlay_step', 13);
-    }
-  }
-
-
-}
-function check_event2_clues(){
-    clues_count = 0;
-
-    if (localStorage.getItem('event1_clue3_1_1')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_1_2')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_1_3')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_1_4')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_1_5')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_1_6')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_1_7')=='true') {clues_count++;}
-
-    if (localStorage.getItem('event1_clue3_2_1')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_2_2')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_2_3')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_2_4')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_2_5')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_2_6')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_2_7')=='true') {clues_count++;}
-
-    if (localStorage.getItem('event1_clue3_3_1')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_2')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_3')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_4')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_5')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_6')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_7')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_8')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_9')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_10')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_11')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_3_12')=='true') {clues_count++;}
-
-    if (localStorage.getItem('event1_clue3_4_1')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_4_2')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_4_3')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_4_4')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_4_5')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_4_6')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_4_7')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_4_8')=='true') {clues_count++;}
-    if (localStorage.getItem('event1_clue3_4_9')=='true') {clues_count++;}
-
-
-    if (clues_count >= 3) {
-      localStorage.setItem('event1_clue3', 'true');
-      $('.right_menu_item_3 .right_menu_item_checked').show();
-    }
-
 }

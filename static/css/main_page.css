@@ -1,14 +1,14 @@
 @font-face {
-    font-family: 'W5';
-    src: url('../../skin/W5.OTF') format('truetype');
+    font-family: 'HUAKANGBANGBANGTIFANW5';
+    src: url('../../skin/HUAKANGBANGBANGTIFANW5-1.TTC') format('truetype');
     font-weight: normal;
 }
 
 body{
-  font-family: 'W5';
+  font-family: 'HUAKANGBANGBANGTIFANW5';
 }
 
-/* .modal-dialog{
+.modal-dialog{
   background-color: transparent;
   border: none;
   box-shadow: none;
@@ -30,9 +30,9 @@ body{
     margin: 0px 10px;
     z-index: 100;
     position: relative;
-} */
+}
 
-/* #pictextAvatar {
+#pictextAvatar {
     width: 170px;
     position: absolute;
     right: 420px;
@@ -45,7 +45,7 @@ body{
     padding: 0;
     margin-top: 20px;
     margin-left: 175px;
-} */
+}
 .btn-next {
   width: 50px;
   height: 50px;
@@ -81,7 +81,7 @@ body{
   letter-spacing: 1px;
 }
 .btn-cus1 {
-  font-family: 'W5';
+  font-family: 'HUAKANGBANGBANGTIFANW5';
   width: 200px;
   height: 50px;
   margin-top: -15px;
@@ -96,13 +96,13 @@ body{
   letter-spacing: 1px;
 }
 .btn-cus2 {
-  font-family: 'W5';
+  font-family: 'HUAKANGBANGBANGTIFANW5';
   width: 100px;
   height: 50px;
   margin-top: -15px;
   background-color: inherit;
   border: none;
-  background-image: url("../../skin/button.png");
+  background-image: url("../../skin/按鈕2.png");
   background-size: 100px 50px;
   font-weight: bold;
   font-size: 14px;
@@ -111,12 +111,22 @@ body{
   letter-spacing: 1px;
 }
 .btn-cus3 {
+  font-family: 'HUAKANGBANGBANGTIFANW5';
+  width: 100px;
+  height: 50px;
+  margin-top: -15px;
   background-color: inherit;
   border: none;
   background-image: url("../../skin/按鈕3.png");
+  background-size: 100px 50px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  text-shadow: 0 0 black;
+  letter-spacing: 1px;
 }
 .btn-cus4 {
-  font-family: 'W5';
+  font-family: 'HUAKANGBANGBANGTIFANW5';
   width: 100px;
   height: 50px;
   margin-top: -15px;
@@ -151,27 +161,7 @@ body{
 .btn-cus2:hover {
   background-color: inherit;
   border: none;
-  color: none;
-  box-shadow: none;
-  outline: none;
-  color: #2b7163;
-}
-.btn-cus2:active {
-  background-image: url(../../skin/button.png);
-  background-color: inherit;
-  border: none;
-  color: none;
-  box-shadow: none;
-  outline: none;
-  color: #2b7163;
-}
-.btn-cus2:focus {
-  background-color: inherit;
-  border: none;
-  color: none;
-  box-shadow: none;
-  outline: none;
-  color: #2b7163;
+  color: white;
 }
 .btn-cus3:hover {
   background-color: inherit;
@@ -188,101 +178,7 @@ body{
   margin-top: 159px !important;
 }
 
-.right_menu {
-  display: none;
-  width: 300px;
-  /* height: 150px; */
-  background-color: white;
-  right: 0;
-  position: absolute;
-  margin-top: -350px;
-  background: none;
-}
-
-.right_menu_arraw {
-  background-image: url("../../skin/arrow.png");
-  width: 22px;
-  height: 24px;
-  margin-bottom: 15px;
-  margin-left: -30px;
-  transform: rotate(180deg);
-  position: absolute;
-}
-
-
-.right_menu_item {
-  display: none;
-  width: 300px;
-  height: 50px;
-  width: auto;
-  background-image: url("../../skin/打勾選單框.png");
-  background-size: 300px 50px;
-}
-
-.right_menu_item .right_menu_item_text {
-  font-family: 'W5';
-  position: absolute;
-  width: 200px;
-  height: 50px;
-  font-size: 30px;
-  /* margin-left: 20px; */
-  margin-left: 60px;
-  color: white;
-  display: flex;
-  align-items: center;
-}
-
-.right_menu_item .right_menu_item_box {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  background-size: contain;
-  margin-top: 10px;
-  /* margin-left: 260px; */
-  margin-left: 20px;
-  background-image: url("../../skin/打勾框.png");
-}
-.right_menu_item .right_menu_item_checked {
-  display:none;
-  position: absolute;
-  width: 30px;
-  height: 50px;
-  margin-top: 10px;
-  background-size: 30px 30px;
-  /* margin-left: 260px; */
-  margin-left: 20px;
-  background-image: url("../../skin/打勾.png");
-  background-repeat: no-repeat;
-}
-
-@media (max-width: 650px) {
-
-}
-
-@media (max-width: 550px) {
-
-}
-
-@media (max-width: 450px) {
-  .right_menu {
-    margin-top: -300px;
-  }
-  /* .right_menu_item .right_menu_item_text {
-    margin-left: 60px;
-  }
-  .right_menu_item .right_menu_item_box {
-    margin-left: 20px;
-  }
-  .right_menu_item .right_menu_item_checked {
-    margin-left: 20px;
-  } */
-}
-
-@media (max-width: 700px) {
-
-}
-
-/* @media (max-width: 600px) {
+@media (max-width: 600px) {
   .modal-dialog {
 		background-size: 550px 183px !important;
 		width: 550px !important;
@@ -408,4 +304,4 @@ body{
   .btn {
     zoom: 0.6 !important;
   }
-} */
+}

@@ -1,7 +1,7 @@
 /*!
  * ZUI - v1.4.0 - 2016-01-26
  * http://zui.sexy
- * GitHub: https://github.com/easysoft/zui.git 
+ * GitHub: https://github.com/easysoft/zui.git
  * Copyright (c) 2016 cnezsoft.com; Licensed MIT
  */
 
@@ -6445,4 +6445,3 @@
         $('[data-ride="tree"]').tree();
     });
 }(jQuery));
-

@@ -336,6 +336,44 @@ body {
   .overlay_ending_button_head_img {
     width: 135px !important;
   }
+
+	.winner_notification_background {
+		width: 300px !important;
+		height: 505px !important;
+	  transform: translateY(15vh) !important;
+		background-image: url("../../skin/中獎頁_背景.png") !important;
+		background-size: cover !important;
+	}
+
+	.winner_notification_header_area {
+		width: 300px !important;
+		height: 45px !important;
+	}
+
+	.winner_notification_close_btn {
+		/* width: 35px !important;
+		right: -3px !important; */
+		margin-top: 0px !important;
+	}
+
+	.winner_notification_content_area {
+	  width: 310px !important;
+		height: 450px !important;
+	}
+
+	.winner_notification_content {
+		display: none !important;
+		width: 250px !important;
+	  /* margin-top: 33px !important; */
+		z-index: 1002 !important;
+	}
+	.winner_notification_content2 {
+		display: inline-block !important;
+		width: 250px !important;
+	  /* margin-top: 33px !important; */
+		z-index: 1002 !important;
+	}
+
 }
 
 @media (max-width: 550px) {
@@ -526,11 +564,65 @@ body {
 	top: 0;
 	left: 0;
 	background-color: #D7EFFD;
-	/* background-image: url('resource/landing-background.jpg');
-     */
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+}
+
+.winner_notification {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 100000;
+}
+
+.winner_notification_background {
+	width: 600px;
+	height: 390px;
+	margin: 0 auto;
+	position: relative;
+  transform: translateY(20vh);
+
+	background-image: url("../../skin/中獎頁_background.png");
+	background-repeat: no-repeat;
+	background-size: 600px 390px;
+
+	z-index: 1000;
+}
+
+.winner_notification_header_area {
+	width: 600px;
+	height: 65px;
+}
+
+.winner_notification_close_btn {
+	width: 35px;
+	right: -3px;
+	margin-top: 14px;
+	position: absolute;
+	cursor: pointer;
+}
+
+.winner_notification_content_area {
+  width: 605px;
+	height: 325px;
+	overflow: scroll;
+}
+
+.winner_notification_content {
+	display: inline-block;
+	width: 500px;
+  /* margin-top: 65px; */
+	z-index: 1002;
+}
+
+.winner_notification_content2 {
+	display: none;
+	width: 500px;
+  /* margin-top: 65px; */
+	z-index: 1002;
 }
 
 .overlay .logo {

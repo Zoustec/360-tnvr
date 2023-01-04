@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="static/css/redefine.css">
     <link rel="stylesheet" href="static/css/response.css">
     <link rel="stylesheet" href="static/css/alivideo.css">
-    <link rel="stylesheet" href="static/css/landing_page.css?v=20221101001">
-    <link rel="stylesheet" href="static/css/main_page.css?v=20221101001">
+    <link rel="stylesheet" href="static/css/landing_page.css?v=20230103001">
+    <link rel="stylesheet" href="static/css/main_page.css?v=20230103001">
     <script language="JavaScript" type="text/javascript" src="static/js/data.js"></script>
     <script language="JavaScript" type="text/javascript" src="static/js/jquery-1.9.1.js"></script>
     <script language="JavaScript" type="text/javascript" src="static/js/zui.js"></script>
@@ -85,6 +85,10 @@
             // });
 
             $(document).ready(function() {
+
+                $('.winner_notification_close_btn').click(function() {
+                  $('.winner_notification').hide();
+                });
                 $('.overlay .landing-btn').click(function() {
                   // document.getElementById('overlay_conversation_area').scrollTop += 200;
                     if (localStorage.getItem('overlay_step')==0) {
@@ -1150,6 +1154,22 @@
       </div>
     </div>
     <div class="overlay" style="z-index:100001;">
+
+      <div class="winner_notification">
+        <div class="winner_notification_background">
+
+          <div class="winner_notification_header_area">
+            <img src="skin/中獎頁_close.png" class="winner_notification_close_btn" alt="">
+          </div>
+
+          <div class="winner_notification_content_area">
+            <img src="skin/中獎頁_名單.png" class="winner_notification_content" alt="">
+            <img src="skin/中獎頁_名單_1.png" class="winner_notification_content2" alt="">
+          </div>
+
+        </div>
+      </div>
+
       <img src="skin/VR360_UI-26.png" class="left" alt="">
       <img src="skin/VR360_UI-27.png" class="right" alt="">
       <img src="skin/logo.png" class="logo" alt="">
